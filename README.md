@@ -37,4 +37,4 @@
 
 1. **克隆仓库到本地:**
    ```bash
-   git clone [https://github.com/KayVongBits/riscvsoc-contest.git]
+   git clone https://github.com/KayVongBits/riscvsoc-contest.git
