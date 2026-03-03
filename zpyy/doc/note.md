@@ -16,3 +16,10 @@
 ![指令命名](./fig/rv32icode1.png)
 ![指令格式](./fig/rv32icode2.png)
 ![指令编码](./fig/rv32icode3.png)
+
+## 寄存器组
+![寄存器组](./fig/regs.png)
+
+## tinyriscv 学习
+总体架构
+![总体架构](./fig/tinyriscv_soc.png)
