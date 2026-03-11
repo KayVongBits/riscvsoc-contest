@@ -1,0 +1,163 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dF:/mygithub/riscvsoc-contest/sim
+T_opt
+!s110 1773228117
+VC^VTD1jXmkbidE9<K:;5b2
+04 12 4 work riscv_top_tb fast 0
+=1-644ed70b6e41-69b15055-65-3ac4
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.6d;65
+vdecode
+Z2 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z3 !s110 1773228116
+!i10b 1
+!s100 R?2NU]_[5?6K_>?cF8PaE3
+IhN0WaiSMF=_2K[ob;AQ^i0
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+!s105 decode_sv_unit
+S1
+R0
+w1773223956
+8../rtl/decode.sv
+F../rtl/decode.sv
+L0 1
+Z5 OL;L;10.6d;65
+r1
+!s85 0
+31
+Z6 !s108 1773228116.000000
+Z7 !s107 ../tb/riscv_top_tb.sv|../rtl/rom.sv|../rtl/riscv_top.sv|../rtl/pc_counter.sv|../rtl/if2id.sv|../rtl/decode.sv|
+Z8 !s90 -sv|../rtl/decode.sv|../rtl/if2id.sv|../rtl/pc_counter.sv|../rtl/riscv_top.sv|../rtl/rom.sv|../tb/riscv_top_tb.sv|
+!i113 0
+Z9 o-sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vif2id
+R2
+R3
+!i10b 1
+!s100 ;nc]<W4Y0<MOAddl6azmL1
+I83VEPX`DgcidJNh[Q8mz61
+R4
+!s105 if2id_sv_unit
+S1
+R0
+w1773224542
+8../rtl/if2id.sv
+F../rtl/if2id.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1
+vpc_counter
+R2
+R3
+!i10b 1
+!s100 `>OAnlhB20Jn<185:OWcj1
+I:hbmezA^`i8Wl_c_J4bHV0
+R4
+!s105 pc_counter_sv_unit
+S1
+R0
+w1773136603
+8../rtl/pc_counter.sv
+F../rtl/pc_counter.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1
+vriscv_top
+R2
+R3
+!i10b 1
+!s100 1Mk3DHn32C3B`;cGbDdGo0
+I`5Leoi19N;Z;3KOioPeJQ0
+R4
+!s105 riscv_top_sv_unit
+S1
+R0
+w1773227961
+8../rtl/riscv_top.sv
+F../rtl/riscv_top.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1
+vriscv_top_tb
+R2
+R3
+!i10b 1
+!s100 ISZ[7gWJ@jUf>nQnoWINS3
+I>oj[=Di;R?7DlehS:D`Xk2
+R4
+!s105 riscv_top_tb_sv_unit
+S1
+R0
+w1773227298
+8../tb/riscv_top_tb.sv
+F../tb/riscv_top_tb.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1
+vrom
+R2
+R3
+!i10b 1
+!s100 QB:i12L>2m`bnAA@TTl>k1
+IK78nfn=K[6j`e9_<R>>B31
+R4
+!s105 rom_sv_unit
+S1
+R0
+w1773227963
+8../rtl/rom.sv
+F../rtl/rom.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1
