@@ -1,5 +1,7 @@
+`include "defines.sv"
+
 module pc_counter #(
-    parameter AW = 32
+    parameter AW = `AW
 )(
     input  logic clk,
     input  logic rst_n,

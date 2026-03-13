@@ -1,5 +1,7 @@
+`include "defines.sv"
+
 module register #(
-   parameter  DW = 32
+   parameter  DW = `DW
 ) (
     input logic clk,
     input logic rst_n,

@@ -1,7 +1,8 @@
+`include "defines.sv"
 module rom #(
-    parameter FILE = "rv32-p-addi.txt",
-    parameter AW = 32,
-    parameter DW = 32
+    parameter FILE = `FILE,
+    parameter AW = `AW,
+    parameter DW = `DW
 ) (
     input  logic [AW-1:0] instr_addr,
     input  logic clk,

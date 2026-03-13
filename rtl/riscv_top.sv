@@ -1,12 +1,15 @@
+`include "defines.sv"
+
 module riscv_top #(
-    parameter AW = 32,
-    parameter DW = 32,
-    parameter FILE = "rv32-p-addi.txt"
+    parameter AW = `AW,
+    parameter DW = `DW,
+    parameter FILE = `FILE
 ) (
     input  logic clk,
     input  logic rst_n
 );
 
+//wires and regs
 logic           jump_en;
 logic [AW-1:0]  jump_addr;
 logic [AW-1:0]  pc_pointer;
@@ -33,11 +36,7 @@ logic [DW-1:0]  execute_op1;
 logic [DW-1:0]  execute_op2;
 
 
-assign jump_en = 1'b0;
-assign jump_addr = 'h0;
-
-
-
+logic jump_hold ;
 
 
 
@@ -52,6 +51,7 @@ u_pc_counter(
     .jump_addr  (jump_addr  ),
     .pc_pointer (pc_pointer )
 );
+
 
 rom 
 #(
@@ -89,8 +89,7 @@ decode
 u_decode(
     .instr_in    (instr_reg ),
     .rd_rs1_addr (rd_rs1_addr ),
-    .rd_rs2_addr (rd_rs2_addr ),
-    //.wr_rd_addr  (wr_reg_addr  ),   
+    .rd_rs2_addr (rd_rs2_addr ), 
     .rd_rs1_data (rd_rs1_data ),
     .rd_rs2_data (rd_rs2_data ),
     .op1_out     (decode_op1     ),
@@ -145,7 +144,11 @@ u_execute(
     .op2           (execute_op2         ),
     .wr_reg_en     (wr_reg_en           ),
     .wr_reg_addr   (wr_reg_addr         ),
-    .wr_reg_data   (wr_reg_data         )
+    .wr_reg_data   (wr_reg_data         ),
+    .jump_en       (jump_en             ),
+    .jump_addr     (jump_addr           ),
+    .jump_hold    (jump_hold           )
+
 );
 
  

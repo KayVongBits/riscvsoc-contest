@@ -1,6 +1,8 @@
+`include "defines.sv"
+
 module id2ex #(
-    parameter AW = 32,
-    parameter DW = 32
+    parameter AW = `AW,
+    parameter DW = `DW
 ) (
     input   logic clk,
     input   logic rst_n,
@@ -22,7 +24,7 @@ module id2ex #(
     always_ff @( posedge clk or negedge rst_n ) begin : reg_logic
         if (!rst_n) begin   
             instr_addr_out <= '0;
-            instr_out <= '0;
+            instr_out <= `INST_NOP;
             op1_out <= '0;
             op2_out <= '0;
         end else begin

@@ -1,3 +1,5 @@
+`include "defines.sv"
+
 module decode #(
     parameter DW = 32
 ) (
@@ -31,23 +33,120 @@ module decode #(
     assign rs1    = instr_in[19:15];
     assign rs2    = instr_in[24:20];
     assign func7  = instr_in[31:25];
-    assign imm    = instr_in[31:20];
+    //assign imm    = instr_in[31:20];
+
+
+    always_comb begin : imm_gen
+        case (opcode)
+            `INST_TYPE_I,`INST_TYPE_L,`INST_JALR: begin
+                imm = {{20{instr_in[31]}}, instr_in[31:20]}; // I-Type 立即数
+            end 
+            `INST_TYPE_S: begin
+                imm = {{20{instr_in[31]}}, instr_in[31:25], instr_in[11:7]}; // S-Type 立即数
+            end
+            `INST_TYPE_B: begin
+                imm = {{20{instr_in[31]}}, instr_in[31], instr_in[7], instr_in[30:25], instr_in[11:8], 1'b0}; // B-Type 立即数
+            end
+            `INST_JAL: begin
+                imm = {{12{instr_in[31]}}, instr_in[31], instr_in[19:12], instr_in[20], instr_in[30:21], 1'b0}; // J-Type 立即数
+            end
+            `INST_LUI,`INST_AUIPC: begin
+                imm = {instr_in[31:12], 12'b0}; // U-Type 立即数
+            end
+            default: imm = 32'b0; // 默认值
+        endcase
+    end
+
+
+
 
     always_comb begin : decode_logic
-        if ((opcode == 7'b0010011) && (func3 == 3'b000)) begin //addi
-            rd_rs1_addr = rs1;
-            rd_rs2_addr = 5'b0;
-            //wr_rd_addr  = rd;
-            op1_out     = rd_rs1_data;
-            op2_out     = imm;
-        end
-        else begin
-            rd_rs1_addr = 5'b0;
-            rd_rs2_addr = 5'b0;
-            //wr_rd_addr  = 5'b0;
-            op1_out     = 32'b0;
-            op2_out     = 32'b0;
-        end
+        case (opcode)
+            `INST_TYPE_I: begin
+                case (func3)
+                    `INST_ADD_SUB: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm;
+                    end
+                    default: begin
+                        rd_rs1_addr = 5'b0;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = 32'b0;
+                        op2_out     = 32'b0;
+                    end
+                endcase
+            end
+            `INST_TYPE_R_M:begin
+                case (func3)
+                    `INST_ADD_SUB: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    default: begin
+                        rd_rs1_addr = 5'b0;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = 32'b0;
+                        op2_out     = 32'b0;
+                    end
+                endcase
+            end
+            `INST_TYPE_B:begin
+                case (func3)
+                    `INST_BNE: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    default: begin
+                        rd_rs1_addr = 5'b0;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = 32'b0;
+                        op2_out     = 32'b0;
+                    end
+                endcase
+            end
+            `INST_JAL: begin
+                rd_rs1_addr = 5'b0;
+                rd_rs2_addr = 5'b0;
+                op1_out     = 32'b0;
+                op2_out     = imm;
+            end
+            `INST_JALR: begin
+                rd_rs1_addr = rs1;
+                rd_rs2_addr = 5'b0;
+                op1_out     = rd_rs1_data;
+                op2_out     = imm;
+            end
+            `INST_LUI: begin
+                rd_rs1_addr = 5'b0;
+                rd_rs2_addr = 5'b0;
+                op1_out     = 32'b0;
+                op2_out     = imm;
+            end
+            `INST_AUIPC: begin
+                rd_rs1_addr = 5'b0;
+                rd_rs2_addr = 5'b0;
+                op1_out     = instr_in; // AUIPC 的 op1 是当前指令地址
+                op2_out     = imm;
+            end
+            `INST_NOP_OP: begin
+                rd_rs1_addr = 5'b0;
+                rd_rs2_addr = 5'b0;
+                op1_out     = 32'b0;
+                op2_out     = 32'b0;
+            end
+            default: begin
+                rd_rs1_addr = 5'b0;
+                rd_rs2_addr = 5'b0;
+                op1_out     = 32'b0;
+                op2_out     = 32'b0;
+            end
+        endcase
     end
 
 endmodule

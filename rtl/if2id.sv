@@ -1,6 +1,8 @@
+`include "defines.sv"
+
 module if2id #(
-    parameter AW = 32,
-    parameter DW = 32
+    parameter AW = `AW,
+    parameter DW = `DW
 ) (
     input logic clk,
     input logic rst_n,
@@ -20,7 +22,7 @@ end
 
 always_ff @( posedge clk or negedge rst_n ) begin : blockName2
     if (!rst_n) begin
-        instr_out <= 'h0;   
+        instr_out <= `INST_NOP;   
     end else begin
         instr_out <= instr_in;
     end
