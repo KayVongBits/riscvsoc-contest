@@ -1,183 +1,147 @@
-﻿# RISC-V SoC Contest
+<div align="center">
 
-![Platform](https://img.shields.io/badge/platform-Windows-blue)
-![Language](https://img.shields.io/badge/HDL-SystemVerilog-2ea44f)
-![ISA](https://img.shields.io/badge/ISA-RV32I-orange)
-![Status](https://img.shields.io/badge/status-WIP-yellow)
+# 🚀 RISC-V SoC Contest
+**面向竞赛与学习的精简指令集 SystemVerilog 软核处理器**
 
-一个面向竞赛与学习的 RISC-V 处理器小型工程，使用 SystemVerilog 实现了简洁的流水线 CPU 主路径，当前可完成 ADDI 指令链路验证。
+[![Platform](https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge&logo=windows)](https://github.com/)
+[![Language](https://img.shields.io/badge/HDL-SystemVerilog-2ea44f?style=for-the-badge&logo=v)](https://github.com/)
+[![ISA](https://img.shields.io/badge/ISA-RV32I-orange?style=for-the-badge&logo=riscv)](https://github.com/)
+[![Status](https://img.shields.io/badge/Status-Beta/WIP-yellow?style=for-the-badge)](https://github.com/)
 
-## 目录导航
+[概览](#-项目概览) • [核心特性](#-核心特性) • [系统架构](#-系统架构) • [快速开始](#-快速开始) • [测试评估](#-测试评估) • [Roadmap](#-roadmap)
 
-- [核心特性](#核心特性)
-- [当前实现范围](#当前实现范围)
-- [项目结构](#项目结构)
-- [快速开始](#快速开始)
-- [架构图占位](#架构图占位)
-- [时序说明](#时序说明)
-- [实验结果](#实验结果)
-- [设计说明](#设计说明)
-- [Roadmap](#roadmap)
-- [贡献规范](#贡献规范)
-- [版本记录](#版本记录)
-- [致谢](#致谢)
-- [License](#license)
+</div>
 
-## 核心特性
+---
 
-- 结构清晰：按取指、译码、执行进行模块拆分，便于阅读与迭代。
-- 流水线组织：已包含 IF/ID、ID/EX 级间寄存器。
-- 最小可运行链路：从 PC 取指到寄存器写回闭环可跑通。
-- 面向验证：提供 testbench 与测试数据，可直接进入仿真流程。
+## 📖 项目概览
 
-## 当前实现范围
+**RISC-V SoC Contest** 是一个轻量级、面向竞赛与学习的 RISC-V 处理器工程。项目采用 **SystemVerilog** 编写，实现了一个条理清晰的流水线微架构基线。设计的核心旨在于提供一个**结构清晰、易于魔改和拓展**的 CPU 核心。
 
-- 指令集：RV32I 子集（当前已验证 `ADDI`）。
-- 顶层模块：`rtl/riscv_top.sv`
-- 关键模块：`pc_counter.sv`、`rom.sv`、`decode.sv`、`execute.sv`、`register.sv`
-- 测试平台：`tb/riscv_top_tb.sv`、`tb/pc_counter_tb.sv`
+目前项目已经跑通了最小可验证链路（从 PC 取指到底层寄存器写回的闭环），并成功验证了 RV32I 基础指令集的早期核心指令（如 `ADDI`）。
 
-## 项目结构
+## ✨ 核心特性
 
-```text
-riscvsoc-contest/
- rtl/          # CPU RTL 源码
- tb/           # Testbench
- test_data/    # 指令与测试数据
- utils/        # 辅助脚本
- sim/          # 仿真输出目录
- doc/          # 设计文档
- Makefile      # 构建/仿真入口
+- 🧩 **极简模块化设计**：取指 (IF)、译码 (ID)、执行 (EX) 严格拆分，模块边界清晰，代码极度适合阅读与二次开发。
+- 🌊 **标准流水线架构**：内置 `IF/ID`、`ID/EX` 等级间寄存器，建立经典流水线骨架，为后续扩展（如冲突处理与旁路）打下基础。
+- 🧪 **开箱即用的验证环境**：集成了 Testbench、十六进制/TXT 转换脚本（Python），以及自动化 Makefile，支持直接进入仿真流程。
+- 📦 **轻量级基线**：抛弃繁难冗余的商业化细节，专注于指令集体系结构的本质原理。
+
+## 📊 实现范围
+
+* **指令集架构**：RV32I 子集（当前主要验证 `ADDI` 及基础算术逻辑）。
+* **核心模块**：
+  * `pc_counter.sv`：程序计数器与取指控制。
+  * `rom.sv`：ROM 存储指令读取。
+  * `decode.sv`：指令查表解析与操作数生成。
+  * `execute.sv`：执行单元 (ALU 核心)。
+  * `register.sv`：通用寄存器堆 (RegFile)。
+
+## 🏗️ 系统架构
+
+本项目采用单时钟上升沿驱动的流水寄存器，目前主链路流转依赖如下时序结构：
+
+```mermaid
+graph LR
+    A[PC Counter] -->|PC Address| B(ROM)
+    B -->|Instruction| C[IF/ID Latch]
+    C --> D[Decode]
+    D -.->|Read| R[(RegFile)]
+    D --> E[ID/EX Latch]
+    E --> F[Execute ALU]
+    F -->|Write| R
+    
+    classDef hardware fill:#2b2b2b,stroke:#00a8ff,stroke-width:2px,color:#fff;
+    classDef storage fill:#1e3799,stroke:#00a8ff,stroke-width:2px,color:#fff;
+    class A,B,C,D,E,F hardware;
+    class R storage;
 ```
 
-## 快速开始
+> **工作流速览**:
+> 1. **IF**: `pc_counter` 输出地址，`rom` 依据地址取指。
+> 2. **IF/ID**: `if2id` 模块锁存当前指令与 PC 地址。
+> 3. **ID**: `decode` 根据 `opcode/func/rs/rd` 对指令解析，并生成操作数。
+> 4. **ID/EX**: `id2ex` 保护执行阶段所需的关键控制信号。
+> 5. **EX**: `execute` 单元进行算术/逻辑运算。
+> 6. **WB**: 数据回写至 `register` 指定地址。
 
-### 1) 获取源码
+## 📂 项目结构
+
+```text
+📦 riscvsoc-contest
+ ┣ 📂 rtl/          # 🧠 CPU RTL 源代码 (核心模块与流水线寄存器)
+ ┣ 📂 sim/          # 🖥️ 仿真工作目录 (Modelsim/Questa 生成)
+ ┣ 📂 tb/           # 🧪 Testbench 与仿真顶层
+ ┣ 📂 test_data/    # 📝 指令集测试汇编数据与预期输出
+ ┣ 📂 utils/        # 🛠️ 辅助脚本 (包括 RISC-V dump 解析工具等)
+ ┣ 📂 veri/         # ⚙️ 验证与编译脚本配置序列
+ ┣ 📂 doc/          # 📚 架构设计规范与波形说明文档
+ ┗ 📜 Makefile      # 🚀 构建与仿真自动化入口
+```
+
+## 🚀 快速开始
+
+### 1. 软件依赖
+
+* **仿真工具**：ModelSim / QuestaSim (工程基于 `vlib`, `vlog`, `vsim` 流程构建)。
+* **环境工具**：GNU Make、Python 3.x（辅助脚本需要）。
+
+### 2. 克隆项目
 
 ```bash
-git clone https://github.com/yourname/riscvsoc-contest.git
+git clone https://github.com/your-username/riscvsoc-contest.git
 cd riscvsoc-contest
 ```
 
-### 2) 准备环境
+### 3. 一键编译与仿真
 
-- 仿真器：ModelSim/Questa（当前 Makefile 使用 `vlib`、`vlog`、`vsim`）
-- Python 3（可选，用于工具脚本）
-- GNU Make
-
-### 3) 运行仿真
+使用 `make` 一键执行流程：
 
 ```bash
-make
+make sim       # 1. 编译 SystemVerilog 2. 启动 ModelSim 仿真
 ```
 
-可用命令：
+**其他常用命令**:
 
 ```bash
-make compile   # 仅编译
-make sim       # 编译 + 启动仿真
-make clean     # 清理仿真产物
-make help      # 查看帮助
+make compile   # 仅编译代码，不启动仿真
+make clean     # 清理 /sim 目录下的缓存与中间产物
+make help      # 查看 Makefile 帮助菜单
 ```
 
-## 架构图占位
+## 📈 测试评估
 
-当前仓库可先放置架构图到 `doc/arch_overview.png`，README 中先保留占位，后续补图即可。
+所有的验证用例可通过波形窗口与寄存器写回比对进行观测。
 
-![RISC-V SoC Architecture Placeholder](doc/arch_overview.png)
+| 测试编号 | 测试内容 / 指令 | 测试文件路径 | 期望行为 | 验证状态 |
+| :---: | :--- | :--- | :--- | :---: |
+| **01** | `ADDI` 指令覆盖 | `test_data/rv32ui-p-addi.txt` | 正确计算并将立即数与基址寄存器相加，写回 `rd`。 | 🟢 **Pass** |
+| **02** | 基础跳转测试 | - | 即将引入 | ⏳ WIP |
 
-如暂时不上传图片，也可先使用如下逻辑结构示意：
+> *详细仿真波形图可持续更新至 `doc/waveform_addi.png` 并在此处引用。*
 
-```text
-PC -> ROM -> IF/ID -> Decode -> RegFile -> ID/EX -> Execute -> WriteBack(RegFile)
-```
+## 🗺️ Roadmap
 
-## 时序说明
+- [x] 搭建基础 IF-ID-EX 流水结构框图
+- [x] 重构顶层互连，闭环从取指到写回的通路
+- [x] 完成并验证 `ADDI` 指令
+- [ ] 增加更多基础逻辑与算术指令 (`ADD`, `SUB`, `AND`, `OR`...)
+- [ ] 引入存储器接口，实现 `Lw` / `Sw` 验证
+- [ ] 构建流水线数据冒险与控制冒险处理模块 (Forwarding & Stall)
+- [ ] 自动化回归测试集成 (CI/CD)
 
-当前实现以单时钟上升沿驱动流水寄存器，主链路时序可以概括为：
+## 🤝 贡献规范
 
-1. IF 阶段：`pc_counter` 输出 `pc_pointer`，`rom` 依据地址取指。
-2. IF/ID 锁存：`if2id` 在时钟边沿锁存指令与地址。
-3. ID 阶段：`decode` 解析 `opcode/func/rs/rd`，读取寄存器并生成操作数。
-4. ID/EX 锁存：`id2ex` 在时钟边沿锁存执行所需信号。
-5. EX 阶段：`execute` 进行运算并输出 `wr_reg_en/wr_reg_addr/wr_reg_data`。
-6. 写回：`register` 在时钟边沿完成写回。
+我们欢迎任何形式的优化，无论是添加新指令支持还是完善工具链：
 
-在当前指令集范围内（`ADDI`），可将近似延迟理解为：取指到写回经历约 2 级流水寄存后完成结果提交。
+1. **分支约定**：采用 `<type>/<description>` 格式 (例如 `feature/add-jal`, `fix/decode-bug`)。
+2. **Commit 信息**：遵守 [Conventional Commits](https://www.conventionalcommits.org/)，使用 `feat:`, `fix:`, `docs:`, `test:` 等前缀。
+3. **提交 PR 要求**：
+   - 包含新增特性对应的 Testbench 或底层波形验证说明。
+   - 尽量保障原有测试集的兼容性 (`make sim` 不报错)。
 
-## 实验结果
+## 📝 致谢与开源协议
 
-建议在本节持续更新你的实测数据（可直接复制以下模板）：
-
-### 基础功能回归
-
-| 用例 | 输入文件 | 预期 | 结果 | 备注 |
-|---|---|---|---|---|
-| ADDI-01 | `test_data/rv32-p-addi.txt` | x 寄存器写回正确 |  Pass | 已通过 |
-
-### 仿真环境
-
-- 仿真器：ModelSim/Questa
-- 运行命令：`make sim`
-- 观测方式：波形窗口 + 寄存器值检查
-
-### 波形截图占位
-
-![Waveform Placeholder](doc/waveform_addi.png)
-
-## 设计说明
-
-- `pc_counter.sv` 负责程序计数推进。
-- `rom.sv` 依据指令文件输出取指结果。
-- `decode.sv` 完成指令字段解析并生成执行操作数。
-- `execute.sv` 进行 ALU 计算并产生寄存器写回控制。
-- `register.sv` 提供寄存器读写接口。
-
-## Roadmap
-
-- [x] 搭建基础 IF-ID-EX 流水框架
-- [x] 打通 `ADDI` 指令执行与写回
-- [ ] 增加更多 RV32I 算术/逻辑指令
-- [ ] 引入访存与写回阶段扩展
-- [ ] 增加冒险处理（stall/forward）
-- [ ] 完善自动化测试与覆盖率统计
-
-## 贡献规范
-
-提交前建议遵循以下约定：
-
-1. 分支命名：`feature/*`、`fix/*`、`doc/*`。
-2. 提交信息：使用简洁前缀，例如 `feat:`、`fix:`、`docs:`、`test:`。
-3. RTL 修改需附带：
-   - 对应 testbench 或测试数据更新。
-   - 关键波形截图或文字说明。
-4. PR 描述至少包含：变更目的、影响模块、验证方式、风险点。
-
-欢迎通过 Issue 或 Pull Request 提交：
-
-- bug 修复
-- 新指令支持
-- testbench 与验证用例增强
-- 文档与注释完善
-
-## 版本记录
-
-### v0.2.0 (计划中)
-
-- 增强 README 文档结构（导航、时序、实验记录模板）
-- 补充贡献规范与致谢模块
-
-### v0.1.0
-
-- 完成 IF/ID/EX 主链路
-- 支持并验证 `ADDI` 指令基本执行流程
-
-## 致谢
-
-- RISC-V 开源生态与社区文档
-- 课程/比赛中提供评测与讨论支持的同学和老师
-- 使用与维护 SystemVerilog 仿真工具链的开发者社区
-
-## License
-
-暂未添加 License 文件，建议后续补充 `MIT` 或 `Apache-2.0`。
+* 感谢 RISC-V 社区提供的指令集规范与生态。
+* 感谢日常讨论硬件体系架构的各位同学和老师。
+* 本项目暂未指定开源许可协议。推荐未来采用 `MIT` 协议发布。
