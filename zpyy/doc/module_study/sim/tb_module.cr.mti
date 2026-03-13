@@ -1,0 +1,15 @@
+F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v {1 {vlog -work work -vopt -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module pc_tb
+
+Top level modules:
+	pc_tb
+
+} {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.v {1 {vlog -work work -vopt -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.v
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module pc
+
+Top level modules:
+	pc
+
+} {} {}}

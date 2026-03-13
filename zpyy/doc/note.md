@@ -23,3 +23,6 @@
 ## tinyriscv 学习
 总体架构
 ![总体架构](./fig/tinyriscv_soc.png)
+
+
+## 标记疑问
