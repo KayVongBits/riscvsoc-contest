@@ -6,7 +6,7 @@ module decode #(
     //to reg
     output logic [4:0] rd_rs1_addr,
     output logic [4:0] rd_rs2_addr,
-    output logic [6:0] wr_rd_addr,
+    //output logic [4:0] wr_rd_addr,
 
     //from reg
     input logic [DW-1:0] rd_rs1_data,
@@ -37,14 +37,14 @@ module decode #(
         if ((opcode == 7'b0010011) && (func3 == 3'b000)) begin //addi
             rd_rs1_addr = rs1;
             rd_rs2_addr = 5'b0;
-            wr_rd_addr  = rd;
+            //wr_rd_addr  = rd;
             op1_out     = rd_rs1_data;
             op2_out     = imm;
         end
         else begin
             rd_rs1_addr = 5'b0;
             rd_rs2_addr = 5'b0;
-            wr_rd_addr  = 5'b0;
+            //wr_rd_addr  = 5'b0;
             op1_out     = 32'b0;
             op2_out     = 32'b0;
         end

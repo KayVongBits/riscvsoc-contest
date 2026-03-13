@@ -7,27 +7,39 @@ module riscv_top #(
     input  logic rst_n
 );
 
-logic jump_en;
-logic [AW-1:0] jump_addr;
-logic [AW-1:0] pc_pointer;
-logic [DW-1:0] instruction;
-
-logic [AW-1:0] instr_addr_reg;
-logic [DW-1:0] instr_reg;
+logic           jump_en;
+logic [AW-1:0]  jump_addr;
+logic [AW-1:0]  pc_pointer;
+logic [DW-1:0]  instruction;
+logic [AW-1:0]  instr_addr_reg;
+logic [DW-1:0]  instr_reg;
 
 
 logic [4:0]     rd_rs1_addr;
 logic [4:0]     rd_rs2_addr;
-logic [6:0]     wr_rd_addr;
 logic [DW-1:0]  rd_rs1_data;
 logic [DW-1:0]  rd_rs2_data;
-logic [DW-1:0]  op1_out;
-logic [DW-1:0]  op2_out;
+logic [DW-1:0]  decode_op1;
+logic [DW-1:0]  decode_op2;
+
+logic [4:0]     wr_reg_addr;
+logic [DW-1:0]  wr_reg_data;
+logic           wr_reg_en;
+
+
+logic [AW-1:0]  execute_instr_addr;
+logic [DW-1:0]  execute_instr;
+logic [DW-1:0]  execute_op1;
+logic [DW-1:0]  execute_op2;
+
 
 assign jump_en = 1'b0;
 assign jump_addr = 'h0;
-assign rd_rs1_data = 'd50;
-assign rd_rs2_data = 'd100;
+
+
+
+
+
 
 pc_counter 
 #(
@@ -63,29 +75,79 @@ if2id
 u_if2id(
     .clk            (clk            ),
     .rst_n          (rst_n          ),
-    .instr_addr_in  (instruction    ),
-    .instr_in       (pc_pointer     ),
+    .instr_addr_in  ( pc_pointer   ),
+    .instr_in       (  instruction  ),
     .instr_addr_out (instr_addr_reg ),
     .instr_out      (instr_reg      )
 );
 
-
+ 
 decode 
 #(
     .DW (DW )
 )
 u_decode(
-    .instr_in    (instruction ),
+    .instr_in    (instr_reg ),
     .rd_rs1_addr (rd_rs1_addr ),
     .rd_rs2_addr (rd_rs2_addr ),
-    .wr_rd_addr  (wr_rd_addr  ),
+    //.wr_rd_addr  (wr_reg_addr  ),   
     .rd_rs1_data (rd_rs1_data ),
     .rd_rs2_data (rd_rs2_data ),
-    .op1_out     (op1_out     ),
-    .op2_out     (op2_out     )
+    .op1_out     (decode_op1     ),
+    .op2_out     (decode_op2     )
 );
 
+register 
+#(
+    .DW (DW )
+)
+u_register(
+    .clk         (clk         ),
+    .rst_n       (rst_n       ),
+    .rd_rs1_addr (rd_rs1_addr ),
+    .rd_rs2_addr (rd_rs2_addr ),
+    .rd_rs1_data (rd_rs1_data ),
+    .rd_rs2_data (rd_rs2_data ),
+    .wr_reg_addr (wr_reg_addr ),
+    .wr_reg_data (wr_reg_data ),
+    .wr_reg_en   (wr_reg_en   )
+);
 
+id2ex 
+#(
+    .AW (AW ),
+    .DW (DW )
+)
+u_id2ex(
+    .clk            (clk                ),
+    .rst_n          (rst_n              ),
+    .instr_addr_in  (instr_addr_reg     ),
+    .instr_in       (instr_reg          ),
+    .op1_in         (decode_op1         ),
+    .op2_in         (decode_op2         ),
+    .instr_addr_out (execute_instr_addr ),
+    .instr_out      (execute_instr      ),
+    .op1_out        (execute_op1        ),
+    .op2_out        (execute_op2        )
+);
 
+execute 
+#(
+    .AW (AW ),
+    .DW (DW )
+)
+u_execute(
+    .clk           (clk                 ),
+    .rst_n         (rst_n               ),
+    .instr_addr_in (execute_instr_addr  ),
+    .instr_in      (execute_instr       ),
+    .op1           (execute_op1         ),
+    .op2           (execute_op2         ),
+    .wr_reg_en     (wr_reg_en           ),
+    .wr_reg_addr   (wr_reg_addr         ),
+    .wr_reg_data   (wr_reg_data         )
+);
+
+ 
 
 endmodule

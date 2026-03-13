@@ -18,8 +18,7 @@ initial begin
     $readmemh( full_path, rom_mem );    
 end
 
-logic [31:0] debug_instr_addr;
-assign debug_instr_addr = instr_addr;
+
 
 always_comb begin : read_logic
     instr_out = rom_mem[instr_addr[AW-1:2]];

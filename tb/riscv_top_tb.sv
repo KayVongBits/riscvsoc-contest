@@ -23,8 +23,7 @@ u_riscv_top(
 always #5 clk = ~clk;
 
 initial begin
-    $dumpfile("waveform.vcd");
-    $dumpvars(0, riscv_top_tb);
+    
     clk = 1'b0;
     rst_n = 1'b0;
 
