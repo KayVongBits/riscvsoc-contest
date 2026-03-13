@@ -1,0 +1,27 @@
+`timescale 1ns/1ps
+
+module tb_riscv_top;
+
+logic clk , rst ;
+
+risv_top #(
+    .FILE       ("rv32i_inst.txt"),
+    .ADD_WIDTH  (32),
+    .DATA_WIDTH (32)
+) u_riscv_top (
+    .clk    (clk),
+    .rst    (rst)
+);
+
+always #10 clk = ~clk; // 10ns周期的时钟
+
+initial begin
+    rst <= 1'b1 ;
+    clk <= 1'b0 ;
+    #300
+    rst <= 1'b0 ;
+end
+
+endmodule
+
+
