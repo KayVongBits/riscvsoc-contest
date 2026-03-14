@@ -12,17 +12,17 @@ module if2id (
 
 always_ff @(posedge clk or posedge rst) begin : if2id_add_seq
     if (rst) begin 
-        inst_add_o <= `PC_INIT_ADDR;
+        inst_add_o <= `PC_INIT_ADDR ;
     end else begin
-        inst_add_o <= inst_add_i;
+        inst_add_o <= inst_add_i    ;
     end
 end : if2id_add_seq 
 
 always_ff @(posedge clk or posedge rst) begin : if2id_inst_seq
     if (rst) begin 
-        inst_o <= `PC_INIT_INST;
+        inst_o <= `PC_INIT_INST ;
     end else begin
-        inst_o <= inst_i;
+        inst_o <= inst_i        ;
     end
 end : if2id_inst_seq 
 

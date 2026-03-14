@@ -9,8 +9,8 @@ logic clk , rst ;
 riscv_top #(
     .FILE       ("rv32ui-p-addi.txt")
 ) u_riscv_top (
-    .clk    (clk),
-    .rst    (rst)
+    .clk        (clk),
+    .rst        (rst)
 );
 
 always #5 clk <= ~clk; // 10ns周期的时钟
@@ -20,7 +20,7 @@ initial begin
     clk <= 1'b0 ;
     #100
     rst <= 1'b0 ;
-    #5000; 
+    #5000
     $display("Simulation Timeout!");
     $finish;
 end

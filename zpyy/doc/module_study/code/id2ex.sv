@@ -1,0 +1,40 @@
+`include "define.sv"
+`include "rv32i_pkg.sv"
+
+module id2ex(
+    input   logic                               clk         ,
+    input   logic                               rst         ,   
+
+    input   logic   [`ADD_WIDTH-1:0]            inst_addr_i ,
+    output  logic   [`ADD_WIDTH-1:0]            inst_addr_o ,
+
+    input   logic   [`DATA_WIDTH-1:0]           inst_i      ,
+    output  logic   [`DATA_WIDTH-1:0]           inst_o      ,
+
+    input   logic   [`DATA_WIDTH-1:0]           rs1_data_i  ,
+    output  logic   [`DATA_WIDTH-1:0]           rs1_data_o  ,
+
+    input   logic   [`DATA_WIDTH-1:0]           rs2_data_i  ,
+    output  logic   [`DATA_WIDTH-1:0]           rs2_data_o  ,
+
+    input   logic   [`DATA_WIDTH-1:0]           imm_i       ,
+    output  logic   [`DATA_WIDTH-1:0]           imm_o       
+);
+
+always_ff @(posedge clk or posedge rst) begin : id2ex_dff
+    if (rst) begin
+        inst_addr_o <= `PC_INIT_ADDR    ;
+        inst_o      <= `PC_INIT_INST    ;
+        rs1_data_o  <= `RST_REG_VALUE   ;
+        rs2_data_o  <= `RST_REG_VALUE   ;
+        imm_o       <= `RST_IMM_VALUE   ;
+    end else begin
+        inst_addr_o <= inst_addr_i      ;
+        inst_o      <= inst_i           ;
+        rs1_data_o  <= rs1_data_i       ;
+        rs2_data_o  <= rs2_data_i       ;
+        imm_o       <= imm_i            ;
+    end
+end : id2ex_dff
+
+endmodule
