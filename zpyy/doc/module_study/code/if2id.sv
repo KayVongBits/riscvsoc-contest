@@ -1,12 +1,12 @@
 `include "define.sv"
 
 module if2id (
-    input logic                         clk,
-    input logic                         rst,
+    input logic                         clk         ,
+    input logic                         rst         ,
 
-    input logic     [`ADD_WIDTH-1:0]    inst_add_i,
-    input logic     [`DATA_WIDTH-1:0]   inst_i,
-    output logic    [`ADD_WIDTH-1:0]    inst_add_o,
+    input logic     [`ADD_WIDTH-1:0]    inst_add_i  , 
+    input logic     [`DATA_WIDTH-1:0]   inst_i      ,
+    output logic    [`ADD_WIDTH-1:0]    inst_add_o  ,
     output logic    [`DATA_WIDTH-1:0]   inst_o
 );
 

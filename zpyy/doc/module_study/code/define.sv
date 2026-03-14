@@ -8,7 +8,8 @@
 
 `define REG_NUM             32
 `define REG_ADDR_WIDTH      5   
-
-
+`define REG_RST_VALUE       32'h0000_0000
+`define ZERO_REG            5'h00
+`define ZERO_VALUE          32'h0000_0000
 
 // 用于case 或 if 中的默认情况

@@ -29,20 +29,20 @@ assign rs1_data_i      = `DATA_WIDTH'd50;  // 寄存器数据输入，暂时不�
 assign rs2_data_i      = `DATA_WIDTH'd100; //
 
 pc u_pc (
-    .clk         	(clk          ),
-    .rst         	(rst          ),
-    .jump_en_i   	(jump_en_i    ),
-    .jump_addr_i 	(jump_addr_i  ),
-    .pc_o        	(pc_o         )
+    .clk         	(clk         ),
+    .rst         	(rst         ),
+    .jump_en_i   	(jump_en_i   ),
+    .jump_addr_i 	(jump_addr_i ),
+    .pc_o        	(pc_o        )
 );
 
 rom #(
     .FILE           (FILE       )
 ) u_rom (
-    .clk         	(clk          ),
-    .rst         	(rst          ),
-    .inst_addr_i 	(pc_o         ),   
-    .inst_data_o 	(inst_data_o  )    
+    .clk         	(clk         ),
+    .rst         	(rst         ),
+    .inst_addr_i 	(pc_o        ),   
+    .inst_data_o 	(inst_data_o )    
 );
 
 
@@ -50,7 +50,7 @@ if2id u_if2id(
     .clk        	(clk         ),
     .rst        	(rst         ),
     .inst_add_i 	(pc_o  ),
-    .inst_i     	(inst_data_o      ),
+    .inst_i     	(inst_data_o ),
     .inst_add_o 	(inst_add_o  ),
     .inst_o     	(inst_o      )
 );
@@ -66,6 +66,16 @@ decode u_decode(
     .rs2_data_o 	(rs2_data_o  )
 );
 
-
+regs u_regs(
+    .clk            (clk            ),
+    .rst            (rst            ),              
+    .rs1_addr_i     (rs1_addr_o     ),
+    .rs2_addr_i     (rs2_addr_o     ),                   
+    .rs1_data_o     (rs1_data_i     ),
+    .rs2_data_o     (rs1_data_i     ),
+    .wr_reg_en_i    (wr_reg_en_i    ),
+    .wr_reg_addr_i  (wr_reg_addr_i  ),
+    .wr_reg_data_i  (wr_reg_data_i  )
+);
 endmodule
 

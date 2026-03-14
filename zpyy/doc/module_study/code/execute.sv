@@ -1,11 +1,8 @@
 `include "define.sv"
 `include "rv32i_pkg.sv"
 
-module excute(
-    
+module execute(
+
 );
-
-import rv32i_pkg::*;
-
 
 endmodule
