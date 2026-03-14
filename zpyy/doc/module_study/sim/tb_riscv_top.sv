@@ -7,7 +7,7 @@ module tb_riscv_top;
 logic clk , rst ;
 
 riscv_top #(
-    .FILE       ("rv32i_inst.txt")
+    .FILE       ("rv32ui-p-addi.txt")
 ) u_riscv_top (
     .clk    (clk),
     .rst    (rst)

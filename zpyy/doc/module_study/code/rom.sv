@@ -1,5 +1,5 @@
 module rom #(
-    parameter FILE          = "rv32i_inst.txt",
+    parameter FILE          = "rv32ui-p-addi.txt",
     parameter ADD_WIDTH     = 32,
     parameter DATA_WIDTH    = 32
 )(
@@ -10,10 +10,10 @@ module rom #(
     output logic    [DATA_WIDTH-1:0]    inst_data_o             // 指令数据输出
 );  
 
-static  string path        = "../test/" ;   
+static  string path        = "../test/txt/" ;   
 static  string full_path   = {path, FILE};  
 
-logic   [DATA_WIDTH-1:0]    rom_mem [0:7];               //存放指令的ROM，最多存储4096条指令
+logic   [DATA_WIDTH-1:0]    rom_mem [0:4095];               //存放指令的ROM，最多存储4096条指令
 
 initial begin
     $readmemh(full_path,rom_mem);

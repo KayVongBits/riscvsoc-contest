@@ -5,6 +5,13 @@ Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 Top level modules:
 	riscv_top
 
+} {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/if2id.sv {1 {vlog -work work -vopt -sv -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/if2id.sv
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module if2id
+
+Top level modules:
+	if2id
+
 } {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rom.sv {1 {vlog -work work -vopt -sv -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rom.sv
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 -- Compiling module rom
@@ -12,12 +19,8 @@ Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 Top level modules:
 	rom
 
-} {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rv32i_pkg.sv {1 {vlog -work work -vopt -sv -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rv32i_pkg.sv
+} {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/define.sv {1 {vlog -work work -vopt -sv -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/define.sv
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
--- Compiling package rv32i_pkg
-
-Top level modules:
-	--none--
 
 } {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv {1 {vlog -work work -vopt -sv -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
@@ -26,12 +29,14 @@ Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 Top level modules:
 	pc
 
-} {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v {1 {vlog -work work -vopt -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v
+} {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/decode.sv {1 {vlog -work work -vopt -sv -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/decode.sv
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
--- Compiling module pc_tb
+-- Compiling package rv32i_pkg
+-- Compiling module decode
+-- Importing package rv32i_pkg
 
 Top level modules:
-	pc_tb
+	decode
 
 } {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/tb_riscv_top.sv {1 {vlog -work work -vopt -sv -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/tb_riscv_top.sv
 Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
@@ -39,12 +44,5 @@ Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
 
 Top level modules:
 	tb_riscv_top
-
-} {} {}} F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.v {1 {vlog -work work -vopt -stats=none F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.v
-Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
--- Compiling module pc
-
-Top level modules:
-	pc
 
 } {} {}}

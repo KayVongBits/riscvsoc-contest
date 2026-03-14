@@ -20,57 +20,108 @@ n@_opt
 Z3 OL;O;2020.4;71
 R0
 T_opt1
-!s110 1773421259
-Vd?NE=BcVDGm`m@Zl4lXek0
+!s110 1773478930
+VSLedcCoPa7R[VY_U3Ike83
 04 12 4 work tb_riscv_top fast 0
-=1-345a603c0d9e-69b442cb-1c3-86e0
+=1-345a603c0d9e-69b52412-281-7cc8
 R1
 R2
 n@_opt1
 R3
-vpc
+vdecode
 Z4 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z5 !s110 1773421179
+DXx4 work 9 rv32i_pkg 0 22 0Gh8kK631A^A`o_knIjRa1
+Z5 !s110 1773478919
 !i10b 1
-!s100 A1<:NFnkPbh<ZzEzZUQ3O3
+!s100 <:Ejg>MM:V]H4J0;LO3052
 Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
-IM3XV`W84?RMfzF=X^01A70
+IFj=5]Q=a>Ibl3Zca83mAL0
 S1
 Z7 dF:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim
-Z8 w1773421042
-8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv
-FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv
-!i122 5
-L0 3 37
-Z9 VDg1SIo80bB@j0V0VzS_@n1
-Z10 OL;L;2020.4;71
+w1773477452
+8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/decode.sv
+FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/decode.sv
+!i122 15
+L0 4 107
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+Z9 OL;L;2020.4;71
 r1
 !s85 0
 31
-Z11 !s108 1773421179.000000
-!s107 F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv|
+Z10 !s108 1773478919.000000
+Z11 !s107 F:\work\jingyeda\jingyeda\zpyy\doc\module_study\code\rv32i_pkg.sv|define.sv|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/decode.sv|
+Z12 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/decode.sv|
+!i113 0
+Z13 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+vif2id
+R4
+R5
+!i10b 1
+!s100 JSR[I<ZU;[3DJFVNz^>Al3
+R6
+I]5o6OfBgP?3II0JjK@mz=0
+S1
+R7
+w1773467237
+8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/if2id.sv
+FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/if2id.sv
+!i122 16
+L0 3 27
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 define.sv|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/if2id.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/if2id.sv|
+!i113 0
+R13
+R2
+vpc
+R4
+R5
+!i10b 1
+!s100 iXGaz^o]Vd3gScNFjLR[83
+R6
+IA>33<>E9`G0feKgR;7Vlh0
+S1
+R7
+w1773467264
+8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv
+FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv
+!i122 11
+L0 3 35
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 define.sv|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/pc.sv|
 !i113 0
-Z12 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R13
 R2
 vpc_tb
-R5
+!s110 1773421179
 !i10b 1
 !s100 7HP^Oz=EE@zCd]emX_F2Z0
 R6
 INoea[_5V8W9O^Gb=W3EO[0
 R7
-R8
+w1773421042
 8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v
 FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v
 !i122 2
 L0 3 95
+R8
 R9
-R10
 r1
 !s85 0
 31
-R11
+!s108 1773421179.000000
 !s107 F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/pc_tb.v|
 !i113 0
@@ -80,99 +131,99 @@ vriscv_top
 R4
 R5
 !i10b 1
-!s100 P<:kNL9LlfYgWFT]Tf23W3
+!s100 cIimZ:L16hHm<B5<>VB>`2
 R6
-IW?HA^>k<H_]GeXCVUbSX21
+IKIP3E:[IO[?zoheYgCHdC0
 S1
 R7
-R8
+w1773478827
 8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/riscv_top.sv
 FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/riscv_top.sv
-!i122 6
-L0 3 42
+!i122 12
+L0 4 67
+R8
 R9
-R10
 r1
 !s85 0
 31
-R11
-!s107 F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/riscv_top.sv|
+R10
+!s107 define.sv|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/riscv_top.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/riscv_top.sv|
 !i113 0
-R12
+R13
 R2
 vrom
 R4
 R5
 !i10b 1
-!s100 Lj?cPX;AG:>;8:K=J;iAa0
+!s100 H4ecWOjU<NWm9mPd7cKll3
 R6
-I4B0g43;dHO]3gcE;AkbgR3
+IddbD7=eK5:4CDQ=za_93o3
 S1
 R7
-w1773421127
+w1773477584
 8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rom.sv
 FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rom.sv
-!i122 7
+!i122 13
 L0 1 26
+R8
 R9
-R10
 r1
 !s85 0
 31
-R11
+R10
 !s107 F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rom.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rom.sv|
 !i113 0
-R12
+R13
 R2
 Xrv32i_pkg
 R4
 R5
 !i10b 1
-!s100 V^f^4JSA>f9Sa;=h63;Bm3
+!s100 C4eZgKaKRKjNoZ@PM1[^n1
 R6
-I8j5XiN1`OF1O;LF=?OiAS0
+I0Gh8kK631A^A`o_knIjRa1
 S1
 R7
-R8
-8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rv32i_pkg.sv
-FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rv32i_pkg.sv
-!i122 8
+w1773477260
+8F:\work\jingyeda\jingyeda\zpyy\doc\module_study\code\rv32i_pkg.sv
+FF:\work\jingyeda\jingyeda\zpyy\doc\module_study\code\rv32i_pkg.sv
+!i122 15
 L0 1 0
-V8j5XiN1`OF1O;LF=?OiAS0
-R10
+V0Gh8kK631A^A`o_knIjRa1
+R9
 r1
 !s85 0
 31
+R10
 R11
-!s107 F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rv32i_pkg.sv|
-!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/code/rv32i_pkg.sv|
-!i113 0
 R12
+!i113 0
+R13
 R2
 vtb_riscv_top
 R4
-!s110 1773421252
+R5
 !i10b 1
-!s100 4hE>M5TJ2P]W@OSEYK7DK1
+!s100 hZ>RP0DBi=n]n[RY26A1h3
 R6
-ISfaXD3;6V0dckYzbn^CN20
+ISeL[z<;I9YWGF<D3[U3Ui2
 S1
 R7
-w1773421245
+w1773478753
 8F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/tb_riscv_top.sv
 FF:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/tb_riscv_top.sv
-!i122 9
-L0 3 23
+!i122 10
+L0 5 21
+R8
 R9
-R10
 r1
 !s85 0
 31
-!s108 1773421252.000000
-!s107 F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/tb_riscv_top.sv|
+R10
+!s107 define.sv|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/tb_riscv_top.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/work/jingyeda/jingyeda/zpyy/doc/module_study/sim/tb_riscv_top.sv|
 !i113 0
-R12
+R13
 R2

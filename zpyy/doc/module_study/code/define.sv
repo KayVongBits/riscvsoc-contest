@@ -8,3 +8,7 @@
 
 `define REG_NUM             32
 `define REG_ADDR_WIDTH      5   
+
+
+
+// 用于case 或 if 中的默认情况
