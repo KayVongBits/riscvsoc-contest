@@ -1,13 +1,13 @@
 `timescale 1ns/1ps
+`include "define.sv"
+
 
 module tb_riscv_top;
 
 logic clk , rst ;
 
-risv_top #(
-    .FILE       ("rv32i_inst.txt"),
-    .ADD_WIDTH  (32),
-    .DATA_WIDTH (32)
+riscv_top #(
+    .FILE       ("rv32i_inst.txt")
 ) u_riscv_top (
     .clk    (clk),
     .rst    (rst)
@@ -23,5 +23,3 @@ initial begin
 end
 
 endmodule
-
-
