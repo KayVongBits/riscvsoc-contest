@@ -28,12 +28,10 @@ logic [`DATA_WIDTH-1:0]         wr_reg_data_i;
 
 
 assign jump_en_i        = 1'b0;                     // 暂时不使用跳转功能
-assign jump_addr_i      = {`ADD_WIDTH{1'b0}};       // 跳转地址
-assign rs1_data_i       = `DATA_WIDTH'd50;          // 寄存器数据输入，暂时不连接寄存器堆
-assign rs2_data_i       = `DATA_WIDTH'd100;         
+assign jump_addr_i      = {`ADD_WIDTH{1'b0}};       // 跳转地址   
 assign wr_reg_en_i      = 1'b1;                     // 暂时不使用写回功能
 assign wr_reg_addr_i    = rd_addr_o;                // 写回寄存器地址
-assign wr_reg_data_i    = rs1_data_o + rs2_data_o;  // 写回数据，暂时设置为rs1和rs2数据的和
+assign wr_reg_data_i    = rs2_data_o;  // 写回数据，暂时设置为rs1和rs2数据的和
 
 pc u_pc (
     .clk         	(clk         ),
@@ -79,7 +77,7 @@ regs u_regs(
     .rs1_addr_i     (rs1_addr_o     ),
     .rs2_addr_i     (rs2_addr_o     ),                   
     .rs1_data_o     (rs1_data_i     ),
-    .rs2_data_o     (rs1_data_i     ),
+    .rs2_data_o     (rs2_data_i     ),
     .wr_reg_en_i    (wr_reg_en_i    ),
     .wr_reg_addr_i  (wr_reg_addr_i  ),
     .wr_reg_data_i  (wr_reg_data_i  )

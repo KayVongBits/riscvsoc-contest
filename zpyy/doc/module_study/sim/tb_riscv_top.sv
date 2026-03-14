@@ -13,13 +13,16 @@ riscv_top #(
     .rst    (rst)
 );
 
-always #10 clk = ~clk; // 10ns周期的时钟
+always #5 clk <= ~clk; // 10ns周期的时钟
 
 initial begin
     rst <= 1'b1 ;
     clk <= 1'b0 ;
-    #300
+    #100
     rst <= 1'b0 ;
+    #5000; 
+    $display("Simulation Timeout!");
+    $finish;
 end
 
 endmodule
