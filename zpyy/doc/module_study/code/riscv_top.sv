@@ -10,10 +10,9 @@ module riscv_top #(
 
 // if
 logic                           if_jump_en_i        ;
-logic [`ADD_WIDTH-1:0]          if_pc_o             ;
 logic [`ADD_WIDTH-1:0]          if_jump_addr_i      ;
-logic [`DATA_WIDTH-1:0]         if_inst_data_o      ;
-logic [`DATA_WIDTH-1:0]         if_inst_o           ; 
+logic [`ADD_WIDTH-1:0]          if_pc_o             ;
+logic [`DATA_WIDTH-1:0]         if_inst_o           ;
 
 // id   
 logic [`ADD_WIDTH-1:0]          id_inst_add_i       ;
@@ -26,9 +25,6 @@ logic [`DATA_WIDTH-1:0]         id_rs2_data_i       ;
 logic [`DATA_WIDTH-1:0]         id_rs1_data_o       ;
 logic [`DATA_WIDTH-1:0]         id_rs2_data_o       ;
 logic [`DATA_WIDTH-1:0]         id_imm_o            ;    
-logic                           wr_reg_en_i         ;
-logic [`REG_ADDR_WIDTH-1:0]     wr_reg_addr_i       ;
-logic [`DATA_WIDTH-1:0]         wr_reg_data_i       ;
 
 // ex
 logic [`ADD_WIDTH-1:0]          ex_inst_add_i       ;
@@ -42,9 +38,6 @@ logic [`DATA_WIDTH-1:0]         ex_rd_data_o        ;
 
 assign if_jump_en_i        = 1'b0;                     // 暂时不使用跳转功能
 assign if_jump_addr_i      = {`ADD_WIDTH{1'b0}};       // 跳转地址   
-assign wr_reg_en_i      = 1'b1;                     // 暂时不使用写回功能
-assign wr_reg_addr_i    = id_rd_addr_o;                // 写回寄存器地址
-assign wr_reg_data_i    = id_rs2_data_o;  // 写回数据，暂时设置为rs1和rs2数据的和
 
 pc u_pc (
     .clk         	(clk                )   ,
@@ -60,7 +53,7 @@ rom #(
     .clk         	(clk                )   ,
     .rst         	(rst                )   ,
     .inst_addr_i 	(if_pc_o            )   ,   
-    .inst_data_o 	(if_inst_data_o     )    
+    .inst_data_o 	(if_inst_o     )    
 );
 
 
