@@ -12,6 +12,8 @@ module id2ex #(
 
     input   logic [DW-1:0]  op1_in,
     input   logic [DW-1:0]  op2_in,
+    
+    input   logic           instr_flush,
 
     //to ex
     output  logic [AW-1:0]  instr_addr_out,
@@ -23,6 +25,11 @@ module id2ex #(
 
     always_ff @( posedge clk or negedge rst_n ) begin : reg_logic
         if (!rst_n) begin   
+            instr_addr_out <= '0;
+            instr_out <= `INST_NOP;
+            op1_out <= '0;
+            op2_out <= '0;
+        end else if (instr_flush) begin
             instr_addr_out <= '0;
             instr_out <= `INST_NOP;
             op1_out <= '0;

@@ -49,6 +49,71 @@ module execute #(
                         jump_addr = 32'b0;
                         jump_hold = 1'b0;
                     end
+                    `INST_AND: begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 & op2;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_XOR: begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 ^ op2;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_SLL: begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 << op2[4:0];
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_OR: begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 | op2;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_SRL_SRA: begin
+                        if (func7 == `FUNCT7_0) begin
+                            wr_reg_en = 1'b1;
+                            wr_reg_addr = rd;
+                            wr_reg_data = op1 >> op2[4:0];
+                            jump_en = 1'b0;
+                            jump_addr = 32'b0;
+                            jump_hold = 1'b0;
+                        end else begin
+                            wr_reg_en = 1'b1;
+                            wr_reg_addr = rd;
+                            wr_reg_data = $signed(op1) >>> op2[4:0];
+                            jump_en = 1'b0;
+                            jump_addr = 32'b0;
+                            jump_hold = 1'b0;
+                        end
+                    end
+                    `INST_SLT: begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = ($signed(op1) < $signed(op2)) ? 32'b1 : 32'b0;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_SLTU: begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = (op1 < op2) ? 32'b1 : 32'b0;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
                     default: begin
                         wr_reg_en = 0;
                         wr_reg_addr = 5'b0;
@@ -78,6 +143,72 @@ module execute #(
                             jump_hold = 1'b0;
                         end
                     end
+                    `INST_AND:begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 & op2;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_OR:begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 | op2;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_XOR:begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 ^ op2;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_SLL:begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = op1 << op2[4:0];
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_SRL_SRA:begin
+                        if (func7 == 7'b0) begin
+                            wr_reg_en = 1'b1;
+                            wr_reg_addr = rd;
+                            wr_reg_data = op1 >> op2[4:0];
+                            jump_en = 1'b0;
+                            jump_addr = 32'b0;
+                            jump_hold = 1'b0;
+                        end else begin
+                            wr_reg_en = 1'b1;
+                            wr_reg_addr = rd;
+                            wr_reg_data = $signed(op1) >>> op2[4:0];
+                            jump_en = 1'b0;
+                            jump_addr = 32'b0;
+                            jump_hold = 1'b0;
+                        end
+                    end
+                    `INST_SLT:begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = ($signed(op1) < $signed(op2)) ? 32'b1 : 32'b0;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_SLTU:begin
+                        wr_reg_en = 1'b1;
+                        wr_reg_addr = rd;
+                        wr_reg_data = (op1 < op2) ? 32'b1 : 32'b0;
+                        jump_en = 1'b0;
+                        jump_addr = 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                     // M-Extension 乘除法指令
                     default:begin
                         wr_reg_en = 0;
                         wr_reg_addr = 5'b0;
@@ -97,7 +228,47 @@ module execute #(
                         jump_en = ~equal;
                         jump_addr = ~equal ? jump_imm : 32'b0;
                         jump_hold = 1'b0;
-                    end 
+                    end
+                    `INST_BEQ:begin
+                        wr_reg_en = 1'b0;
+                        wr_reg_addr = 5'b0;
+                        wr_reg_data = 32'b0;
+                        jump_en = equal;
+                        jump_addr = equal ? jump_imm : 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_BLT:begin
+                        wr_reg_en = 1'b0;
+                        wr_reg_addr = 5'b0;
+                        wr_reg_data = 32'b0;
+                        jump_en = ($signed(op1) < $signed(op2));
+                        jump_addr = ($signed(op1) < $signed(op2)) ? jump_imm : 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_BGE:begin
+                        wr_reg_en = 1'b0;
+                        wr_reg_addr = 5'b0;
+                        wr_reg_data = 32'b0;
+                        jump_en = ($signed(op1) >= $signed(op2));
+                        jump_addr = ($signed(op1) >= $signed(op2)) ? jump_imm : 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_BLTU:begin
+                        wr_reg_en = 1'b0;
+                        wr_reg_addr = 5'b0;
+                        wr_reg_data = 32'b0;
+                        jump_en = (op1 < op2);
+                        jump_addr = (op1 < op2) ? jump_imm : 32'b0;
+                        jump_hold = 1'b0;
+                    end
+                    `INST_BGEU:begin
+                        wr_reg_en = 1'b0;
+                        wr_reg_addr = 5'b0;
+                        wr_reg_data = 32'b0;
+                        jump_en = (op1 >= op2);
+                        jump_addr = (op1 >= op2) ? jump_imm : 32'b0;
+                        jump_hold = 1'b0;
+                    end
                     default: begin
                         wr_reg_en = 1'b0;
                         wr_reg_addr = 5'b0;
@@ -135,7 +306,7 @@ module execute #(
             `INST_AUIPC:begin
                 wr_reg_en = 1'b1;
                 wr_reg_addr = rd;
-                wr_reg_data = op1 + op2; // AUIPC 的结果是 PC + 立即数
+                wr_reg_data = instr_addr_in + op2; // AUIPC 的结果是 PC + 立即数
                 jump_en = 1'b0;
                 jump_addr = 32'b0;
                 jump_hold = 1'b0;

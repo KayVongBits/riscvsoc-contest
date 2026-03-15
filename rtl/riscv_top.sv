@@ -77,6 +77,7 @@ u_if2id(
     .rst_n          (rst_n          ),
     .instr_addr_in  ( pc_pointer   ),
     .instr_in       (  instruction  ),
+    .instr_flush    ( jump_en       ),
     .instr_addr_out (instr_addr_reg ),
     .instr_out      (instr_reg      )
 );
@@ -124,6 +125,7 @@ u_id2ex(
     .instr_in       (instr_reg          ),
     .op1_in         (decode_op1         ),
     .op2_in         (decode_op2         ),
+    .instr_flush    (jump_en            ),
     .instr_addr_out (execute_instr_addr ),
     .instr_out      (execute_instr      ),
     .op1_out        (execute_op1        ),

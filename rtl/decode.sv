@@ -70,6 +70,48 @@ module decode #(
                         op1_out     = rd_rs1_data;
                         op2_out     = imm;
                     end
+                    `INST_AND: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm;
+                    end
+                    `INST_XOR: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm;
+                    end
+                    `INST_OR: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm;
+                    end
+                    `INST_SLL: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm; // SLLI 的移位量只取立即数的低5位
+                    end
+                    `INST_SRL_SRA: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm; // SRLI/SRAI 的移位量只取立即数的低5位
+                    end
+                    `INST_SLT: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm;
+                    end
+                    `INST_SLTU: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = 5'b0;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = imm;
+                    end
                     default: begin
                         rd_rs1_addr = 5'b0;
                         rd_rs2_addr = 5'b0;
@@ -86,6 +128,54 @@ module decode #(
                         op1_out     = rd_rs1_data;
                         op2_out     = rd_rs2_data;
                     end
+                    `INST_AND: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_XOR: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_OR: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_SLL: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data; // SLL 的移位量只取 rs2 的低5位
+                    end
+                    `INST_SRL_SRA: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data; // SRL/SRA 的移位量只取 rs2 的低5位
+                    end
+                    `INST_SLT: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_SLTU: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                     `INST_MUL: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
                     default: begin
                         rd_rs1_addr = 5'b0;
                         rd_rs2_addr = 5'b0;
@@ -97,6 +187,36 @@ module decode #(
             `INST_TYPE_B:begin
                 case (func3)
                     `INST_BNE: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_BEQ: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_BLT: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_BGE: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_BLTU: begin
+                        rd_rs1_addr = rs1;
+                        rd_rs2_addr = rs2;
+                        op1_out     = rd_rs1_data;
+                        op2_out     = rd_rs2_data;
+                    end
+                    `INST_BGEU: begin
                         rd_rs1_addr = rs1;
                         rd_rs2_addr = rs2;
                         op1_out     = rd_rs1_data;
@@ -131,7 +251,7 @@ module decode #(
             `INST_AUIPC: begin
                 rd_rs1_addr = 5'b0;
                 rd_rs2_addr = 5'b0;
-                op1_out     = instr_in; // AUIPC 的 op1 是当前指令地址
+                op1_out     = 32'b0;
                 op2_out     = imm;
             end
             `INST_NOP_OP: begin

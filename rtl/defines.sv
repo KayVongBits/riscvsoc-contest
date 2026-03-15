@@ -4,7 +4,7 @@
 
 `define AW              32
 `define DW              32
-`define FILE            "rv32ui-p-addi.txt"
+`define FILE            "rv32ui-p-sltu.txt"
 
 // ------------------------------------------
 // 1. 操作码 Opcodes (opcode[6:0])
