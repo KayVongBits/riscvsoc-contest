@@ -18,7 +18,7 @@ typedef enum logic [6:0] {
     I_LOAD      = 7'b0000011 ,      // LB , LH , LW , LBU , LHU
     I_ARI_LOG   = 7'b0010011 ,      // ADDI , SLTI , SLTIU , XORI , ORI , ANDI , SLLI , SRLI , SRAI
     I_FENCE     = 7'b0001111 ,      // FENCE , FENCE_I
-    I_ECALL_CSR = 7'b1110011        // ECALL , EBREAK , CSRRW , CSRRS , CSRRC , CSRRWI , CSRRSI , CSRRCI
+    I_SYSTEM    = 7'b1110011        // ECALL , EBREAK , CSRRW , CSRRS , CSRRC , CSRRWI , CSRRSI , CSRRCI
 } Opcode_e ;
 
 /*

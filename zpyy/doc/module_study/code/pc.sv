@@ -10,9 +10,6 @@ module pc(
     output  logic       [`ADD_WIDTH-1:0]    pc_o
 );
 
-// localparam define
-localparam [31:0] PC_STEP = 32'h4   ; 
-
 // logic define
 logic [`ADD_WIDTH-1:0] current_pc   ;
 

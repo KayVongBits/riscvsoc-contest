@@ -26,6 +26,8 @@ logic [`DATA_WIDTH-1:0]         id_rs2_data_i       ;
 logic [`DATA_WIDTH-1:0]         id_rs1_data_o       ;
 logic [`DATA_WIDTH-1:0]         id_rs2_data_o       ;
 logic [`DATA_WIDTH-1:0]         id_imm_o            ;    
+logic                           id_alu_src1_sel_o   ;
+logic                           id_alu_src2_sel_o   ;
 
 // ex
 logic [`ADD_WIDTH-1:0]          ex_inst_add_i       ;
@@ -33,6 +35,8 @@ logic [`DATA_WIDTH-1:0]         ex_inst_i           ;
 logic [`DATA_WIDTH-1:0]         ex_rs1_data_i       ;
 logic [`DATA_WIDTH-1:0]         ex_rs2_data_i       ;
 logic [`DATA_WIDTH-1:0]         ex_imm_i            ; 
+logic                           ex_alu_src1_sel_i   ;
+logic                           ex_alu_src2_sel_i   ;
 logic                           ex_wr_rd_en_o       ;
 logic [`REG_ADDR_WIDTH-1:0]     ex_rd_addr_o        ;
 logic [`DATA_WIDTH-1:0]         ex_rd_data_o        ;
@@ -76,7 +80,9 @@ decode u_decode(
     .rs2_data_i 	(id_rs2_data_i      )   ,
     .rs1_data_o 	(id_rs1_data_o      )   ,
     .rs2_data_o 	(id_rs2_data_o      )   ,
-    .imm_o      	(id_imm_o           )   
+    .imm_o      	(id_imm_o           )   ,
+    .alu_src1_sel_o (id_alu_src1_sel_o  )   ,
+    .alu_src2_sel_o (id_alu_src1_sel_o  )
 );
 
 regs u_regs(
@@ -103,7 +109,11 @@ id2ex u_id2ex(
     .rs2_data_i     (id_rs2_data_o      )   ,
     .rs2_data_o     (ex_rs2_data_i      )   ,
     .imm_i          (id_imm_o           )   ,
-    .imm_o          (ex_imm_i           )
+    .imm_o          (ex_imm_i           )   ,
+    .alu_src1_sel_i (id_alu_src1_sel_o  )   ,
+    .alu_src2_sel_i (id_alu_src2_sel_o  )   ,
+    .alu_src1_sel_o (ex_alu_src1_sel_i  )   ,
+    .alu_src2_sel_o (ex_alu_src2_sel_i)
 );
 
 execute u_execute(
@@ -112,6 +122,8 @@ execute u_execute(
     .rs1_data_i     (ex_rs1_data_i      )   ,
     .rs2_data_i     (ex_rs2_data_i      )   ,
     .imm_i          (ex_imm_i           )   ,
+    .alu_src1_sel_i (ex_alu_src1_sel_i  )   ,
+    .alu_src2_sel_i (ex_alu_src2_sel_i  )   ,
     .wr_rd_en_o     (ex_wr_rd_en_o      )   ,
     .rd_addr_o      (ex_rd_addr_o       )   ,
     .rd_data_o      (ex_rd_data_o       )   
