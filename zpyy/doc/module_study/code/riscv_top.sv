@@ -1,11 +1,12 @@
 `timescale 1ns/1ps
 `include "define.sv"
+`include "rv32i_pkg.sv"
 
 module riscv_top #(
     parameter FILE          = "rv32ui-p-addi.txt"
 )(
-    input logic                     clk,
-    input logic                     rst
+    input   logic                       clk,
+    input   logic                       rst
 );
 
 // if
@@ -104,15 +105,17 @@ id2ex u_id2ex(
     .imm_i          (id_imm_o           )   ,
     .imm_o          (ex_imm_i           )
 );
+
 execute u_execute(
-    .inst_add_i     (ex_inst_add_i             )   ,
-    .inst_i         (ex_inst_i                 )   ,
-    .rs1_data_i     (ex_rs1_data_i             )   ,
-    .rs2_data_i     (ex_rs2_data_i             )   ,
-    .imm_i          (ex_imm_i                  )   ,
-    .wr_rd_en_o     (ex_wr_rd_en_o             )   ,
-    .rd_addr_o      (ex_rd_addr_o              )   ,
-    .rd_data_o      (ex_rd_data_o              )   
+    .inst_add_i     (ex_inst_add_i      )   ,
+    .inst_i         (ex_inst_i          )   ,
+    .rs1_data_i     (ex_rs1_data_i      )   ,
+    .rs2_data_i     (ex_rs2_data_i      )   ,
+    .imm_i          (ex_imm_i           )   ,
+    .wr_rd_en_o     (ex_wr_rd_en_o      )   ,
+    .rd_addr_o      (ex_rd_addr_o       )   ,
+    .rd_data_o      (ex_rd_data_o       )   
 );
+
 endmodule
 

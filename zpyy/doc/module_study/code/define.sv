@@ -22,5 +22,4 @@
 `define WR_DISABLE          1'b0
 `define RD_ENABLE           1'b1
 `define RD_DISABLE          1'b0
-
 // 用于case 或 if 中的默认情况

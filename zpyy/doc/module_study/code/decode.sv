@@ -28,28 +28,40 @@ Inst_U_Type_s inst_u_type   ;
 Inst_J_Type_s inst_j_type   ;
 
 // 根据opcode字段判断是哪个指令类型，并将指令的各个字段赋值给对应的结构体
-assign inst_s = Inst_s'(inst_i); // 将指令的全部32位赋值给结构体
+assign inst_s       = Inst_s'(inst_i)           ; // 将指令的全部32位赋值给结构体
+assign inst_u_type  = Inst_U_Type_s'(inst_i)    ;
+assign inst_j_type  = Inst_J_Type_s'(inst_i)    ;
+assign inst_r_type  = Inst_R_Type_s'(inst_i)    ;
+assign inst_i_type  = Inst_I_Type_s'(inst_i)    ;
+assign inst_b_type  = Inst_B_Type_s'(inst_i)    ;
+assign inst_s_type  = Inst_S_Type_s'(inst_i)    ;
 
 // comb logic
 always_comb begin
+    rs1_addr_o = `RST_REG       ;
+    rs2_addr_o = `RST_REG       ;
+    rd_addr_o  = `RST_REG       ;
+    rs1_data_o = `RST_REG_VALUE ;
+    rs2_data_o = `RST_REG_VALUE ;
+    imm_o      = `RST_IMM_VALUE ;
     unique case ( inst_s.opcode )
         U_LUI, U_AUIPC: begin
-            inst_u_type = Inst_U_Type_s'(inst_i) ; // 处理U型指令
+
         end
         J_JAL: begin
-            inst_j_type = Inst_J_Type_s'(inst_i) ; // 处理J型指令
+
         end
         R_ARI_LOG: begin
-            inst_r_type = Inst_R_Type_s'(inst_i) ; // 处理R型指令
+
         end
         B_BRANCH: begin
-            inst_b_type = Inst_B_Type_s'(inst_i) ; // 处理B型指令
+
         end
         S_SAVE: begin
-            inst_s_type = Inst_S_Type_s'(inst_i) ; // 处理S型指令
+
         end
         I_JALR, I_LOAD, I_ARI_LOG, I_FENCE, I_ECALL_CSR: begin
-            inst_i_type = Inst_I_Type_s'(inst_i) ; // 处理I型指令
+
             unique case (inst_i_type.opcode)
                 I_ARI_LOG: begin // 处理I型算术逻辑指令
                     unique case (inst_i_type.funct3) 
@@ -62,13 +74,7 @@ always_comb begin
                             imm_o      = {{20{inst_i_type.imm[11]}}, inst_i_type.imm}   ;
                             
                         end
-                        default: begin
-                            rs1_addr_o = `RST_REG       ;
-                            rs2_addr_o = `RST_REG       ;
-                            rd_addr_o  = `RST_REG       ;
-                            rs1_data_o = `RST_REG_VALUE ;
-                            rs2_data_o = `RST_REG_VALUE ;
-                            imm_o      = `RST_IMM_VALUE ;
+                        default: begin                         
                         end
                     endcase
                 end
@@ -85,24 +91,10 @@ always_comb begin
                     // 处理系统调用和CSR指令
                 end
                 default: begin
-                    // 其他I型指令的处理（如果有的话）
-                    rs1_addr_o = `RST_REG       ;
-                    rs2_addr_o = `RST_REG       ;
-                    rd_addr_o  = `RST_REG       ;
-                    rs1_data_o = `RST_REG_VALUE ;
-                    rs2_data_o = `RST_REG_VALUE ;
-                    imm_o      = `RST_IMM_VALUE ;
                 end
             endcase
         end
         default: begin
-            // 其他类型指令的处理（如果有的话）
-            rs1_addr_o = `RST_REG       ;
-            rs2_addr_o = `RST_REG       ;
-            rd_addr_o  = `RST_REG       ;
-            rs1_data_o = `RST_REG_VALUE ;
-            rs2_data_o = `RST_REG_VALUE ;
-            imm_o      = `RST_IMM_VALUE ;
         end
     endcase
 end
