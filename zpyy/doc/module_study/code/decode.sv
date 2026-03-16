@@ -50,7 +50,7 @@ always_comb begin
     imm_o           = `RST_IMM_VALUE        ;
     alu_src1_sel_o  = `ALU_OP1_SEL_RS1      ;
     alu_src2_sel_o  = `ALU_OP2_SEL_RS2      ;
-    ecall_en_o      = `RST_ECALL_DISABLE    ;
+    ecall_en_o      = `ECALL_DISABLE        ;
     unique case ( inst_s.opcode )
         U_LUI : begin                                           // rd = imm << 12 , 低位补0
             rs1_addr_o      = `RST_REG                          ;

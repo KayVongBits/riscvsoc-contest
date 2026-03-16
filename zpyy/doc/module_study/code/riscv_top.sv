@@ -40,6 +40,9 @@ logic                           ex_alu_src2_sel_i   ;
 logic                           ex_wr_rd_en_o       ;
 logic [`REG_ADDR_WIDTH-1:0]     ex_rd_addr_o        ;
 logic [`DATA_WIDTH-1:0]         ex_rd_data_o        ;
+logic                           ex_jump_en_o        ;
+logic [`ADD_WIDTH-1:0]          ex_jump_addr_o      ;
+
 
 assign if_jump_en_i        = 1'b0;                     // 暂时不使用跳转功能
 assign if_jump_addr_i      = {`ADD_WIDTH{1'b0}};       // 跳转地址   
@@ -126,7 +129,9 @@ execute u_execute(
     .alu_src2_sel_i (ex_alu_src2_sel_i  )   ,
     .wr_rd_en_o     (ex_wr_rd_en_o      )   ,
     .rd_addr_o      (ex_rd_addr_o       )   ,
-    .rd_data_o      (ex_rd_data_o       )   
+    .rd_data_o      (ex_rd_data_o       )   ,
+    .jump_en_o      (ex_jump_en_o       )   ,
+    .jump_addr_o    (ex_jump_addr_o     )
 );
 
 endmodule
