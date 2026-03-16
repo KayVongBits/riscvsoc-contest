@@ -4,7 +4,7 @@
 `define PC_INIT_ADDR        32'h0000_0000 
 `define PC_INIT_INST        32'h0000_0000
 `define PC_STEP             32'h4
-`define FILE                "my_riscv.txt"
+`define FILE                "rv32ui-p-andi.txt"
 
 // reg
 `define REG_NUM             32

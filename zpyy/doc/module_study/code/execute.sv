@@ -122,30 +122,25 @@ always_comb begin : execute_comb
             endcase
         end 
         B_BRANCH : begin    
+            jump_addr_o     =  imm_i + inst_add_i           ;
             case (inst_b_type.funct3) 
                 B_TYPE_BEQ : begin
-                    jump_en_o   = (alu_op1 == alu_op2) ? `JUMP_ENABLE : `JUMP_DISABLE           ;
-                    jump_addr_o = (alu_op1 == alu_op2) ? imm_i + inst_add_i : `JUMP_RST_ADDR    ;
-                end
-                B_TYPE_BNE : begin
-                    jump_en_o   = (alu_op1 != alu_op2) ? `JUMP_ENABLE : `JUMP_DISABLE           ;
-                    jump_addr_o = (alu_op1 != alu_op2) ? imm_i + inst_add_i : `JUMP_RST_ADDR    ;
+                    jump_en_o   = (alu_op1 == alu_op2) ? `JUMP_ENABLE : `JUMP_DISABLE                               ;
+                end                 
+                B_TYPE_BNE : begin                  
+                    jump_en_o   = (alu_op1 != alu_op2) ? `JUMP_ENABLE : `JUMP_DISABLE                               ;
                 end
                 B_TYPE_BLT : begin  // 有符号小于
                     jump_en_o   = ($signed(alu_op1) < $signed(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE              ;
-                    jump_addr_o = ($signed(alu_op1) < $signed(alu_op2)) ? imm_i + inst_add_i : `JUMP_RST_ADDR       ;
                 end
                 B_TYPE_BGE : begin  // 有符号大于等于
                     jump_en_o   = ($signed(alu_op1) >= $signed(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE             ;
-                    jump_addr_o = ($signed(alu_op1) >= $signed(alu_op2)) ? imm_i + inst_add_i : `JUMP_RST_ADDR      ;
                 end
                 B_TYPE_BLTU : begin // 无符号小于
                     jump_en_o   = ($unsigned(alu_op1) < $unsigned(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE          ;
-                    jump_addr_o = ($unsigned(alu_op1) < $unsigned(alu_op2)) ? imm_i + inst_add_i  : `JUMP_RST_ADDR  ;
                 end
                 B_TYPE_BGEU : begin // 无符号大于等于
                     jump_en_o   = ($unsigned(alu_op1) >= $unsigned(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE         ;
-                    jump_addr_o = ($unsigned(alu_op1) >= $unsigned(alu_op2)) ? imm_i + inst_add_i : `JUMP_RST_ADDR  ;
                 end
             endcase
         end 

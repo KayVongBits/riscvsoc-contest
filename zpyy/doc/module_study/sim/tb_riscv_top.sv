@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-`include "define.sv"
+`include "../code/define.sv"
 
 
 module tb_riscv_top;
@@ -7,7 +7,7 @@ module tb_riscv_top;
 logic clk , rst ;
 
 riscv_top #(
-    .FILE       ("rv32ui-p-addi.txt")
+    .FILE       (`FILE)
 ) u_riscv_top (
     .clk        (clk),
     .rst        (rst)

@@ -44,14 +44,11 @@ logic                           ex_jump_en_o        ;
 logic [`ADD_WIDTH-1:0]          ex_jump_addr_o      ;
 
 
-assign if_jump_en_i        = 1'b0;                     // 暂时不使用跳转功能
-assign if_jump_addr_i      = {`ADD_WIDTH{1'b0}};       // 跳转地址   
-
 pc u_pc (
     .clk         	(clk                )   ,
     .rst         	(rst                )   ,
-    .jump_en_i   	(if_jump_en_i       )   ,
-    .jump_addr_i 	(if_jump_addr_i     )   ,
+    .jump_en_i   	(ex_jump_en_o       )   ,
+    .jump_addr_i 	(ex_jump_addr_o     )   ,
     .pc_o        	(if_pc_o            )
 );
 
@@ -85,7 +82,7 @@ decode u_decode(
     .rs2_data_o 	(id_rs2_data_o      )   ,
     .imm_o      	(id_imm_o           )   ,
     .alu_src1_sel_o (id_alu_src1_sel_o  )   ,
-    .alu_src2_sel_o (id_alu_src1_sel_o  )
+    .alu_src2_sel_o (id_alu_src2_sel_o  )
 );
 
 regs u_regs(
