@@ -77,7 +77,7 @@ always_comb begin
             rs2_addr_o      = `RST_REG                          ;
             rs2_data_o      = `RST_REG_VALUE                    ;
             rd_addr_o       = inst_j_type.rd                    ;
-            imm_o           = {12'b0, inst_j_type.imm_0, inst_j_type.imm_1, inst_j_type.imm_2, inst_j_type.imm_3}   ;
+            imm_o           = {{12{inst_j_type.imm_0}}, inst_j_type.imm_1, inst_j_type.imm_2, inst_j_type.imm_3, 1'b0}   ;
             alu_src1_sel_o  = `ALU_OP1_SEL_PC                   ;
             alu_src2_sel_o  = `ALU_OP2_SEL_IMM                  ;
         end
@@ -95,7 +95,7 @@ always_comb begin
             rs1_data_o      = rs1_data_i                        ;
             rs2_data_o      = rs2_data_i                        ;
             rd_addr_o       = `RST_REG                          ;
-            imm_o           = {20'b0, inst_b_type.imm_0, inst_b_type.imm_1, inst_b_type.imm_2, inst_b_type.imm_3}   ;
+            imm_o           = {{20{inst_b_type.imm_0}}, inst_b_type.imm_1, inst_b_type.imm_2, inst_b_type.imm_3, 1'b0}   ;
         end
         S_SAVE: begin
             rs1_addr_o      = inst_s_type.rs1                   ;
@@ -103,7 +103,7 @@ always_comb begin
             rs1_data_o      = rs1_data_i                        ;
             rs2_data_o      = rs2_data_i                        ;
             rd_addr_o       = `RST_REG                          ;
-            imm_o           = {20'b0, inst_s_type.imm_0, inst_s_type.imm_1}  ;
+            imm_o           = {{20{inst_s_type.imm_0[11]}}, inst_s_type.imm_0, inst_s_type.imm_1}  ;
             alu_src2_sel_o  = `ALU_OP2_SEL_IMM                  ;
         end
         I_JALR, I_LOAD, I_ARI_LOG : begin
@@ -111,10 +111,11 @@ always_comb begin
             rs1_data_o      = rs1_data_i                        ;
             rs2_addr_o      = `RST_REG                          ;   // I型指令没有rs2
             rs2_data_o      = `RST_REG_VALUE                    ;   // 立即数符号扩展
+            imm_o           = {{20{inst_i_type.imm[11]}}, inst_i_type.imm};
             rd_addr_o       = inst_i_type.rd                    ;
             alu_src2_sel_o  = `ALU_OP2_SEL_IMM                  ;       
         end
-        I_SYSTEM: begin                              // 处理系统调用和CSR指令
+        I_SYSTEM: begin                                         // 处理系统调用和CSR指令
             case (inst_i_type.funct3)   
                 I_TYPE_ADDI_LB_JALR_FENCE_ECALL_EBREAK : begin
                     // 不写也不读，处理系统调用以及断电

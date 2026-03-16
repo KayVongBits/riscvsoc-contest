@@ -62,7 +62,7 @@ always_comb begin : execute_comb
         S_SAVE : begin  
             
         end
-        I_JALR, I_LOAD, I_ARI_LOG,I_FENCE,I_ECALL_CSR : begin
+        I_JALR, I_LOAD, I_ARI_LOG,I_FENCE,I_SYSTEM : begin
             unique case (inst_i_type.opcode)
                 I_ARI_LOG : begin                                       // 算术逻辑比较指令   
                     unique case (inst_i_type.funct3)
@@ -94,7 +94,7 @@ always_comb begin : execute_comb
                 I_FENCE : begin
                     
                 end
-                I_ECALL_CSR : begin
+                I_SYSTEM : begin
                     
                 end 
                 default : begin
