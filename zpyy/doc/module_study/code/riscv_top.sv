@@ -1,13 +1,12 @@
 `timescale 1ns/1ps
 `include "define.sv"
-`include "rv32i_pkg.sv"
 
-module riscv_top #(
-    parameter FILE          = "rv32ui-p-addi.txt"
-)(
+module riscv_top (
     input   logic                       clk,
-    input   logic                       rst
+    input   logic                       rst,
+    output  logic [7:0]                 led_o
 );
+assign led_o = 8'hfe;
 
 // if
 logic                           if_jump_en_i        ;
@@ -43,6 +42,9 @@ logic [`DATA_WIDTH-1:0]         ex_rd_data_o        ;
 logic                           ex_jump_en_o        ;
 logic [`ADD_WIDTH-1:0]          ex_jump_addr_o      ;
 
+// ctrl
+logic                           ctrl_flush_if2id    ;
+logic                           ctrl_flush_id2ex    ;
 
 pc u_pc (
     .clk         	(clk                )   ,
@@ -53,7 +55,7 @@ pc u_pc (
 );
 
 rom #(
-    .FILE           ( FILE                     )
+    .FILE           (`FILE               )
 ) u_rom (
     .clk         	(clk                )   ,
     .rst         	(rst                )   ,
@@ -62,9 +64,17 @@ rom #(
 );
 
 
+pipeline_ctrl u_pipeline_ctrl(
+    .jump_en_i     	(ex_jump_en_o       )   ,
+    .flush_if2id_o 	(ctrl_flush_if2id   )   ,
+    .flush_id2ex_o 	(ctrl_flush_id2ex   )
+);
+ 
+
 if2id u_if2id(
     .clk        	(clk                )   ,
     .rst        	(rst                )   ,
+    .flush_if2id_i  (ctrl_flush_if2id   )   ,
     .inst_add_i 	(if_pc_o            )   ,
     .inst_i     	(if_inst_o          )   ,
     .inst_add_o 	(id_inst_add_i      )   ,
@@ -99,7 +109,8 @@ regs u_regs(
 
 id2ex u_id2ex(
     .clk            (clk                )   ,
-    .rst            (rst                )   , 
+    .rst            (rst                )   ,
+    .flush_id2ex_i  (ctrl_flush_id2ex   )   ,
     .inst_addr_i    (id_inst_add_i      )   ,
     .inst_addr_o    (ex_inst_add_i      )   ,
     .inst_i         (id_inst_i          )   ,

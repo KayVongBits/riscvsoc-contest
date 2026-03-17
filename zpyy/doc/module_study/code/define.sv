@@ -2,9 +2,9 @@
 `define ADD_WIDTH           32
 `define DATA_WIDTH          32
 `define PC_INIT_ADDR        32'h0000_0000 
-`define PC_INIT_INST        32'h0000_0000
 `define PC_STEP             32'h4
-`define FILE                "rv32ui-p-andi.txt"
+`define FILE                "rv32ui-p-addi.dat"
+`define INST_NOP            32'h0000_0013
 
 // reg
 `define REG_NUM             32
@@ -42,9 +42,13 @@
 // bit0 clear
 `define BIT0_CLEAR_MASK     32'hFFFFFFFE
 
+// flush
+`define FLUSH_ENABLE        1'b1
+`define FLUSH_DISABLE       1'b0
+
 // rd wr
 `define WR_ENABLE           1'b1
 `define WR_DISABLE          1'b0
 `define RD_ENABLE           1'b1
 `define RD_DISABLE          1'b0
-// 用于case 或 if 中的默认情况
+// 用于case �? if 中的默认情况

@@ -1,9 +1,12 @@
 `include "define.sv"
-`include "rv32i_pkg.sv"
 
 module id2ex(
+    // sys
     input   logic                               clk             ,
     input   logic                               rst             ,   
+
+    // ctrl
+    input   logic                               flush_id2ex_i   ,
 
     input   logic   [`ADD_WIDTH-1:0]            inst_addr_i     ,
     output  logic   [`ADD_WIDTH-1:0]            inst_addr_o     ,
@@ -23,13 +26,21 @@ module id2ex(
     input   logic                               alu_src1_sel_i  ,
     input   logic                               alu_src2_sel_i  ,
     output  logic                               alu_src1_sel_o  ,
-    output  logic                               alu_src2_sel_o  
+    output  logic                               alu_src2_sel_o      
 );
 
 always_ff @(posedge clk or posedge rst) begin : id2ex_dff
     if (rst) begin
         inst_addr_o     <= `PC_INIT_ADDR    ;
-        inst_o          <= `PC_INIT_INST    ;
+        inst_o          <= `INST_NOP        ;
+        rs1_data_o      <= `RST_REG_VALUE   ;
+        rs2_data_o      <= `RST_REG_VALUE   ;
+        imm_o           <= `RST_IMM_VALUE   ;
+        alu_src1_sel_o  <= `ALU_OP1_SEL_RS1 ;
+        alu_src2_sel_o  <= `ALU_OP2_SEL_RS2 ;
+    end else if (flush_id2ex_i == `FLUSH_ENABLE) begin
+        inst_addr_o     <= `PC_INIT_ADDR    ;
+        inst_o          <= `INST_NOP        ;
         rs1_data_o      <= `RST_REG_VALUE   ;
         rs2_data_o      <= `RST_REG_VALUE   ;
         imm_o           <= `RST_IMM_VALUE   ;
