@@ -15,7 +15,6 @@ module regs(
     input   logic   [`DATA_WIDTH-1:0]       rd_data_i
 );
 
-import rv32i_pkg::*;
 
 logic   [`DATA_WIDTH-1:0]       regs        [0:`REG_NUM-1]  ;         
 
@@ -24,7 +23,7 @@ always_comb begin : read_value_reg1
         rs1_data_o = `RST_REG_VALUE     ;
     end else if (rs1_addr_i == `ZERO_REG) begin
         rs1_data_o = `ZERO_VALUE        ;
-    end else if (wr_rd_en_i && (rs1_addr_i == rd_addr_i)) begin        //  写回地址等于读地�?，优先输出写回数�?
+    end else if (wr_rd_en_i && (rs1_addr_i == rd_addr_i)) begin        //  写回地址等于读地址，优先输出写回数据
         rs1_data_o = rd_data_i          ;
     end else begin
         rs1_data_o = regs[rs1_addr_i]   ;
@@ -36,7 +35,7 @@ always_comb begin : read_value_reg2
         rs2_data_o = `RST_REG_VALUE     ;
     end else if (rs2_addr_i == `ZERO_REG) begin
         rs2_data_o = `ZERO_VALUE        ;
-    end else if (wr_rd_en_i && (rs2_addr_i == rd_addr_i)) begin        //  写回地址等于读地�?，优先输出写回数�?
+    end else if (wr_rd_en_i && (rs2_addr_i == rd_addr_i)) begin        //  写回地址等于读地址，优先输出写回数据
         rs2_data_o = rd_data_i          ;
     end else begin
         rs2_data_o = regs[rs2_addr_i]   ;

@@ -18,7 +18,7 @@ module decode(
     output  logic                           alu_src1_sel_o  ,           
     output  logic                           alu_src2_sel_o  ,
 
-    output  logic                           ecall_en_o          // 异常信号，用于�?�知流水�?                
+    output  logic                           ecall_en_o          // 异常信号，用于控制流水灯              
 );
 
 import rv32i_pkg::*;
@@ -32,7 +32,7 @@ Inst_U_Type_s inst_u_type   ;
 Inst_J_Type_s inst_j_type   ;
 
 // 根据opcode字段判断是哪个指令类型，并将指令的各个字段赋值给对应的结构体
-assign inst_s       = Inst_s'(inst_i)           ; // 将指令的全部32位赋值给结构�?
+assign inst_s       = Inst_s'(inst_i)           ; // 将指令的全部32位赋值给结构体
 assign inst_u_type  = Inst_U_Type_s'(inst_i)    ;
 assign inst_j_type  = Inst_J_Type_s'(inst_i)    ;
 assign inst_r_type  = Inst_R_Type_s'(inst_i)    ;
@@ -54,7 +54,7 @@ always_comb begin
     alu_src2_sel_o  = `ALU_OP2_SEL_RS2      ;
     ecall_en_o      = `ECALL_DISABLE        ;
     unique case ( inst_s.opcode )
-        U_LUI : begin                                           // rd = imm << 12 , 低位�?0
+        U_LUI : begin                                           // rd = imm << 12 , 低位补0
             rs1_addr_o      = `RST_REG                          ;
             rs1_data_o      = `RST_REG_VALUE                    ;
             rs2_addr_o      = `RST_REG                          ;
@@ -112,7 +112,7 @@ always_comb begin
             rs1_addr_o      = inst_i_type.rs1                   ;
             rs1_data_o      = rs1_data_i                        ;
             rs2_addr_o      = `RST_REG                          ;   // I型指令没有rs2
-            rs2_data_o      = `RST_REG_VALUE                    ;   // 立即数符号扩�?
+            rs2_data_o      = `RST_REG_VALUE                    ;   // 立即数符号扩展
             imm_o           = {{20{inst_i_type.imm[11]}}, inst_i_type.imm};
             rd_addr_o       = inst_i_type.rd                    ;
             alu_src2_sel_o  = `ALU_OP2_SEL_IMM                  ;       
@@ -127,7 +127,7 @@ always_comb begin
                     rs2_data_o      = `RST_REG_VALUE            ;
                     rd_addr_o       = `RST_REG                  ;
                     imm_o           = `RST_IMM_VALUE            ;
-                    ecall_en_o      = inst_i_type.imm[0]        ;   // �?1是EBREAK,0是ECALL      
+                    ecall_en_o      = inst_i_type.imm[0]        ;   // 1是EBREAK,0是ECALL      
                 end
                 I_TYPE_SLLI_LH_FENCEI_CSRRW, I_TYPE_SLTI_LW_CSRRS, I_TYPE_SLTIU_CSRRC : begin
                     rs1_addr_o      = inst_i_type.rs1           ;

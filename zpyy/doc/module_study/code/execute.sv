@@ -33,7 +33,7 @@ logic   [`DATA_WIDTH-1:0]           alu_op1     ;
 logic   [`DATA_WIDTH-1:0]           alu_op2     ;
 
 // 根据opcode字段判断是哪个指令类型，并将指令的各个字段赋值给对应的结构体
-assign inst_s       = Inst_s'(inst_i)           ;   // 将指令的全部32位赋值给结构�?
+assign inst_s       = Inst_s'(inst_i)           ;   // 将指令的全部32位赋值给结构体
 assign inst_u_type  = Inst_U_Type_s'(inst_i)    ;
 assign inst_j_type  = Inst_J_Type_s'(inst_i)    ;
 assign inst_r_type  = Inst_R_Type_s'(inst_i)    ;
@@ -49,7 +49,7 @@ always_comb begin : execute_comb
     wr_rd_en_o      = `WR_DISABLE           ;
     rd_addr_o       = `RST_REG              ;
     rd_data_o       = `RST_REG_VALUE        ;
-    jump_en_o       = `JUMP_DISABLE         ;               // 默认不跳�?
+    jump_en_o       = `JUMP_DISABLE         ;               // 默认不跳转
     jump_addr_o     = `JUMP_RST_ADDR        ;
     unique case (inst_s.opcode)
         U_LUI : begin
@@ -129,16 +129,16 @@ always_comb begin : execute_comb
                 B_TYPE_BNE : begin                  
                     jump_en_o   = (alu_op1 != alu_op2) ? `JUMP_ENABLE : `JUMP_DISABLE                               ;
                 end
-                B_TYPE_BLT : begin  // 有符号小�?
+                B_TYPE_BLT : begin  // 有符号小于
                     jump_en_o   = ($signed(alu_op1) < $signed(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE              ;
                 end
-                B_TYPE_BGE : begin  // 有符号大于等�?
+                B_TYPE_BGE : begin  // 有符号大于等于
                     jump_en_o   = ($signed(alu_op1) >= $signed(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE             ;
                 end
-                B_TYPE_BLTU : begin // 无符号小�?
+                B_TYPE_BLTU : begin // 无符号小于
                     jump_en_o   = ($unsigned(alu_op1) < $unsigned(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE          ;
                 end
-                B_TYPE_BGEU : begin // 无符号大于等�?
+                B_TYPE_BGEU : begin // 无符号大于等于
                     jump_en_o   = ($unsigned(alu_op1) >= $unsigned(alu_op2)) ? `JUMP_ENABLE : `JUMP_DISABLE         ;
                 end
             endcase
