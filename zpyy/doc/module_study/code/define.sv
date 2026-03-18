@@ -3,7 +3,7 @@
 `define DATA_WIDTH          32
 `define PC_INIT_ADDR        32'h0000_0000 
 `define PC_STEP             32'h4
-`define FILE                "rv32ui-p-addi.dat"
+`define FILE                "../test/txt/rv32ui-p-auipc.txt"
 `define INST_NOP            32'h0000_0013
 
 // reg

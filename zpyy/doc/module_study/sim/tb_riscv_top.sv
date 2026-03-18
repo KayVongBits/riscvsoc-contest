@@ -6,13 +6,10 @@ module tb_riscv_top;
 
 logic clk , rst ;
 
-riscv_top #(
-    .FILE       (`FILE)
-) u_riscv_top (
+riscv_top u_riscv_top (
     .clk        (clk),
     .rst        (rst)
 );
-
 always #5 clk <= ~clk; // 10ns周期的时钟
 
 initial begin

@@ -16,7 +16,7 @@ module regs(
 );
 
 
-logic   [`DATA_WIDTH-1:0]       regs        [0:`REG_NUM-1]  ;         
+(*mark_debug = "true"*)logic   [`DATA_WIDTH-1:0]       regs        [0:`REG_NUM-1]  ;         
 
 always_comb begin : read_value_reg1
     if (rst) begin
