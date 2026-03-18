@@ -3,6 +3,15 @@
 仿真通过
 rv32ui-p-add
 rv32ui-p-and
+rv32ui-p-sub
+rv32ui-p-xor
+rv32ui-p-or
+rv32ui-p-sll
+rv32ui-p-slt
+rv32ui-p-sltu
+rv32ui-p-srl
+rv32ui-p-sra
+
 rv32ui-p-addi
 rv32ui-p-slti
 rv32ui-p-sltiu
