@@ -5,10 +5,11 @@
 module tb_riscv_top;
 
 logic clk , rst ;
-
+logic [1:0] led_mode ;
 riscv_top u_riscv_top (
     .clk        (clk),
-    .rst        (rst)
+    .rst        (rst),
+    .led_mode   ()
 );
 always #5 clk <= ~clk; // 10ns周期的时钟
 

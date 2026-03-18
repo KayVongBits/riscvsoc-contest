@@ -2,9 +2,17 @@
 
 仿真通过
 rv32ui-p-add
-rv32ui-p-addi
 rv32ui-p-and
+rv32ui-p-addi
+rv32ui-p-slti
+rv32ui-p-sltiu
+rv32ui-p-xori
+rv32ui-p-ori
 rv32ui-p-andi
+rv32ui-p-slli
+rv32ui-p-srli
+rv32ui-p-srai
+
 rv32ui-p-bge
 rv32ui-p-beq
 rv32ui-p-bgeu

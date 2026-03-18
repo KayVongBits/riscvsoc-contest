@@ -54,9 +54,7 @@ assign led_mode = {u_regs.regs[26][0], u_regs.regs[27][0]};
     .pc_o        	(if_pc_o            )
 );
 
-(* dont_touch = "true" *)rom #(
-    .FILE           (`FILE               )
-) u_rom (
+(* dont_touch = "true" *)rom u_rom (
     .clk         	(clk                )   ,
     .rst         	(rst                )   ,
     .inst_addr_i 	(if_pc_o            )   ,   
