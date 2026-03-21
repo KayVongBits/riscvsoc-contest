@@ -13,7 +13,7 @@ typedef enum logic [6:0] {
     J_JAL       = 7'b1101111 ,
     R_ARI_LOG   = 7'b0110011 ,      // ADD , SUB , SLL , SLT , SLTU , XOR , SRL , SRA , OR , AND
     B_BRANCH    = 7'b1100011 ,      // BEQ , BNE , BLT , BGE , BLTU , BGEU
-    S_SAVE      = 7'b0100011 ,      // SB , SH , SW
+    S_STORE     = 7'b0100011 ,      // SB , SH , SW
     I_JALR      = 7'b1100111 ,
     I_LOAD      = 7'b0000011 ,      // LB , LH , LW , LBU , LHU
     I_ARI_LOG   = 7'b0010011 ,      // ADDI , SLTI , SLTIU , XORI , ORI , ANDI , SLLI , SRLI , SRAI
@@ -27,7 +27,8 @@ typedef enum logic [6:0] {
 */
 typedef enum logic [6:0] {
     R_TYPE_BASE    = 7'b0000000     ,   // ADD , SLL , SLT , SLTU , XOR , SRL , OR , AND
-    R_TYPE_ALT     = 7'b0100000         // SUB , SRA
+    R_TYPE_ALT     = 7'b0100000     ,   // SUB , SRA
+    R_TYPE_MAD     = 7'b0000001         // MUL , DIV , REM
 } Inst_R_Type_Funct7_e ;
 
 /*
@@ -35,14 +36,14 @@ typedef enum logic [6:0] {
     @note: 这些字段用于R指令的具体操作类型
 */
 typedef enum logic [2:0] {
-    R_TYPE_ADD_SUB  = 3'b000        ,   // ADD_SUB
-    R_TYPE_SLL      = 3'b001        ,   // SLL
-    R_TYPE_SLT      = 3'b010        ,   // SLT
-    R_TYPE_SLTU     = 3'b011        ,   // SLTU
-    R_TYPE_XOR      = 3'b100        ,   // XOR
-    R_TYPE_SRL_SRA  = 3'b101        ,   // SRL, SRA 
-    R_TYPE_OR       = 3'b110        ,   // OR
-    R_TYPE_AND      = 3'b111            // AND
+    R_TYPE_000  = 3'b000        ,   // ADD , SUB , MUL
+    R_TYPE_001  = 3'b001        ,   // SLL , MULH
+    R_TYPE_010  = 3'b010        ,   // SLT , MULHSU
+    R_TYPE_011  = 3'b011        ,   // SLTU , MULHU
+    R_TYPE_100  = 3'b100        ,   // XOR , DIV
+    R_TYPE_101  = 3'b101        ,   // SRL , SRA , DIVU
+    R_TYPE_110  = 3'b110        ,   // OR , REM
+    R_TYPE_111  = 3'b111            // AND , REMU
 } Inst_R_Type_Funct3_e ;
 
 /*
@@ -50,14 +51,14 @@ typedef enum logic [2:0] {
     @note: 这些字段用于I指令的具体操作类型
 */
 typedef enum logic [2:0] {
-    I_TYPE_ADDI_LB_JALR_FENCE_ECALL_EBREAK  = 3'b000     ,      // ADDI, LB , JALR , FENCE , ECALL , EBREAK
-    I_TYPE_SLLI_LH_FENCEI_CSRRW             = 3'b001     ,      // SLLI, LH , FENCEI , CSRRW
-    I_TYPE_SLTI_LW_CSRRS                    = 3'b010     ,      // SLTI, LW , CSRRS
-    I_TYPE_SLTIU_CSRRC                      = 3'b011     ,      // SLTIU, CSRRC
-    I_TYPE_XORI_LBU                         = 3'b100     ,      // XORI, LBU
-    I_TYPE_SRLI_SRAI_LHU_CSRRWI             = 3'b101     ,      // SRLI, SRAI, LHU , CSRRWI
-    I_TYPE_ORI_CSRRSI                       = 3'b110     ,      // ORI, CSRRSI
-    I_TYPE_ANDI_CSRRCI                      = 3'b111            // ANDI, CSRRCI
+    I_TYPE_000  = 3'b000     ,      // ADDI, LB , JALR , FENCE , ECALL , EBREAK
+    I_TYPE_001  = 3'b001     ,      // SLLI, LH , FENCEI , CSRRW
+    I_TYPE_010  = 3'b010     ,      // SLTI, LW , CSRRS
+    I_TYPE_011  = 3'b011     ,      // SLTIU, CSRRC
+    I_TYPE_100  = 3'b100     ,      // XORI, LBU
+    I_TYPE_101  = 3'b101     ,      // SRLI, SRAI, LHU , CSRRWI
+    I_TYPE_110  = 3'b110     ,      // ORI, CSRRSI
+    I_TYPE_111  = 3'b111            // ANDI, CSRRCI
 } Inst_I_Type_Funct3_e ;
 
 /*

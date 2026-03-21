@@ -99,7 +99,7 @@ always_comb begin
             rd_addr_o       = `RST_REG                          ;
             imm_o           = {{20{inst_b_type.imm_0}}, inst_b_type.imm_1, inst_b_type.imm_2, inst_b_type.imm_3, 1'b0}   ;
         end
-        S_SAVE: begin
+        S_STORE: begin
             rs1_addr_o      = inst_s_type.rs1                   ;
             rs2_addr_o      = inst_s_type.rs2                   ;
             rs1_data_o      = rs1_data_i                        ;
@@ -119,8 +119,8 @@ always_comb begin
         end
         I_SYSTEM: begin                                         // 处理系统调用和CSR指令
             case (inst_i_type.funct3)   
-                I_TYPE_ADDI_LB_JALR_FENCE_ECALL_EBREAK : begin
-                    // 不写也不读，处理系统调用以及断电
+                I_TYPE_000: begin
+                    // ECALL , EBREAK不写也不读，处理系统调用以及断电
                     rs1_addr_o      = `RST_REG                  ;
                     rs2_addr_o      = `RST_REG                  ;
                     rs1_data_o      = `RST_REG_VALUE            ;
@@ -129,7 +129,7 @@ always_comb begin
                     imm_o           = `RST_IMM_VALUE            ;
                     ecall_en_o      = inst_i_type.imm[0]        ;   // 1是EBREAK,0是ECALL      
                 end
-                I_TYPE_SLLI_LH_FENCEI_CSRRW, I_TYPE_SLTI_LW_CSRRS, I_TYPE_SLTIU_CSRRC : begin
+                I_TYPE_001, I_TYPE_010, I_TYPE_011 : begin      // CSRRW , CSRRS , CSRRC
                     rs1_addr_o      = inst_i_type.rs1           ;
                     rs1_data_o      = rs1_data_i                ;
                     rs2_addr_o      = `RST_REG                  ;
@@ -138,7 +138,7 @@ always_comb begin
                     imm_o           = {20'd0, inst_i_type.imm}  ;
                     alu_src2_sel_o  = `ALU_OP2_SEL_IMM          ;
                 end
-                I_TYPE_SRLI_SRAI_LHU_CSRRWI, I_TYPE_ORI_CSRRSI, I_TYPE_ANDI_CSRRCI : begin
+                I_TYPE_101, I_TYPE_110, I_TYPE_111 : begin      // CSRRWI , CSRRSI , CSRRCI
                     rs1_addr_o      = `RST_REG                  ;
                     rs1_data_o      = {27'd0, inst_i_type.rs1}  ;
                     rs2_addr_o      = `RST_REG                  ;
