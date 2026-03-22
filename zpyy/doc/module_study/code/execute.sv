@@ -17,9 +17,10 @@ module execute(
     output  logic   [`ADD_WIDTH-1:0]        jump_addr_o         ,  
     // output  logic                           jump_hold_o  
 
+    output  logic   [`ADD_WIDTH-1:0]        ram_addr_o          ,
     output  logic   [`BYTE_PER_WORD-1:0]    wr_ram_en_mask_o    ,
-    output  logic   [`ADD_WIDTH-1:0]        wr_ram_addr_o       ,
-    output  logic   [`DATA_WIDTH-1:0]       wr_ram_data_o       
+    output  logic   [`DATA_WIDTH-1:0]       wr_ram_data_o       ,
+    output  logic   [`RAM_RD_MODE_LEN-1:0]  rd_ram_en_mode_o        
 );
 
 import rv32i_pkg::*;
@@ -50,34 +51,35 @@ assign alu_op1 = ( alu_src1_sel_i == `ALU_OP1_SEL_RS1 ) ? rs1_data_i : inst_add_
 assign alu_op2 = ( alu_src2_sel_i == `ALU_OP2_SEL_RS2 ) ? rs2_data_i : imm_i      ;
 
 always_comb begin : execute_comb
-    wr_rd_en_o          = `WR_DISABLE           ;
+    wr_rd_en_o          = `REG_WR_DISABLE       ;
     rd_addr_o           = `RST_REG              ;
     rd_data_o           = `RST_REG_VALUE        ;
     jump_en_o           = `JUMP_DISABLE         ;               // 默认不跳转
     jump_addr_o         = `JUMP_RST_ADDR        ;
     wr_ram_en_mask_o    = `RAM_WR_DISABLE       ;
-    wr_ram_addr_o       = `RAM_WR_RST_ADD       ;
+    ram_addr_o          = `RAM_RST_ADD          ;
     wr_ram_data_o       = `RAM_WR_RST_DATA      ;
+    rd_ram_en_mode_o    = `RAM_WR_DISABLE       ;
     unique case (inst_s.opcode)
         U_LUI : begin
-            wr_rd_en_o      = `WR_ENABLE                    ;
+            wr_rd_en_o      = `REG_WR_ENABLE                ;
             rd_addr_o       = inst_u_type.rd                ;
             rd_data_o       = alu_op2                       ;
         end 
         U_AUIPC : begin
-            wr_rd_en_o      = `WR_ENABLE                    ;
+            wr_rd_en_o      = `REG_WR_ENABLE                ;
             rd_addr_o       = inst_u_type.rd                ;
             rd_data_o       = alu_op1 + alu_op2             ;
         end
         J_JAL : begin  
-            wr_rd_en_o      = `WR_ENABLE                    ;
+            wr_rd_en_o      = `REG_WR_ENABLE                ;
             rd_addr_o       = inst_j_type.rd                ;
             rd_data_o       = alu_op1 + `PC_STEP            ;
             jump_en_o       = `JUMP_ENABLE                  ;
             jump_addr_o     = alu_op1 + alu_op2             ;
         end 
         R_ARI_LOG : begin 
-            wr_rd_en_o      = `WR_ENABLE                    ;
+            wr_rd_en_o      = `REG_WR_ENABLE                ;
             rd_addr_o       = inst_r_type.rd                ;
             rd_data_o       = `RST_REG_VALUE                ; 
             unique case (inst_r_type.funct7)
@@ -181,12 +183,12 @@ always_comb begin : execute_comb
             endcase
         end 
         S_STORE : begin                                                 // STORE    
-                wr_ram_addr_o   = alu_op1 + alu_op2                     ;
+                ram_addr_o      = alu_op1 + alu_op2                     ;
                 wr_ram_data_o   = `RAM_WR_RST_DATA                      ;
                 wr_ram_en_mask_o= `RAM_WR_DISABLE                       ;
             unique case (inst_s_type.funct3)
                 S_TYPE_SB : begin                                       // 感觉可以逻辑优化一下
-                    unique case (wr_ram_addr_o[1:0])
+                    unique case (ram_addr_o[1:0])
                         2'b00 : begin 
                             wr_ram_data_o [7:0]   = rs2_data_i [7:0]    ;
                             wr_ram_en_mask_o      = `RAM_WR_B_1         ;
@@ -208,7 +210,7 @@ always_comb begin : execute_comb
                     endcase
                 end
                 S_TYPE_SH : begin
-                    unique case (wr_ram_addr_o[1])
+                    unique case (ram_addr_o[1])
                         1'b0 : begin 
                             wr_ram_data_o [15:0]  = rs2_data_i [15:0]   ;
                             wr_ram_en_mask_o      = `RAM_WR_HW_1        ;
@@ -230,17 +232,40 @@ always_comb begin : execute_comb
             endcase
         end
         I_JALR : begin
-            wr_rd_en_o      = `WR_ENABLE                                ;
-            rd_addr_o       = inst_j_type.rd                            ;
-            rd_data_o       = inst_add_i + `PC_STEP                     ;
-            jump_en_o       = `JUMP_ENABLE                              ;
-            jump_addr_o     = (alu_op1 + alu_op2) & `BIT0_CLEAR_MASK    ;
+            wr_rd_en_o          = `REG_WR_ENABLE                            ;
+            rd_addr_o           = inst_j_type.rd                            ;
+            rd_data_o           = inst_add_i + `PC_STEP                     ;
+            jump_en_o           = `JUMP_ENABLE                              ;
+            jump_addr_o         = (alu_op1 + alu_op2) & `BIT0_CLEAR_MASK    ;
         end
         I_LOAD : begin
-            
+            wr_rd_en_o          = `REG_WR_ENABLE                            ;
+            rd_addr_o           = inst_i_type.rd                            ;
+            rd_data_o           = `RST_REG_VALUE                            ;
+            rd_ram_en_mode_o    = `RAM_WR_DISABLE                           ;
+            ram_addr_o          = alu_op1 + alu_op2                         ;
+            unique case (inst_i_type.funct3)
+                I_TYPE_000 : begin                      // LB 
+                    rd_ram_en_mode_o = `RAM_RD_EN_LB      ;
+                end
+                I_TYPE_001 : begin                      // LH 
+                    rd_ram_en_mode_o = `RAM_RD_EN_LH      ;
+                end
+                I_TYPE_010 : begin                      // LW 
+                    rd_ram_en_mode_o = `RAM_RD_EN_LW      ;
+                end
+                I_TYPE_100 : begin                      // LBU 
+                    rd_ram_en_mode_o = `RAM_RD_EN_LBU     ;
+                end
+                I_TYPE_101 : begin                      // LHU 
+                    rd_ram_en_mode_o = `RAM_RD_EN_LHU     ;
+                end
+                default : begin
+                end
+            endcase
         end
         I_ARI_LOG : begin
-            wr_rd_en_o      = `WR_ENABLE                ;
+            wr_rd_en_o      = `REG_WR_ENABLE                ;
             rd_addr_o       = inst_i_type.rd            ;
             rd_data_o       = `RST_REG_VALUE            ;
             unique case (inst_i_type.funct3) 

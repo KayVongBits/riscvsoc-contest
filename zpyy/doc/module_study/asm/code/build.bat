@@ -4,7 +4,7 @@ setlocal
 REM ==========================================
 REM 1. 配置区：在这里修改你的汇编文件名（不加后缀）
 REM ==========================================
-set FILE_NAME=demo1
+set FILE_NAME=test_s
 
 echo === RISC-V 编译与格式转换工具 ===
 echo 正在处理: %FILE_NAME%.S

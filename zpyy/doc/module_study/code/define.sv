@@ -3,13 +3,13 @@
 `define DATA_WIDTH          32
 `define PC_INIT_ADDR        32'h0000_0000 
 `define PC_STEP             32'h4
-`define FILE                "F:/work/jingyeda/jingyeda/zpyy/doc/module_study/asm/txt/demo1_sim.txt"
+//`define FILE                "F:/work/jingyeda/jingyeda/zpyy/doc/module_study/asm/txt/test_s.txt"
+`define FILE                    "F:/work/jingyeda/jingyeda/zpyy/doc/module_study/test/txt/rv32ui-p-add.txt"
 `define INST_NOP            32'h0000_0013
 `define BYTE_WIDTH          8
 `define HW_WIDTH            16
 `define WORD_WIDTH          32
 `define BYTE_PER_WORD       4
-
 
 
 // reg
@@ -20,6 +20,10 @@
 `define ZERO_REG            5'h00
 `define ZERO_VALUE          32'h0000_0000
 `define RST_IMM_VALUE       32'h0000_0000
+`define REG_WR_ENABLE       1'b1
+`define REG_WR_DISABLE      1'b0
+`define REG_RD_ENABLE       1'b1
+`define REG_RD_DISABLE      1'b0
 
 // ROM
 `define ROM_SIZE            4096
@@ -27,6 +31,7 @@
 // RAM
 `define RAM_SIZE            4096
 `define RAM_RST_DATA        32'h0000_0000
+`define RAM_RST_ADD         32'h0000_0000
 `define RAM_INIT_FILE       "F:/work/jingyeda/jingyeda/zpyy/doc/module_study/test/txt/RAM_CLEAR.txt"
 `define RAM_WR_B_1          4'b0001
 `define RAM_WR_B_2          4'b0010
@@ -37,8 +42,13 @@
 `define RAM_WR_W            4'b1111
 `define RAM_WR_DISABLE      4'b0000
 `define RAM_WR_RST_DATA     32'h0000_0000
-`define RAM_WR_RST_ADD      32'h0000_0000
-
+`define RAM_RD_MODE_LEN     3
+`define RAM_RD_DISABLE      3'd0
+`define RAM_RD_EN_LB        3'd1
+`define RAM_RD_EN_LH        3'd2
+`define RAM_RD_EN_LW        3'd3
+`define RAM_RD_EN_LBU       3'd4
+`define RAM_RD_EN_LHU       3'd5
 
 // ecall en
 `define ECALL_ENABLE        1'b1
