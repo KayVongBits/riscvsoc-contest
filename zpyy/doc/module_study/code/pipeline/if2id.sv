@@ -1,4 +1,4 @@
-`include "define.sv"
+`include "../define/define.sv"
 
 module if2id (
     // sys

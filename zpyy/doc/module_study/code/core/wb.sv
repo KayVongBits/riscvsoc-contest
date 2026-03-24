@@ -1,4 +1,4 @@
-`include "define.sv"
+`include "../define/define.sv"
 
 module wb(
     input   logic                           wr_rd_en_i          ,

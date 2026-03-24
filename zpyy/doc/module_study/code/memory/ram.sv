@@ -1,4 +1,4 @@
-`include "define.sv"
+`include "../define/define.sv"
 
 module ram(
     input   logic                           clk             ,
@@ -12,7 +12,7 @@ module ram(
     output  logic  [`DATA_WIDTH-1:0]        rd_data_o                // read data
 );
 
-logic   [`DATA_WIDTH-1:0]   ram_data    [0:`RAM_SIZE-1] ;
+(* ram_style = "block" *)logic   [`DATA_WIDTH-1:0]   ram_data    [0:`RAM_SIZE-1] ;
 logic   [`ADD_WIDTH-3:0]    word_idx                    ;
 logic                       we                          ;
 

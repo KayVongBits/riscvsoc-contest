@@ -1,3 +1,5 @@
+`include "define.sv"
+
 package rv32i_pkg;
 
 /*----------------------------------------------
@@ -83,6 +85,26 @@ typedef enum logic [2:0] {
     B_TYPE_BLTU     = 3'b110        ,   // BLTU
     B_TYPE_BGEU     = 3'b111            // BGEU
 } Inst_B_Type_Funct3_e ;
+
+typedef enum logic [3:0] {
+    RAM_WR_B_1      = 4'b0001       ,
+    RAM_WR_B_2      = 4'b0010       ,
+    RAM_WR_B_3      = 4'b0100       ,
+    RAM_WR_B_4      = 4'b1000       ,
+    RAM_WR_HW_1     = 4'b0011       ,
+    RAM_WR_HW_2     = 4'b1100       ,
+    RAM_WR_W        = 4'b1111       ,
+    RAM_WR_DISABLE  = 4'b0000
+} Ram_Wr_Mask_e ;
+
+typedef enum logic [2:0] {
+    RAM_RD_DISABLE  = 3'b000        ,
+    RAM_RD_EN_LB    = 3'b001        ,
+    RAM_RD_EN_LH    = 3'b010        ,
+    RAM_RD_EN_LW    = 3'b011        ,
+    RAM_RD_EN_LBU   = 3'b100        ,
+    RAM_RD_EN_LHU   = 3'b101            
+} Ram_Rd_Mode_e ;
 /*----------------------------------------------
     二、结构体定义，用于表示指令信息
 ----------------------------------------------*/
@@ -142,9 +164,55 @@ typedef struct packed {
     logic       [31:7]  inst    ;
     Opcode_e            opcode ;
 } Inst_s ;
-/*----------------------------------------------
-    三、参数定义，用于表示指令信息
-----------------------------------------------*/
-localparam logic [4:0] REG_ZERO = 5'b00000 ; // x0寄存器地址，始终为0
+
+// 控制信号结构体，用于控制指令的执行
+// ex ctrl
+typedef struct packed {
+    logic                   alu_src1_sel  ;
+    logic                   alu_src2_sel  ;
+} Ex_Ctrl_s ;   
+
+// mem ctrl
+typedef struct packed {
+    logic                   ram_wr_en     ;
+    logic                   ram_rd_en     ;
+    Ram_Wr_Mask_e           ram_wr_mask   ;
+    Ram_Rd_Mode_e           ram_rd_mode   ;
+} Mem_Ctrl_s ;   
+
+// wb ctrl
+typedef struct packed {
+    logic                   reg_wr_en     ;
+} Wb_Ctrl_s ;
+
+// id2ex
+typedef struct packed {
+    Ex_Ctrl_s                           ex_ctrl     ;
+    Mem_Ctrl_s                          mem_ctrl    ;
+    Wb_Ctrl_s                           wb_ctrl     ;
+    logic       [`ADD_WIDTH-1:0]        inst_addr   ;
+    logic       [`DATA_WIDTH-1:0]       inst        ;
+    logic       [`DATA_WIDTH-1:0]       imm         ;
+    logic       [`DATA_WIDTH-1:0]       rs1_data    ;
+    logic       [`DATA_WIDTH-1:0]       rs2_data    ;
+    logic       [`REG_ADDR_WIDTH-1:0]   rd_addr     ;
+} Id2Ex_Bus_s ;
+
+// ex2mem
+typedef struct packed {
+    Mem_Ctrl_s                          mem_ctrl    ;
+    Wb_Ctrl_s                           wb_ctrl     ;
+    logic       [`DATA_WIDTH-1:0]       alu_res     ;
+    logic       [`DATA_WIDTH-1:0]       rs2_data    ;
+    logic       [`REG_ADDR_WIDTH-1:0]   rd_addr     ;
+} Ex2Mem_Bus_s ;
+
+// mem2wb
+typedef struct packed {
+    Wb_Ctrl_s                           wb_ctrl     ;
+    logic       [`DATA_WIDTH-1:0]       alu_res     ;
+    logic       [`REG_ADDR_WIDTH-1:0]   rd_addr     ;
+} Mem2Wb_Bus_s ;
+
 
 endpackage

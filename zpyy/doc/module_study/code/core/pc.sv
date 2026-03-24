@@ -1,4 +1,4 @@
-`include "define.sv"
+`include "../define/define.sv"
 
 module pc(
     input   logic                           clk         ,
@@ -7,7 +7,8 @@ module pc(
     input   logic                           jump_en_i   ,
     input   logic       [`ADD_WIDTH-1:0]    jump_addr_i ,
 
-    output  logic       [`ADD_WIDTH-1:0]    pc_o
+    output  logic       [`ADD_WIDTH-1:0]    pc_o        ,
+    output  logic       [`ADD_WIDTH-1:0]    inst_o    
 );
 
 // logic define
@@ -25,9 +26,9 @@ end : pc_update_seq
 
 always_ff @(posedge clk or posedge rst) begin : current_pc_seq
     if (rst) begin
-        current_pc <= `PC_INIT_ADDR ;
+        inst_o <= `PC_INIT_ADDR ;
     end else begin
-        current_pc <= pc_o          ;
+        inst_o <= pc_o          ;
     end
 end : current_pc_seq
 

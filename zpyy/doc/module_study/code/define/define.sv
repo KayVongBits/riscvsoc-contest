@@ -33,22 +33,10 @@
 `define RAM_RST_DATA        32'h0000_0000
 `define RAM_RST_ADD         32'h0000_0000
 `define RAM_INIT_FILE       "F:/work/jingyeda/jingyeda/zpyy/doc/module_study/test/txt/RAM_CLEAR.txt"
-`define RAM_WR_B_1          4'b0001
-`define RAM_WR_B_2          4'b0010
-`define RAM_WR_B_3          4'b0100
-`define RAM_WR_B_4          4'b1000
-`define RAM_WR_HW_1         4'b0011
-`define RAM_WR_HW_2         4'b1100
-`define RAM_WR_W            4'b1111
-`define RAM_WR_DISABLE      4'b0000
-`define RAM_WR_RST_DATA     32'h0000_0000
-`define RAM_RD_MODE_LEN     3
-`define RAM_RD_DISABLE      3'd0
-`define RAM_RD_EN_LB        3'd1
-`define RAM_RD_EN_LH        3'd2
-`define RAM_RD_EN_LW        3'd3
-`define RAM_RD_EN_LBU       3'd4
-`define RAM_RD_EN_LHU       3'd5
+`define RAM_WR_ENABLE       1'b1
+`define RAM_WR_DISABLE      1'b0
+`define RAM_RD_ENABLE       1'b1
+`define RAM_RD_DISABLE      1'b0
 
 // ecall en
 `define ECALL_ENABLE        1'b1

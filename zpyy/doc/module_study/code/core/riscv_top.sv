@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-`include "define.sv"
+`include "../define/define.sv"
 
 module riscv_top (
     input   logic                       clk         ,
@@ -13,6 +13,7 @@ logic                           if_jump_en_i            ;
 logic [`ADD_WIDTH-1:0]          if_jump_addr_i          ;
 (*mark_debug = "true"*)logic [`ADD_WIDTH-1:0]          if_pc_o             ;
 (*mark_debug = "true"*)logic [`DATA_WIDTH-1:0]         if_inst_o           ;
+logic [`ADD_WIDTH-1:0]          if_inst_add_o           ;
 
 // id   
 logic [`ADD_WIDTH-1:0]          id_inst_add_i           ;
@@ -83,7 +84,8 @@ assign led_mode = {u_regs.regs[26][0], u_regs.regs[27][0]};
     .rst         	(rst                )   ,
     .jump_en_i   	(ex_jump_en_o       )   ,
     .jump_addr_i 	(ex_jump_addr_o     )   ,
-    .pc_o        	(if_pc_o            )
+    .pc_o        	(if_pc_o            )   ,
+    .inst_o         (if_inst_add_o)
 );
 
 (* dont_touch = "true" *)rom u_rom (
@@ -105,7 +107,7 @@ assign led_mode = {u_regs.regs[26][0], u_regs.regs[27][0]};
     .clk        	(clk                )   ,
     .rst        	(rst                )   ,
     .flush_if2id_i  (ctrl_flush_if2id   )   ,
-    .inst_add_i 	(if_pc_o            )   ,
+    .inst_add_i 	(if_inst_add_o      )   ,
     .inst_i     	(if_inst_o          )   ,
     .inst_add_o 	(id_inst_add_i      )   ,
     .inst_o     	(id_inst_i          )
@@ -201,10 +203,10 @@ assign ram_rd_en_i = |mem_rd_ram_en_mode_i       ;
 ram u_ram(
     .clk                (clk                    )   ,
     .addr_i             (mem_ram_addr_i         )   ,
-    .wr_en_mask_i       (mem_wr_ram_en_mask_i   )   ,        // write enable mask, 1 means write, 0 means don't write
-    .wr_data_i          (mem_wr_ram_data_i      )   ,        // write data
-    .rd_en_i            (ram_rd_en_i            )   ,        // read enable
-    .rd_data_o          (ram_rd_data_o          )           // read data
+    .wr_en_mask_i       (mem_wr_ram_en_mask_i   )   ,           // write enable mask, 1 means write, 0 means don't write
+    .wr_data_i          (mem_wr_ram_data_i      )   ,           // write data
+    .rd_en_i            (ram_rd_en_i            )   ,           // read enable
+    .rd_data_o          (ram_rd_data_o          )               // read data
 );
 
 mem2wb u_mem2wb(
