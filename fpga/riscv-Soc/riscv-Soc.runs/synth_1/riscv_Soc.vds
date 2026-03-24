@@ -1,0 +1,635 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Fri Mar 20 14:47:49 2026
+# Process ID: 19428
+# Current directory: F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.runs/synth_1
+# Command line: vivado.exe -log riscv_Soc.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source riscv_Soc.tcl
+# Log file: F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.runs/synth_1/riscv_Soc.vds
+# Journal file: F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source riscv_Soc.tcl -notrace
+Command: synth_design -top riscv_Soc -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 22348 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 467.848 ; gain = 94.285
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'riscv_Soc' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:2]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-5534] Detected attribute (* mark_debug = "true" *) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:18]
+INFO: [Synth 8-5534] Detected attribute (* mark_debug = "true" *) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:19]
+INFO: [Synth 8-5534] Detected attribute (* mark_debug = "true" *) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:20]
+INFO: [Synth 8-5534] Detected attribute (* mark_debug = "true" *) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:21]
+INFO: [Synth 8-6157] synthesizing module 'clk_pll' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.runs/synth_1/.Xil/Vivado-19428-kayvong/realtime/clk_pll_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'clk_pll' (1#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.runs/synth_1/.Xil/Vivado-19428-kayvong/realtime/clk_pll_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'led_top' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/led_top.sv:21]
+INFO: [Synth 8-6157] synthesizing module 'blink_led' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/blink_led.sv:22]
+	Parameter CLK_FRQ bound to: 100000000 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'blink_led' (2#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/blink_led.sv:22]
+INFO: [Synth 8-6157] synthesizing module 'breath_led' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/breath_led.sv:21]
+	Parameter TOTAL_PWM_NUM bound to: 1000 - type: integer 
+	Parameter SINGLE_PWM_NUM bound to: 1000 - type: integer 
+	Parameter CELL_NUM bound to: 100 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'breath_led' (3#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/breath_led.sv:21]
+INFO: [Synth 8-6157] synthesizing module 'flow_led' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/flow_led.sv:22]
+	Parameter CLK_FRQ bound to: 100000000 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flow_led' (4#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/flow_led.sv:22]
+INFO: [Synth 8-6157] synthesizing module 'cfg_led' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/cfg_led.sv:21]
+INFO: [Synth 8-6155] done synthesizing module 'cfg_led' (5#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/cfg_led.sv:21]
+INFO: [Synth 8-6155] done synthesizing module 'led_top' (6#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/led/led_top.sv:21]
+INFO: [Synth 8-6157] synthesizing module 'key_top' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/key/key_top.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'debounce' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/key/debounce.sv:20]
+	Parameter CNT_20MS bound to: 2000000 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'debounce' (7#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/key/debounce.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'key_trig' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/key/key_trig.sv:20]
+INFO: [Synth 8-6155] done synthesizing module 'key_trig' (8#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/key/key_trig.sv:20]
+INFO: [Synth 8-6155] done synthesizing module 'key_top' (9#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/key/key_top.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'riscv_core' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/riscv_core.sv:3]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'pc_counter' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/pc_counter.sv:3]
+	Parameter AW bound to: 32 - type: integer 
+WARNING: [Synth 8-6014] Unused sequential element current_addr_reg was removed.  [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/pc_counter.sv:27]
+INFO: [Synth 8-6155] done synthesizing module 'pc_counter' (10#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/pc_counter.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'rom' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/rom.sv:2]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-3876] $readmem data file 'rv32ui-p-bne.dat' is read successfully [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/rom.sv:19]
+INFO: [Synth 8-6155] done synthesizing module 'rom' (11#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/rom.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'if2id' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/if2id.sv:3]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'if2id' (12#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/if2id.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'decode' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/decode.sv:3]
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-226] default block is never used [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/decode.sv:66]
+WARNING: [Synth 8-151] case item 3'b000 is unreachable [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/decode.sv:124]
+INFO: [Synth 8-226] default block is never used [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/decode.sv:124]
+INFO: [Synth 8-6155] done synthesizing module 'decode' (13#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/decode.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'register' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/register.sv:3]
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'register' (14#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/register.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'id2ex' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/id2ex.sv:3]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'id2ex' (15#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/id2ex.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'execute' [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/execute.sv:2]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter DW bound to: 32 - type: integer 
+INFO: [Synth 8-226] default block is never used [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/execute.sv:43]
+INFO: [Synth 8-226] default block is never used [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/execute.sv:128]
+INFO: [Synth 8-6155] done synthesizing module 'execute' (16#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/execute.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_core' (17#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/core/riscv_core.sv:3]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_key_top'. This will prevent further optimization [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:43]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_riscv_core'. This will prevent further optimization [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:59]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'u_led_top'. This will prevent further optimization [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:36]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_Soc' (18#1) [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/rtl/riscv_Soc.sv:2]
+WARNING: [Synth 8-3331] design execute has unconnected port clk
+WARNING: [Synth 8-3331] design execute has unconnected port rst_n
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[24]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[23]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[22]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[21]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[20]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[19]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[18]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[17]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[16]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[15]
+WARNING: [Synth 8-3331] design rom has unconnected port instr_addr[1]
+WARNING: [Synth 8-3331] design rom has unconnected port instr_addr[0]
+WARNING: [Synth 8-3331] design rom has unconnected port clk
+WARNING: [Synth 8-3331] design rom has unconnected port rst_n
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 524.492 ; gain = 150.930
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 524.492 ; gain = 150.930
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 524.492 ; gain = 150.930
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [f:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.srcs/sources_1/ip/clk_pll/clk_pll/clk_pll_in_context.xdc] for cell 'u_clk_pll'
+Finished Parsing XDC File [f:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.srcs/sources_1/ip/clk_pll/clk_pll/clk_pll_in_context.xdc] for cell 'u_clk_pll'
+Parsing XDC File [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.srcs/constrs_1/new/riscv_soc.xdc]
+Finished Parsing XDC File [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.srcs/constrs_1/new/riscv_soc.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.srcs/constrs_1/new/riscv_soc.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/riscv_Soc_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/riscv_Soc_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 902.883 ; gain = 0.000
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 902.883 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 902.883 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 902.883 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 902.883 ; gain = 529.320
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 902.883 ; gain = 529.320
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for soc_clk_in. (constraint file  f:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.srcs/sources_1/ip/clk_pll/clk_pll/clk_pll_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for soc_clk_in. (constraint file  f:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.srcs/sources_1/ip/clk_pll/clk_pll/clk_pll_in_context.xdc, line 4).
+Applied set_property DONT_TOUCH = true for u_clk_pll. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 902.883 ; gain = 529.320
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5545] ROM "cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "led" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "led" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "key_out" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "rom_mem" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[31]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[30]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "wr_reg_en" is below threshold of ROM address width. It will be mapped to LUTs
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 902.883 ; gain = 529.320
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 7     
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 41    
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                1 Bit    Registers := 7     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 22    
+	 186 Input     32 Bit        Muxes := 1     
+	   7 Input     32 Bit        Muxes := 2     
+	   3 Input     32 Bit        Muxes := 1     
+	   6 Input     32 Bit        Muxes := 2     
+	   9 Input     32 Bit        Muxes := 1     
+	   7 Input      5 Bit        Muxes := 2     
+	   3 Input      5 Bit        Muxes := 1     
+	   9 Input      5 Bit        Muxes := 2     
+	   2 Input      4 Bit        Muxes := 1     
+	   9 Input      3 Bit        Muxes := 2     
+	   9 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 36    
+	   9 Input      1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module blink_led 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module breath_led 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module flow_led 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module cfg_led 
+Detailed RTL Component Info : 
++---Registers : 
+	                4 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 1     
+Module debounce 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 1     
+Module key_trig 
+Detailed RTL Component Info : 
++---Registers : 
+	                5 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
+Module rom 
+Detailed RTL Component Info : 
++---Muxes : 
+	 186 Input     32 Bit        Muxes := 1     
+Module if2id 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+Module decode 
+Detailed RTL Component Info : 
++---Muxes : 
+	   7 Input     32 Bit        Muxes := 2     
+	   3 Input     32 Bit        Muxes := 1     
+	   6 Input     32 Bit        Muxes := 1     
+	   7 Input      5 Bit        Muxes := 2     
+	   3 Input      5 Bit        Muxes := 1     
+	   9 Input      5 Bit        Muxes := 1     
+	   9 Input      3 Bit        Muxes := 1     
+	   9 Input      2 Bit        Muxes := 2     
+Module register 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 32    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 32    
+Module id2ex 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 4     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 4     
+Module execute 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 4     
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Muxes : 
+	   6 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 6     
+	   9 Input     32 Bit        Muxes := 1     
+	   9 Input      5 Bit        Muxes := 1     
+	   9 Input      3 Bit        Muxes := 1     
+	   9 Input      1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+INFO: [Synth 8-5545] ROM "u_blink_led_inst/cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "u_blink_led_inst/led" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "u_flow_led_inst/cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "u_flow_led_inst/led" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "u_debounce_inst/cnt" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "u_debounce_inst/key_out" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "regs_reg[31]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[30]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "regs_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5587] ROM size for "wr_reg_en" is below threshold of ROM address width. It will be mapped to LUTs
+WARNING: [Synth 8-3331] design execute has unconnected port clk
+WARNING: [Synth 8-3331] design execute has unconnected port rst_n
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[24]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[23]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[22]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[21]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[20]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[19]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[18]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[17]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[16]
+WARNING: [Synth 8-3331] design execute has unconnected port instr_in[15]
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[30]' (FDC) to 'u_riscv_core/u_if2id/instr_out_reg[31]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[18]' (FDC) to 'u_riscv_core/u_if2id/instr_out_reg[19]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[19]' (FDC) to 'u_riscv_core/u_if2id/instr_out_reg[16]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[16]' (FDC) to 'u_riscv_core/u_if2id/instr_out_reg[14]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[13]' (FDC) to 'u_riscv_core/u_if2id/instr_out_reg[14]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/\u_if2id/instr_out_reg[14] )
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[1]' (FDP) to 'u_riscv_core/u_if2id/instr_out_reg[0]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_riscv_core/\u_if2id/instr_out_reg[0] )
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[3]' (FDC) to 'u_riscv_core/u_if2id/instr_out_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_if2id/instr_out_reg[5]' (FDC) to 'u_riscv_core/u_if2id/instr_out_reg[6]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_id2ex/instr_out_reg[30]' (FDC) to 'u_riscv_core/u_id2ex/instr_out_reg[31]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_id2ex/instr_out_reg[3]' (FDC) to 'u_riscv_core/u_id2ex/instr_out_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_riscv_core/u_id2ex/instr_out_reg[5]' (FDC) to 'u_riscv_core/u_id2ex/instr_out_reg[6]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][16] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][17] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][18] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][19] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][20] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][21] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][22] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][23] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][24] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][25] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][26] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][27] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][28] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][29] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][30] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_riscv_core/u_register/\regs_reg[0][31] )
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:18 . Memory (MB): peak = 902.883 ; gain = 529.320
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5578] Moved timing constraint from pin 'u_clk_pll/clk_out1' to pin 'u_clk_pll/bbstub_clk_out1/O'
+INFO: [Synth 8-5819] Moved 1 constraints on hierarchical pins to their respective driving/loading pins
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:23 . Memory (MB): peak = 902.883 ; gain = 529.320
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:25 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:22 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_pll       |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |clk_pll |     1|
+|2     |CARRY4  |    81|
+|3     |LUT1    |     7|
+|4     |LUT2    |   238|
+|5     |LUT3    |     9|
+|6     |LUT4    |    81|
+|7     |LUT5    |   204|
+|8     |LUT6    |   613|
+|9     |MUXF7   |   146|
+|10    |MUXF8   |    28|
+|11    |FDCE    |  1346|
+|12    |FDPE    |     6|
+|13    |IBUF    |     2|
+|14    |OBUF    |     4|
++------+--------+------+
+
+Report Instance Areas: 
++------+----------------------+-----------+------+
+|      |Instance              |Module     |Cells |
++------+----------------------+-----------+------+
+|1     |top                   |           |  2767|
+|2     |  u_led_top           |led_top    |   329|
+|3     |    u_blink_led_inst  |blink_led  |    82|
+|4     |    u_breath_led_inst |breath_led |   150|
+|5     |    u_cfg_led_inst    |cfg_led    |     4|
+|6     |    u_flow_led_inst   |flow_led   |    93|
+|7     |  u_key_top           |key_top    |    93|
+|8     |    u_debounce_inst   |debounce   |    85|
+|9     |    u_key_trig_inst   |key_trig   |     8|
+|10    |  u_riscv_core        |riscv_core |  2336|
+|11    |    u_id2ex           |id2ex      |   496|
+|12    |    u_if2id           |if2id      |   195|
+|13    |    u_pc_counter      |pc_counter |   190|
+|14    |    u_register        |register   |  1455|
++------+----------------------+-----------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 12 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:21 . Memory (MB): peak = 943.574 ; gain = 191.621
+Synthesis Optimization Complete : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 943.574 ; gain = 570.012
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 255 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 943.574 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+186 Infos, 30 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 943.574 ; gain = 581.523
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 943.574 ; gain = 0.000
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'F:/repositories-self/riscvsoc-contest/fpga/riscv-Soc/riscv-Soc.runs/synth_1/riscv_Soc.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file riscv_Soc_utilization_synth.rpt -pb riscv_Soc_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Mar 20 14:48:23 2026...

@@ -12,7 +12,7 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim -onfinish stop -voptargs="+acc" -do "log -r /*; run -all" riscv_top_tb 
-# Start time: 18:37:54 on Mar 15,2026
+# Start time: 17:43:29 on Mar 22,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # Loading sv_std.std
 # Loading work.riscv_top_tb(fast)
@@ -27,56 +27,43 @@
 # log -r /*
 #  run -all
 # [TRACE] Time:        5 | gp(x3) changed to -> 0 (0x0)
-# [TRACE] Time:     1095 | gp(x3) changed to -> 2 (0x2)
-# [TRACE] Time:     1155 | gp(x3) changed to -> 3 (0x3)
-# [TRACE] Time:     1215 | gp(x3) changed to -> 4 (0x4)
-# [TRACE] Time:     1275 | gp(x3) changed to -> 5 (0x5)
-# [TRACE] Time:     1335 | gp(x3) changed to -> 6 (0x6)
-# [TRACE] Time:     1395 | gp(x3) changed to -> 7 (0x7)
-# [TRACE] Time:     1455 | gp(x3) changed to -> 8 (0x8)
-# [TRACE] Time:     1525 | gp(x3) changed to -> 9 (0x9)
-# [TRACE] Time:     1595 | gp(x3) changed to -> 10 (0xa)
-# [TRACE] Time:     1675 | gp(x3) changed to -> 11 (0xb)
-# [TRACE] Time:     1745 | gp(x3) changed to -> 12 (0xc)
-# [TRACE] Time:     1815 | gp(x3) changed to -> 13 (0xd)
-# [TRACE] Time:     1875 | gp(x3) changed to -> 14 (0xe)
-# [TRACE] Time:     1935 | gp(x3) changed to -> 15 (0xf)
-# [TRACE] Time:     1995 | gp(x3) changed to -> 16 (0x10)
-# [TRACE] Time:     2055 | gp(x3) changed to -> 17 (0x11)
-# [TRACE] Time:     2115 | gp(x3) changed to -> 18 (0x12)
-# [TRACE] Time:     2165 | gp(x3) changed to -> 19 (0x13)
-# [TRACE] Time:     2365 | gp(x3) changed to -> 20 (0x14)
-# [TRACE] Time:     2585 | gp(x3) changed to -> 21 (0x15)
-# [TRACE] Time:     2825 | gp(x3) changed to -> 22 (0x16)
-# [TRACE] Time:     3005 | gp(x3) changed to -> 23 (0x17)
-# [TRACE] Time:     3205 | gp(x3) changed to -> 24 (0x18)
-# [TRACE] Time:     3425 | gp(x3) changed to -> 25 (0x19)
-# [TRACE] Time:     3625 | gp(x3) changed to -> 26 (0x1a)
-# [TRACE] Time:     3845 | gp(x3) changed to -> 27 (0x1b)
-# [TRACE] Time:     4065 | gp(x3) changed to -> 28 (0x1c)
-# [TRACE] Time:     4245 | gp(x3) changed to -> 29 (0x1d)
-# [TRACE] Time:     4445 | gp(x3) changed to -> 30 (0x1e)
-# [TRACE] Time:     4665 | gp(x3) changed to -> 31 (0x1f)
-# [TRACE] Time:     4865 | gp(x3) changed to -> 32 (0x20)
-# [TRACE] Time:     5085 | gp(x3) changed to -> 33 (0x21)
-# [TRACE] Time:     5305 | gp(x3) changed to -> 34 (0x22)
-# [TRACE] Time:     5355 | gp(x3) changed to -> 35 (0x23)
-# [TRACE] Time:     5405 | gp(x3) changed to -> 36 (0x24)
-# [TRACE] Time:     5445 | gp(x3) changed to -> 37 (0x25)
-# [TRACE] Time:     5505 | gp(x3) changed to -> 38 (0x26)
+# [TRACE] Time:     1085 | gp(x3) changed to -> 2 (0x2)
+# [TRACE] Time:     1135 | gp(x3) changed to -> 3 (0x3)
+# [TRACE] Time:     1185 | gp(x3) changed to -> 4 (0x4)
+# [TRACE] Time:     1235 | gp(x3) changed to -> 5 (0x5)
+# [TRACE] Time:     1285 | gp(x3) changed to -> 6 (0x6)
+# [TRACE] Time:     1345 | gp(x3) changed to -> 7 (0x7)
+# [TRACE] Time:     1395 | gp(x3) changed to -> 8 (0x8)
+# [TRACE] Time:     1465 | gp(x3) changed to -> 9 (0x9)
+# [TRACE] Time:     1535 | gp(x3) changed to -> 10 (0xa)
+# [TRACE] Time:     1595 | gp(x3) changed to -> 11 (0xb)
+# [TRACE] Time:     1665 | gp(x3) changed to -> 12 (0xc)
+# [TRACE] Time:     1715 | gp(x3) changed to -> 13 (0xd)
+# [TRACE] Time:     1765 | gp(x3) changed to -> 14 (0xe)
+# [TRACE] Time:     1815 | gp(x3) changed to -> 15 (0xf)
+# [TRACE] Time:     1875 | gp(x3) changed to -> 16 (0x10)
+# [TRACE] Time:     1925 | gp(x3) changed to -> 17 (0x11)
+# [TRACE] Time:     2105 | gp(x3) changed to -> 18 (0x12)
+# [TRACE] Time:     2305 | gp(x3) changed to -> 19 (0x13)
+# [TRACE] Time:     2525 | gp(x3) changed to -> 20 (0x14)
+# [TRACE] Time:     2685 | gp(x3) changed to -> 21 (0x15)
+# [TRACE] Time:     2865 | gp(x3) changed to -> 22 (0x16)
+# [TRACE] Time:     3065 | gp(x3) changed to -> 23 (0x17)
+# [TRACE] Time:     3105 | gp(x3) changed to -> 24 (0x18)
+# [TRACE] Time:     3155 | gp(x3) changed to -> 25 (0x19)
 # 
 # =======================================================
 #   [V]  [SUCCESS] TEST PERFECTLY PASSED! 
-#   >>>  File: rv32ui-p-sltu.txt
+#   >>>  File: rv32ui-p-addi.txt
 # =======================================================
 #   [ Register Final State Dump ]
 #   x 0 : 32'h00000000  |            0
-#   x 1 : 32'h00000010  |           16
-#   x 2 : 32'h0000001e  |           30
-#   x 3 : 32'h00000026  |           38
+#   x 1 : 32'h00000021  |           33
+#   x 2 : 32'h00000000  |            0
+#   x 3 : 32'h00000019  |           25
 #   x 4 : 32'h00000002  |            2
 #   x 5 : 32'h00000002  |            2
-#   x 6 : 32'h00000001  |            1
+#   x 6 : 32'h00000016  |           22
 #   x 7 : 32'h00000000  |            0
 #   x 8 : 32'h00000000  |            0
 #   x 9 : 32'h00000000  |            0
@@ -100,12 +87,12 @@
 #   x27 : 32'h00000001  |            1
 #   x28 : 32'h00000000  |            0
 #   x29 : 32'h00000000  |            0
-#   x30 : 32'h00000001  |            1
+#   x30 : 32'h00000016  |           22
 #   x31 : 32'h00000000  |            0
 # =======================================================
 # 
 # ** Note: $finish    : ../tb/riscv_top_tb.sv(143)
-#    Time: 5655 ns  Iteration: 1  Instance: /riscv_top_tb
+#    Time: 3305 ns  Iteration: 1  Instance: /riscv_top_tb
 # Break in Module riscv_top_tb at ../tb/riscv_top_tb.sv line 143
-# End time: 18:38:00 on Mar 15,2026, Elapsed time: 0:00:06
+# End time: 17:47:19 on Mar 22,2026, Elapsed time: 0:03:50
 # Errors: 0, Warnings: 0

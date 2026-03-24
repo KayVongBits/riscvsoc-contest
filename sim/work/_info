@@ -7,19 +7,19 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dF:/mygithub/riscvsoc-contest/sim
+Z0 dF:/repositories-self/riscvsoc-contest/sim
 T_opt
-!s110 1773571074
-VI?Vf5Y;SANDaFcB4BNImo0
+!s110 1774172610
+Vnj2Y24[[_jKdiZJ2_mXWH2
 04 12 4 work riscv_top_tb fast 0
-=1-644ed70b6e41-69b68c02-23c-5d90
+=1-644ed70b6e41-69bfb9c1-3b2-ae4
 o-quiet -auto_acc_if_foreign -work work +acc
 Z1 tCvgOpt 0
 n@_opt
 OL;O;10.6d;65
 vdecode
 Z2 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z3 !s110 1773571070
+Z3 !s110 1774172605
 !i10b 1
 !s100 i`PL3L5VmLN_mDlSl:T8T0
 IidZ[TeY@V8z6i0^Ii4?U?3
@@ -27,7 +27,7 @@ Z4 VDg1SIo80bB@j0V0VzS_@n1
 !s105 decode_sv_unit
 S1
 R0
-w1773570835
+w1773571279
 8../rtl/decode.sv
 F../rtl/decode.sv
 L0 3
@@ -35,9 +35,9 @@ Z5 OL;L;10.6d;65
 r1
 !s85 0
 31
-Z6 !s108 1773571070.000000
-Z7 !s107 ./../rtl/defines.sv|..\rtl\defines.sv|../tb/riscv_top_tb.sv|../rtl/rom.sv|../rtl/riscv_top.sv|../rtl/register.sv|../rtl/pc_counter.sv|../rtl/if2id.sv|../rtl/id2ex.sv|../rtl/execute.sv|../rtl/defines.sv|../rtl/decode.sv|
-Z8 !s90 -sv|../rtl/decode.sv|../rtl/defines.sv|../rtl/execute.sv|../rtl/id2ex.sv|../rtl/if2id.sv|../rtl/pc_counter.sv|../rtl/register.sv|../rtl/riscv_top.sv|../rtl/rom.sv|../tb/riscv_top_tb.sv|
+Z6 !s108 1774172605.000000
+Z7 !s107 ./../rtl/defines.sv|..\rtl\defines.sv|../tb/riscv_top_tb.sv|../rtl/rom.sv|../rtl/riscv_top.sv|../rtl/register.sv|../rtl/ram.sv|../rtl/pc_counter.sv|../rtl/if2id.sv|../rtl/id2ex.sv|../rtl/execute.sv|../rtl/defines.sv|../rtl/decode.sv|
+Z8 !s90 -sv|../rtl/decode.sv|../rtl/defines.sv|../rtl/execute.sv|../rtl/id2ex.sv|../rtl/if2id.sv|../rtl/pc_counter.sv|../rtl/ram.sv|../rtl/register.sv|../rtl/riscv_top.sv|../rtl/rom.sv|../tb/riscv_top_tb.sv|
 !i113 0
 Z9 o-sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R1
@@ -137,6 +137,30 @@ R8
 !i113 0
 R9
 R1
+vram
+R2
+R3
+!i10b 1
+!s100 ?GX18N_@fDOao7o76FGDQ2
+I5[NJjSKF9aO6?YO2m=F3m0
+R4
+!s105 ram_sv_unit
+S1
+R0
+w1774016538
+8../rtl/ram.sv
+F../rtl/ram.sv
+L0 3
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1
 vregister
 R2
 R3
@@ -165,8 +189,8 @@ vriscv_top
 R2
 R3
 !i10b 1
-!s100 [=Cgkj?M^gN70B:jizTZ52
-I1z5ELJEP>SQUSX@:EVo]20
+!s100 Y0Xz@28EIT?[T7R_=g2oG1
+IRQkMOnfMSNJ0<GkOA@[3C2
 R4
 !s105 riscv_top_sv_unit
 S1
@@ -189,8 +213,8 @@ vriscv_top_tb
 R2
 R3
 !i10b 1
-!s100 G<_?8[P23;m=e1LQh9bGe0
-I1bBiTn<lkl]C4Hn1F=nz>1
+!s100 U=U>UJ@l7Y`zW<8ldjTo30
+I?0^Jo8=jN3Y9jbgHOTAh>3
 R4
 !s105 riscv_top_tb_sv_unit
 S1
@@ -213,13 +237,13 @@ vrom
 R2
 R3
 !i10b 1
-!s100 ocUczm@bNioJl]4`H>;g43
-I2T6z?HlMQ3C[onZXkQPj;1
+!s100 Y0IOSYnUEc:DbgnlRI6Cb1
+IO^HH^YPEe?SIeG:=7z?QA0
 R4
 !s105 rom_sv_unit
 S1
 R0
-w1773473584
+w1773750111
 8../rtl/rom.sv
 F../rtl/rom.sv
 L0 2
