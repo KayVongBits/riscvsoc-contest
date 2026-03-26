@@ -42,6 +42,7 @@ assign static_rd_addr   = inst_s.inst[11:7]                ;
 // comb logic
 always_comb begin
     id2ex_bus_o                         = Id2Ex_Bus_s'(0)   ;
+    id2ex_bus_o.mem_ctrl.ram_rd_mode    = RAM_RD_DISABLE    ;
     id2ex_bus_o.inst_addr               = inst_addr_i       ;
     id2ex_bus_o.inst                    = inst_i            ;
     id2ex_bus_o.rd_addr                 = static_rd_addr    ;

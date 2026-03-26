@@ -31,7 +31,9 @@ end : pc_update_seq
 always_ff @(posedge clk or posedge rst) begin : current_pc_seq
     if (rst) begin
         inst_addr_o <= `PC_INIT_ADDR ;
-    end else begin
+    end else if (stall_pc_i)  begin
+        inst_addr_o <= inst_addr_o   ;
+    end begin
         inst_addr_o <= pc_o          ;
     end
 end : current_pc_seq

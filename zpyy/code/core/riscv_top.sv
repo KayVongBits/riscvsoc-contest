@@ -57,6 +57,7 @@ pc u_pc(
 rom u_rom(
     .clk            (clk                    )   ,
     .rst            (rst                    )   ,
+    .stall_i        (stall_pc               )   ,
     .inst_addr_i    (pc_o                   )   ,
     .inst_data_o    (if2id_bus_i.inst       )
 );

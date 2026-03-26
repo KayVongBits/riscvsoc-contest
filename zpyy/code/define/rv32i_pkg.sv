@@ -98,12 +98,12 @@ typedef enum logic [3:0] {
 } Ram_Wr_Mask_e ;
 
 typedef enum logic [2:0] {
-    RAM_RD_DISABLE  = 3'b000        ,
-    RAM_RD_EN_LB    = 3'b001        ,
-    RAM_RD_EN_LH    = 3'b010        ,
-    RAM_RD_EN_LW    = 3'b011        ,
+    RAM_RD_EN_LB    = 3'b000        ,
+    RAM_RD_EN_LH    = 3'b001        ,
+    RAM_RD_EN_LW    = 3'b010        ,
     RAM_RD_EN_LBU   = 3'b100        ,
-    RAM_RD_EN_LHU   = 3'b101            
+    RAM_RD_EN_LHU   = 3'b101        ,
+    RAM_RD_DISABLE  = 3'b111            
 } Ram_Rd_Mode_e ;
 
 typedef enum logic [1:0] {

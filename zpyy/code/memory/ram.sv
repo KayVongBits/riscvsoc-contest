@@ -21,7 +21,7 @@ assign   word_idx = addr_i[31:2]    ;
 assign   we       = |wr_en_mask_i   ;
 
 initial begin
-    $readmemh(`RAM_INIT_FILE, ram_data); 
+    $readmemh(`FILE, ram_data); 
 end
 
 // write data logic

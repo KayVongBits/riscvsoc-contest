@@ -4,13 +4,12 @@
 `define PC_INIT_ADDR        32'h0000_0000 
 `define PC_STEP             32'h4
 //`define FILE                "F:/work/jingyeda/jingyeda/zpyy/doc/module_study/asm/txt/test_s.txt"
-`define FILE                "F:/work/jingyeda/jingyeda/zpyy/test/txt/rv32ui-p-addi.txt"
+`define FILE                "F:/work/jingyeda/jingyeda/zpyy/test/txt/rv32ui-p-xori.txt"
 `define INST_NOP            32'h0000_0013
 `define BYTE_WIDTH          8
 `define HW_WIDTH            16
 `define WORD_WIDTH          32
 `define BYTE_PER_WORD       4
-
 
 // reg
 `define REG_NUM             32
@@ -26,13 +25,13 @@
 `define REG_RD_DISABLE      1'b0
 
 // ROM
-`define ROM_SIZE            4096
+`define ROM_SIZE            8192
 
 // RAM
-`define RAM_SIZE            4096
+`define RAM_SIZE            8192
 `define RAM_RST_DATA        32'h0000_0000
 `define RAM_RST_ADD         32'h0000_0000
-`define RAM_INIT_FILE       "F:/work/jingyeda/jingyeda/zpyy/test/txt/RAM_CLEAR.txt"
+// `define RAM_INIT_FILE       "F:/work/jingyeda/jingyeda/zpyy/test/txt/RAM_CLEAR.txt"      // 测试时RAM也用FILE初始化，实际用这个
 `define RAM_WR_ENABLE       1'b1
 `define RAM_WR_DISABLE      1'b0
 `define RAM_RD_ENABLE       1'b1
