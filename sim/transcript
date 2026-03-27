@@ -12,7 +12,7 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim -onfinish stop -voptargs="+acc" -do "log -r /*; run -all" riscv_top_tb 
-# Start time: 17:43:29 on Mar 22,2026
+# Start time: 14:44:47 on Mar 25,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # Loading sv_std.std
 # Loading work.riscv_top_tb(fast)
@@ -94,5 +94,29 @@
 # ** Note: $finish    : ../tb/riscv_top_tb.sv(143)
 #    Time: 3305 ns  Iteration: 1  Instance: /riscv_top_tb
 # Break in Module riscv_top_tb at ../tb/riscv_top_tb.sv line 143
-# End time: 17:47:19 on Mar 22,2026, Elapsed time: 0:03:50
-# Errors: 0, Warnings: 0
+add wave -position insertpoint  \
+sim:/riscv_top_tb/u_riscv_top/AW \
+sim:/riscv_top_tb/u_riscv_top/DW \
+sim:/riscv_top_tb/u_riscv_top/FILE \
+sim:/riscv_top_tb/u_riscv_top/clk \
+sim:/riscv_top_tb/u_riscv_top/rst_n \
+sim:/riscv_top_tb/u_riscv_top/jump_en \
+sim:/riscv_top_tb/u_riscv_top/jump_addr \
+sim:/riscv_top_tb/u_riscv_top/pc_pointer \
+sim:/riscv_top_tb/u_riscv_top/instruction \
+sim:/riscv_top_tb/u_riscv_top/instr_addr_reg \
+sim:/riscv_top_tb/u_riscv_top/instr_reg \
+sim:/riscv_top_tb/u_riscv_top/rd_rs1_addr \
+sim:/riscv_top_tb/u_riscv_top/rd_rs2_addr \
+sim:/riscv_top_tb/u_riscv_top/rd_rs1_data \
+sim:/riscv_top_tb/u_riscv_top/rd_rs2_data \
+sim:/riscv_top_tb/u_riscv_top/decode_op1 \
+sim:/riscv_top_tb/u_riscv_top/decode_op2 \
+sim:/riscv_top_tb/u_riscv_top/wr_reg_addr \
+sim:/riscv_top_tb/u_riscv_top/wr_reg_data \
+sim:/riscv_top_tb/u_riscv_top/wr_reg_en \
+sim:/riscv_top_tb/u_riscv_top/execute_instr_addr \
+sim:/riscv_top_tb/u_riscv_top/execute_instr \
+sim:/riscv_top_tb/u_riscv_top/execute_op1 \
+sim:/riscv_top_tb/u_riscv_top/execute_op2 \
+sim:/riscv_top_tb/u_riscv_top/jump_hold
