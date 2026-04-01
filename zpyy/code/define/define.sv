@@ -4,7 +4,7 @@
 `define PC_INIT_ADDR        32'h0000_0000 
 `define PC_STEP             32'h4
 //`define FILE                "F:/work/jingyeda/jingyeda/zpyy/doc/module_study/asm/txt/test_s.txt"
-`define FILE                "F:/work/jingyeda/jingyeda/zpyy/test/txt/rv32ui-p-xori.txt"
+`define FILE                "F:/work/jingyeda/jingyeda/zpyy/test/txt/rv32ui-p-sb.txt"
 `define INST_NOP            32'h0000_0013
 `define BYTE_WIDTH          8
 `define HW_WIDTH            16
