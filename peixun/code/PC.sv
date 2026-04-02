@@ -1,8 +1,8 @@
 module PC(
-    input logic npc,
+    input logic [31:0] npc,
     input logic clk,
     input logic rst,
-    output logic pc
+    output logic [31:0] pc
 );
 always_ff @(posedge clk or posedge rst) begin
     if (rst) begin
