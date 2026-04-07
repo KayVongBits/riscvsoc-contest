@@ -1,8 +1,8 @@
-// 串口
-set_property PACKAGE_PIN D18 [get_ports i_uart_rx]
-set_property IOSTANDARD LVCMOS33 [get_ports i_uart_rx]
-set_property PACKAGE_PIN D17 [get_ports o_uart_tx]
-set_property IOSTANDARD LVCMOS33 [get_ports o_uart_tx]
+# 串口
+# set_property PACKAGE_PIN D18 [get_ports i_uart_rx]
+# set_property IOSTANDARD LVCMOS33 [get_ports i_uart_rx]
+# set_property PACKAGE_PIN D17 [get_ports o_uart_tx]
+# set_property IOSTANDARD LVCMOS33 [get_ports o_uart_tx]
 
 set_property PACKAGE_PIN AD12 [get_ports { clk_p_i }]
 set_property IOSTANDARD DIFF_HSTL_II_18 [get_ports { clk_p_i }]
