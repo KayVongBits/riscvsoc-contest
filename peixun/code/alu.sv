@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2026/04/04 14:46:30
+// Create Date: 2024/05/01 10:31:41
 // Design Name: 
-// Module Name: alu
+// Module Name: ALU
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -19,46 +19,70 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
-module alu#(
-    parameter   DATAWIDTH = 32   
+module ALU#(
+    parameter   DATAWIDTH = 32	
 )(
     input  logic [DATAWIDTH - 1:0]  A           ,
     input  logic [DATAWIDTH - 1:0]  B           ,
-    input  logic [1:0]              ALUControl  ,
+    input  logic [3:0]              ALUControl  ,
     output logic [DATAWIDTH - 1:0]  Result      ,
-    output logic                    N           ,
-    output logic                    Z           ,
-    output logic                    V           ,
-    output logic                    C           
+    output logic                    isTrue        
 );
+    
+    // Signed views for arithmetic and comparisons
+    logic signed [DATAWIDTH - 1:0] As;
+    logic signed [DATAWIDTH - 1:0] Bs;
+
+    assign As = A;
+    assign Bs = B;
 
     always_comb begin
-        V = 1'b0; // Overflow flag is not used in this simple ALU
-        C = 1'b0; // Carry flag default
-        Result = '0; // Default result
+        // Default outputs
+        Result = '0;
+        isTrue = 1'b0;
 
-        case (ALUControl)
-
-            2'b00: begin
-                {C, Result} = A + B; // ADD
-                V = (A[DATAWIDTH - 1] == B[DATAWIDTH - 1]) && (A[DATAWIDTH - 1] != Result[DATAWIDTH - 1]);
+        unique case (ALUControl)
+            4'b0000: begin // add
+                Result = A + B;
             end
-            2'b01: begin 
-                Result = A - B; // SUB
-                C = A >= B;
-                V = (A[DATAWIDTH - 1] != B[DATAWIDTH - 1]) && (Result[DATAWIDTH - 1] != A[DATAWIDTH - 1]);
+            4'b0001: begin // sub
+                Result = A - B;
             end
-            2'b10: Result = A & B;      // AND
-            2'b11: Result = A | B;      // OR
-            default: Result = '0;
+            4'b0010: begin // and
+                Result = A & B;
+            end
+            4'b0011: begin // or
+                Result = A | B;
+            end
+            4'b0100: begin // xor
+                Result = A ^ B;
+            end
+            4'b0101: begin // shift left logical
+                Result = A << B[$clog2(DATAWIDTH)-1:0];
+            end
+            4'b0110: begin // shift right logical
+                Result = A >> B[$clog2(DATAWIDTH)-1:0];
+            end
+            4'b0111: begin // shift right arithmetic
+                Result = As >>> B[$clog2(DATAWIDTH)-1:0];
+            end
+            4'b1000: begin // equal
+                isTrue = (A == B);
+            end
+            4'b1001: begin // not equal
+                isTrue = (A != B);
+            end
+            4'b1010: begin // less than (signed)
+                isTrue = (As < Bs);
+            end
+            4'b1011: begin // greater or equal (signed)
+                isTrue = (As >= Bs);
+            end
+            default: begin
+                Result = '0;
+                isTrue = 1'b0;
+            end
         endcase
-
-        N = Result[DATAWIDTH - 1]; 
-        Z = (Result == '0);        
-        
     end
-
-    
 
 endmodule
