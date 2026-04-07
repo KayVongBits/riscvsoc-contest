@@ -74,6 +74,7 @@ module ALU#(
             end
             4'b1010: begin // less than (signed)
                 isTrue = (As < Bs);
+                Result = (As < Bs) ? 32'd1 : 32'd0; // SLT 指令需要把结果写回寄存器
             end
             4'b1011: begin // greater or equal (signed)
                 isTrue = (As >= Bs);

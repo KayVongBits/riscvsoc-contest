@@ -20,12 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module reg_file #(
+module RF #(
     parameter REG_AW = 5,
     parameter REG_DW = 32
 )(
     input logic clk,
-    input logic rst_n,
+    input logic rst,
 
     input logic wr_reg_en,
     input logic [REG_AW-1:0] wr_reg_addr,
@@ -41,8 +41,8 @@ module reg_file #(
     logic [REG_DW-1:0] reg_bank [0:(1<<REG_AW)-1];
 
     // Write logic
-    always_ff @(posedge clk or negedge rst_n) begin : Write 
-        if (!rst_n) begin
+    always_ff @(posedge clk or posedge rst) begin : Write 
+        if (rst) begin
             for (int i = 0; i < (1<<REG_AW); i++) begin
                 reg_bank[i] <= 0;
             end

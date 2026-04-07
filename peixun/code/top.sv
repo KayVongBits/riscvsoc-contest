@@ -8,18 +8,7 @@ module top(
 
     output logic [31:0] led_o,
 
-    output logic [7:0] led1_seg_o,
-    output logic [7:0] led2_seg_o,
-    output logic [7:0] led3_seg_o,
-    output logic [7:0] led4_seg_o,
-    output logic led1_cs1_o,
-    output logic led1_cs2_o,
-    output logic led2_cs1_o,
-    output logic led2_cs2_o,
-    output logic led3_cs1_o,
-    output logic led3_cs2_o,
-    output logic led4_cs1_o,
-    output logic led4_cs2_o
+    output logic [39:0] seg_bus 
 );
     // PLL
     logic clk_50M;
@@ -174,26 +163,42 @@ module top(
     assign rdata_from_key = {24'h0, key_i};
 
     // SEG
+    
     seg_driver u_seg_driver(
-        .clk_i            (clk_to_seg),
-        .rst_i            (rst_to_seg),
-        .addr_to_seg_i    (addr_to_seg),
-        .wdata_to_seg_i   (wdata_to_seg),
-        .wen_to_seg_i     (wen_to_seg),
-        .dp_i             (seg_dp),
-        .rdata_from_seg_o (rdata_from_seg),
-        .led1_seg_o       (led1_seg_o),
-        .led2_seg_o       (led2_seg_o),
-        .led3_seg_o       (led3_seg_o),
-        .led4_seg_o       (led4_seg_o),
-        .led1_cs1_o       (led1_cs1_o),
-        .led1_cs2_o       (led1_cs2_o),
-        .led2_cs1_o       (led2_cs1_o),
-        .led2_cs2_o       (led2_cs2_o),
-        .led3_cs1_o       (led3_cs1_o),
-        .led3_cs2_o       (led3_cs2_o),
-        .led4_cs1_o       (led4_cs1_o),
-        .led4_cs2_o       (led4_cs2_o)
+        .clk_i            	(clk_to_seg             ),
+        .rst_i            	(rst_to_seg             ),
+        .addr_to_seg_i    	(addr_to_seg     ),
+        .wdata_to_seg_i   	(wdata_to_seg    ),
+        .wen_to_seg_i     	(wen_to_seg      ),
+        .dp_i             	(seg_dp              ),
+        .rdata_from_seg_o 	(rdata_from_seg  ),
+        .led1_seg_o       	(seg_bus[7:0]        ),
+        .led2_seg_o       	(seg_bus[17:10]        ),
+        .led3_seg_o       	(seg_bus[27:20]       ),
+        .led4_seg_o       	(seg_bus[37:30]        ),
+        .seg_cs           	({seg_bus[9:8],seg_bus[19:18],seg_bus[29:28],seg_bus[39:38]})            
     );
+    
 
+    // seg_driver u_seg_driver(
+    //     .clk_i            (clk_to_seg),
+    //     .rst_i            (rst_to_seg),
+    //     .addr_to_seg_i    (addr_to_seg),
+    //     .wdata_to_seg_i   (wdata_to_seg),
+    //     .wen_to_seg_i     (wen_to_seg),
+    //     .dp_i             (seg_dp),
+    //     .rdata_from_seg_o (rdata_from_seg),
+    //     .led1_seg_o       (led1_seg_o),
+    //     .led2_seg_o       (led2_seg_o),
+    //     .led3_seg_o       (led3_seg_o),
+    //     .led4_seg_o       (led4_seg_o),
+    //     .led1_cs1_o       (led1_cs1_o),
+    //     .led1_cs2_o       (led1_cs2_o),
+    //     .led2_cs1_o       (led2_cs1_o),
+    //     .led2_cs2_o       (led2_cs2_o),
+    //     .led3_cs1_o       (led3_cs1_o),
+    //     .led3_cs2_o       (led3_cs2_o),
+    //     .led4_cs1_o       (led4_cs1_o),
+    //     .led4_cs2_o       (led4_cs2_o)
+    // );
 endmodule

@@ -16,23 +16,23 @@ module seg_driver (
     output logic [7:0] seg_cs
 );
 
-    localparam SEG_0 = 8'h3F;
-    localparam SEG_1 = 8'h06;
-    localparam SEG_2 = 8'h5B;
-    localparam SEG_3 = 8'h4F;
-    localparam SEG_4 = 8'h66;
-    localparam SEG_5 = 8'h6D;
-    localparam SEG_6 = 8'h7D;
-    localparam SEG_7 = 8'h07;
-    localparam SEG_8 = 8'h7F;
-    localparam SEG_9 = 8'h6F;
-    localparam SEG_A = 8'h77;
-    localparam SEG_B = 8'h7C;
-    localparam SEG_C = 8'h39;
-    localparam SEG_D = 8'h5E;
-    localparam SEG_E = 8'h79;
-    localparam SEG_F = 8'h71;
-    localparam SEG_OFF = 8'h00;
+    localparam SEG_0 = 7'h3F;
+    localparam SEG_1 = 7'h06;
+    localparam SEG_2 = 7'h5B;
+    localparam SEG_3 = 7'h4F;
+    localparam SEG_4 = 7'h66;
+    localparam SEG_5 = 7'h6D;
+    localparam SEG_6 = 7'h7D;
+    localparam SEG_7 = 7'h07;
+    localparam SEG_8 = 7'h7F;
+    localparam SEG_9 = 7'h6F;
+    localparam SEG_A = 7'h77;
+    localparam SEG_B = 7'h7C;
+    localparam SEG_C = 7'h39;
+    localparam SEG_D = 7'h5E;
+    localparam SEG_E = 7'h79;
+    localparam SEG_F = 7'h71;
+    localparam SEG_OFF = 7'h00;
 
     logic [31:0] seg_data_r;
     logic [15:0] seg_cnt_r;
@@ -43,8 +43,8 @@ module seg_driver (
 
     assign rdata_from_seg_o = 32'h0;
 
-    function automatic logic [7:0] hex_to_seg(input logic [3:0] hex_val);
-        logic [7:0] seg_out ;
+    function automatic logic [6:0] hex_to_seg(input logic [3:0] hex_val);
+        logic [6:0] seg_out ;
         seg_out = SEG_OFF ;
         case (hex_val)
             4'h0: seg_out = SEG_0;
