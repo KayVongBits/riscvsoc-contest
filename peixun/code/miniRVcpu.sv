@@ -69,13 +69,27 @@ IMMGEN u_IMMGEN(
 );
 
 // output declaration of module ALUController
-logic [3:0] AlUContrl;
+logic [3:0] AlUControl;
 
 ALUController u_ALUController(
     .opcode    	(opcode     ),
     .func3     	(inst[14:12]      ),
     .func7     	(inst[30]      ),
-    .AlUContrl 	(AlUContrl  )
+    .AlUControl (AlUControl  )
+);
+
+logic [31:0] A;
+logic [31:0] B;
+
+
+ALU #(
+    .DATAWIDTH 	(32  ))
+u_ALU(
+    .A          	(A           ),
+    .B          	(B           ),
+    .ALUControl 	(ALUControl  ),
+    .Result     	(Result      ),
+    .isTrue     	(isTrue      )
 );
 
 
