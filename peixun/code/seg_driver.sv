@@ -13,14 +13,7 @@ module seg_driver (
     output logic [7:0] led3_seg_o,
     output logic [7:0] led4_seg_o,
 
-    output logic led1_cs1_o,
-    output logic led1_cs2_o,
-    output logic led2_cs1_o,
-    output logic led2_cs2_o,
-    output logic led3_cs1_o,
-    output logic led3_cs2_o,
-    output logic led4_cs1_o,
-    output logic led4_cs2_o
+    output logic [7:0] seg_cs
 );
 
     localparam SEG_0 = 8'h3F;
@@ -43,12 +36,37 @@ module seg_driver (
 
     logic [31:0] seg_data_r;
     logic [15:0] seg_cnt_r;
-    logic [2:0] seg_sel;
+    logic seg_sel;
 
     logic [3:0] disp_hex;
     logic [7:0] disp_seg;
 
     assign rdata_from_seg_o = 32'h0;
+
+    function automatic logic [7:0] hex_to_seg(input logic [3:0] hex_val);
+        logic [7:0] seg_out ;
+        seg_out = SEG_OFF ;
+        case (hex_val)
+            4'h0: seg_out = SEG_0;
+            4'h1: seg_out = SEG_1;
+            4'h2: seg_out = SEG_2;
+            4'h3: seg_out = SEG_3;
+            4'h4: seg_out = SEG_4;
+            4'h5: seg_out = SEG_5;
+            4'h6: seg_out = SEG_6;
+            4'h7: seg_out = SEG_7;
+            4'h8: seg_out = SEG_8;
+            4'h9: seg_out = SEG_9;
+            4'hA: seg_out = SEG_A;
+            4'hB: seg_out = SEG_B;
+            4'hC: seg_out = SEG_C;
+            4'hD: seg_out = SEG_D;
+            4'hE: seg_out = SEG_E;
+            4'hF: seg_out = SEG_F;
+            default: ;
+        endcase
+        return seg_out;
+    endfunction
 
     always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
@@ -67,43 +85,22 @@ module seg_driver (
         end
     end
 
-    assign seg_sel = seg_cnt_r[15:13];
+    assign seg_sel = seg_cnt_r[15];
 
-    always_comb begin
-        disp_hex = 4'h0;
-        case (seg_sel)
-            3'd0: disp_hex = seg_data_r[3:0];
-            3'd1: disp_hex = seg_data_r[7:4];
-            3'd2: disp_hex = seg_data_r[11:8];
-            3'd3: disp_hex = seg_data_r[15:12];
-            3'd4: disp_hex = seg_data_r[19:16];
-            3'd5: disp_hex = seg_data_r[23:20];
-            3'd6: disp_hex = seg_data_r[27:24];
-            3'd7: disp_hex = seg_data_r[31:28];
-        endcase
-    end
-
-    always_comb begin
-        disp_seg = SEG_OFF;
-        case (disp_hex)
-            4'h0: disp_seg = SEG_0;
-            4'h1: disp_seg = SEG_1;
-            4'h2: disp_seg = SEG_2;
-            4'h3: disp_seg = SEG_3;
-            4'h4: disp_seg = SEG_4;
-            4'h5: disp_seg = SEG_5;
-            4'h6: disp_seg = SEG_6;
-            4'h7: disp_seg = SEG_7;
-            4'h8: disp_seg = SEG_8;
-            4'h9: disp_seg = SEG_9;
-            4'hA: disp_seg = SEG_A;
-            4'hB: disp_seg = SEG_B;
-            4'hC: disp_seg = SEG_C;
-            4'hD: disp_seg = SEG_D;
-            4'hE: disp_seg = SEG_E;
-            4'hF: disp_seg = SEG_F;
-        endcase
-    end
+    assign disp_hex = seg_data_r ;
+    // always_comb begin
+    //     disp_hex = 4'h0;
+    //     case (seg_sel)
+    //         3'd0: disp_hex = seg_data_r[3:0];
+    //         3'd1: disp_hex = seg_data_r[7:4];
+    //         3'd2: disp_hex = seg_data_r[11:8];
+    //         3'd3: disp_hex = seg_data_r[15:12];
+    //         3'd4: disp_hex = seg_data_r[19:16];
+    //         3'd5: disp_hex = seg_data_r[23:20];
+    //         3'd6: disp_hex = seg_data_r[27:24];
+    //         3'd7: disp_hex = seg_data_r[31:28];
+    //     endcase
+    // end
 
     always_comb begin
         led1_seg_o = SEG_OFF;
@@ -111,47 +108,22 @@ module seg_driver (
         led3_seg_o = SEG_OFF;
         led4_seg_o = SEG_OFF;
 
-        led1_cs1_o = 1'b1;
-        led1_cs2_o = 1'b1;
-        led2_cs1_o = 1'b1;
-        led2_cs2_o = 1'b1;
-        led3_cs1_o = 1'b1;
-        led3_cs2_o = 1'b1;
-        led4_cs1_o = 1'b1;
-        led4_cs2_o = 1'b1;
+        seg_cs = 8'hff ;
 
         case (seg_sel)
-            3'd0: begin
-                led1_seg_o = {dp_i[0], disp_seg[6:0]};
-                led1_cs1_o = 1'b0;
+            1'b0: begin 
+                seg_cs = 8'b1010_1010 ; 
+                led1_seg_o = {dp_i[0],hex_to_seg(seg_data_r[3:0])} ;
+                led2_seg_o = {dp_i[2],hex_to_seg(seg_data_r[11:8])} ;
+                led3_seg_o = {dp_i[4],hex_to_seg(seg_data_r[19:16])} ;
+                led4_seg_o = {dp_i[6],hex_to_seg(seg_data_r[27:24])} ;
             end
-            3'd1: begin
-                led1_seg_o = {dp_i[1], disp_seg[6:0]};
-                led1_cs2_o = 1'b0;
-            end
-            3'd2: begin
-                led2_seg_o = {dp_i[2], disp_seg[6:0]};
-                led2_cs1_o = 1'b0;
-            end
-            3'd3: begin
-                led2_seg_o = {dp_i[3], disp_seg[6:0]};
-                led2_cs2_o = 1'b0;
-            end
-            3'd4: begin
-                led4_seg_o = {dp_i[4], disp_seg[6:0]};
-                led4_cs1_o = 1'b0;
-            end
-            3'd5: begin
-                led4_seg_o = {dp_i[5], disp_seg[6:0]};
-                led4_cs2_o = 1'b0;
-            end
-            3'd6: begin
-                led3_seg_o = {dp_i[6], disp_seg[6:0]};
-                led3_cs1_o = 1'b0;
-            end
-            3'd7: begin
-                led3_seg_o = {dp_i[7], disp_seg[6:0]};
-                led3_cs2_o = 1'b0;
+            1'b1 : begin
+                seg_cs = 8'b0101_0101 ; 
+                led1_seg_o = {dp_i[1],hex_to_seg(seg_data_r[7:4])} ;
+                led2_seg_o = {dp_i[3],hex_to_seg(seg_data_r[15:12])} ;
+                led3_seg_o = {dp_i[5],hex_to_seg(seg_data_r[23:20])} ;
+                led4_seg_o = {dp_i[7],hex_to_seg(seg_data_r[31:28])} ;
             end
             default: begin
             end
