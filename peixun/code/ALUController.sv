@@ -4,7 +4,9 @@ module ALUController(
     input logic [6:0] opcode ,
     input logic [2:0] func3  ,
     input logic       func7  ,
-    output logic [3:0] AlUControl 
+    output logic [3:0] AlUControl ,
+    output logic [1:0]  wram_mode ,       //0:B, 1:HW, 2:W , 3:None
+    output logic [2:0]  rram_mode         //0:B, 1:HW, 2:W , 4:BU , 5: HWU , 7: None
 );
 
 /*
@@ -27,10 +29,11 @@ module ALUController(
     always_comb begin
         // 默认执行加法
         AlUControl = `ALU_ADD; 
-
+        wram_mode = `WRAM_NONE ;
+        rram_mode = `RRAM_NONE ;
         unique case (opcode)
             `R_ARI_LOG: begin
-                case (func3)
+                unique case (func3)
                     `Funct3_000: AlUControl = (func7 == `Funct7_1) ? `ALU_SUB : `ALU_ADD; // sub : add
                     `Funct3_001: AlUControl = `ALU_SL; // shiftl
                     `Funct3_010: AlUControl = `ALU_LOW; // < (slt)
@@ -43,7 +46,7 @@ module ALUController(
             end
 
             `I_ARI_LOG: begin
-                case (func3)
+                unique case (func3)
                     `Funct3_000: AlUControl = `ALU_ADD; // add
                     `Funct3_001: AlUControl = `ALU_SL; // shiftl
                     `Funct3_010: AlUControl = `ALU_LOW; // < (slti)
@@ -56,7 +59,7 @@ module ALUController(
             end
 
             `B_BRANCH: begin
-                case (func3)
+                unique case (func3)
                     `Funct3_000: AlUControl = `ALU_EQ;    // beq  -> eq
                     `Funct3_001: AlUControl = `ALU_NEQ;   // bne  -> not eq
                     `Funct3_100: AlUControl = `ALU_LOW;   // blt  -> <
@@ -66,9 +69,26 @@ module ALUController(
                     default: AlUControl = `ALU_EQ;
                 endcase
             end
-
+            `S_STORE : begin 
+                unique case (func3)
+                    `Funct3_000: AlUControl = `WRAM_B;   
+                    `Funct3_001: AlUControl = `WRAM_HW;  
+                    `Funct3_100: AlUControl = `WRAM_W;   
+                    default: AlUControl = `WRAM_NONE;
+                endcase
+            end
+            `I_LOAD : begin
+                unique case (func3)
+                    `Funct3_000: AlUControl = `RRAM_B;  
+                    `Funct3_001: AlUControl = `RRAM_HW; 
+                    `Funct3_010: AlUControl = `RRAM_W;  
+                    `Funct3_100: AlUControl = `RRAM_BU; 
+                    `Funct3_101: AlUControl = `RRAM_HWU; 
+                    default: AlUControl = `RRAM_NONE;
+                endcase
+            end
             // Load, Store, AUIPC, JALR 的地址计算均使用加法
-            `I_LOAD, `S_STORE, `U_AUIPC, `I_JALR: begin
+             `U_AUIPC, `I_JALR: begin
                 AlUControl = `ALU_ADD;
             end
             

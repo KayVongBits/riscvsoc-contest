@@ -17,7 +17,6 @@ always_comb begin
     OffsetOrigin = `Offset_Imm ; // 默认 0 代表来自 Immediate
     ALUSrc = `ALUSrc_RS2Data ;
     RegWrite = `RegWrite_Dis ;
-
     unique case (opcode)
         `U_LUI : begin
             Mem2Reg = `Mem2Reg_IMM ;
