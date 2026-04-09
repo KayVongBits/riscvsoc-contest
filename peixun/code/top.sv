@@ -19,29 +19,33 @@ module top(
     logic [31:0] inst_from_im;
 
     // CPU-Bridge
-    logic [15:0] addr_to_bridge;
+    logic [31:0] addr_to_bridge;
     logic [31:0] wdata_to_bridge;
     logic  wen_to_bridge;
     logic [31:0] rdata_from_bridge;
+    logic [1:0] wram_mode;
+    logic [2:0] rram_mode;
 
     // Bridge-DRAM
-    logic [31:0] spo_from_dram;
-    logic [13:0] a_to_dram;
+    logic [31:0] rdata_from_dram;
+    logic [31:0] a_to_dram;
     logic [31:0] d_to_dram;
     logic clk_to_dram;
     logic we_to_dram;
+    logic [1:0] wram_mode_to_dram;
+    logic [2:0] rram_mode_to_dram;
 
     // Bridge-SW
     logic [31:0] rdata_from_sw;
-    logic [15:0] addr_to_sw;
+    logic [31:0] addr_to_sw;
 
     // Bridge-KEY
     logic [31:0] rdata_from_key;
-    logic [15:0] addr_to_key;
+    logic [31:0] addr_to_key;
 
     // Bridge-LED
     logic [31:0] rdata_from_led;
-    logic [15:0] addr_to_led;
+    logic [31:0] addr_to_led;
     logic [31:0] wdata_to_led;
     logic clk_to_led;
     logic rst_to_led;
@@ -50,12 +54,19 @@ module top(
 
     // Bridge-SEG
     logic [31:0] rdata_from_seg;
-    logic [15:0] addr_to_seg;
+    logic [31:0] addr_to_seg;
     logic [31:0] wdata_to_seg;
     logic clk_to_seg;
     logic rst_to_seg;
     logic wen_to_seg;
     logic [7:0]  seg_dp;
+
+    // Bridge-COUNTER
+    logic [31:0] rdata_from_cnt;
+    logic [31:0] wdata_to_cnt;
+    logic wen_to_cnt;
+    logic clk_to_cnt;
+    logic rst_to_cnt;
 
     // 全局复位信号
     logic sys_rst;
@@ -71,8 +82,9 @@ module top(
         .clk_in1_n(clk_n_i)    // input clk_in1_n
     );
 
+    // 16 KB
     IROM u_IROM(
-        .a(pc_to_im[15:2]),      
+        .a(pc_to_im[13:2]),      
         .spo(inst_from_im)  
     );
 
@@ -84,58 +96,83 @@ module top(
         .addr_to_bridge   (addr_to_bridge),
         .wdata_to_bridge  (wdata_to_bridge),
         .wen_to_bridge    (wen_to_bridge),
-        .rdata_from_bridge(rdata_from_bridge)
+        .rdata_from_bridge(rdata_from_bridge),
+        .wram_mode        (wram_mode),
+        .rram_mode        (rram_mode)
     );
 
     bridge u_bridge(
-        .clk_i            (clk_50M),
-        .rst_i            (sys_rst),
+        .clk_i               	( clk_50M            ),
+        .rst_i               	( sys_rst            ),
 
-        // CPU侧
-        .addr_from_cpu_i  (addr_to_bridge),
-        .wdata_from_cpu_i (wdata_to_bridge),
-        .wen_from_cpu_i   (wen_to_bridge),
-        .rdata_to_cpu_o   (rdata_from_bridge),
 
-        // DRAM侧
-        .spo_from_dram_i  (spo_from_dram),
-        .a_to_dram_o      (a_to_dram),
-        .d_to_dram_o      (d_to_dram),
-        .clk_to_dram_o    (clk_to_dram),
-        .we_to_dram_o     (we_to_dram),
+        .addr_from_cpu_i     	( addr_to_bridge     ),
+        .wdata_from_cpu_i    	( wdata_to_bridge    ),
+        .wen_from_cpu_i      	( wen_to_bridge      ),
+        .wram_mode_i         	( wram_mode          ),
+        .rram_mode_i         	( rram_mode          ),
+        .rdata_to_cpu_o      	( rdata_from_bridge  ),
 
-        // SW侧
-        .rdata_from_sw_i  (rdata_from_sw),
-        .addr_to_sw_o     (addr_to_sw),
 
-        // KEY侧
-        .rdata_from_key_i (rdata_from_key),
-        .addr_to_key_o    (addr_to_key),
+        .spo_from_dram_i     	( rdata_from_dram    ),
+        .a_to_dram_o         	( a_to_dram          ),
+        .d_to_dram_o         	( d_to_dram          ),
+        .clk_to_dram_o       	( clk_to_dram        ),
+        .we_to_dram_o        	( we_to_dram         ),
+        .wram_mode_to_dram_o 	( wram_mode_to_dram  ),
+        .rram_mode_to_dram_o 	( rram_mode_to_dram  ),
 
-        // LED侧
-        .rdata_from_led_i (rdata_from_led),
-        .addr_to_led_o    (addr_to_led),
-        .wdata_to_led_o   (wdata_to_led),
-        .clk_to_led_o     (clk_to_led),
-        .rst_to_led_o     (rst_to_led),
-        .wen_to_led_o     (wen_to_led),
 
-        // SEG侧
-        .rdata_from_seg_i (rdata_from_seg),
-        .addr_to_seg_o    (addr_to_seg),
-        .wdata_to_seg_o   (wdata_to_seg),
-        .clk_to_seg_o     (clk_to_seg),
-        .rst_to_seg_o     (rst_to_seg),
-        .wen_to_seg_o     (wen_to_seg)
+        .rdata_from_sw_i     	( rdata_from_sw      ),
+        .addr_to_sw_o        	( addr_to_sw         ),
+
+
+        .rdata_from_key_i    	( rdata_from_key     ),
+        .addr_to_key_o       	( addr_to_key        ),
+
+
+        .rdata_from_led_i    	( rdata_from_led     ),
+        .addr_to_led_o       	( addr_to_led        ),
+        .wdata_to_led_o      	( wdata_to_led       ),
+        .clk_to_led_o        	( clk_to_led         ),
+        .rst_to_led_o        	( rst_to_led         ),
+        .wen_to_led_o        	( wen_to_led         ),
+
+
+        .rdata_from_seg_i    	( rdata_from_seg     ),
+        .addr_to_seg_o       	( addr_to_seg        ),
+        .wdata_to_seg_o      	( wdata_to_seg       ),
+        .clk_to_seg_o        	( clk_to_seg         ),
+        .rst_to_seg_o        	( rst_to_seg         ),
+        .wen_to_seg_o        	( wen_to_seg         ),
+
+        
+        .rdata_from_cnt_i    	( rdata_from_cnt     ),
+        .wdata_to_cnt_o      	( wdata_to_cnt       ),
+        .clk_to_cnt_o        	( clk_to_cnt         ),
+        .rst_to_cnt_o        	( rst_to_cnt         ),
+        .wen_to_cnt_o        	( wen_to_cnt         )
     );
 
-    DRAM u_DRAM(
-        .a(a_to_dram),      // input wire [13 : 0] a
-        .d(d_to_dram),      // input wire [31 : 0] d
-        .clk(clk_to_dram),  // input wire clk
-        .we(we_to_dram),    // input wire we
-        .spo(spo_from_dram)  // output wire [31 : 0] spo
+
+    dram_driver u_dram_driver(
+        .clk_i             	( clk_to_dram       ),
+        .addr_to_dram_i    	( a_to_dram         ),
+        .wdata_to_dram_i   	( d_to_dram         ),
+        .wen_to_dram_i     	( we_to_dram        ),
+        .wram_mode_i       	( wram_mode_to_dram ),
+        .rram_mode_i       	( rram_mode_to_dram ),
+        .rdata_from_dram_o 	( rdata_from_dram   )
     );
+
+    counter u_counter(
+        .clk         	( clk_to_cnt      ),
+        .rst         	( rst_to_cnt      ),
+        .perip_wdata 	( wdata_to_cnt    ),
+        .cnt_wen     	( wen_to_cnt      ),
+        .perip_rdata 	( rdata_from_cnt  )
+    );
+
 
     // LED
     always_ff @(posedge clk_to_led or posedge rst_to_led) begin
@@ -152,30 +189,29 @@ module top(
     // SW
     always_comb begin
         rdata_from_sw = 32'h0;
-        case(addr_to_sw)
-            16'hF000: rdata_from_sw = sw_i[31:0];
-            16'hF004: rdata_from_sw = sw_i[63:32];
+        unique case(addr_to_sw)
+            32'h8020_0000: rdata_from_sw = sw_i[31:0];
+            32'h8020_0004: rdata_from_sw = sw_i[63:32];
             default: rdata_from_sw = 32'h0;
         endcase
     end
-
     // KEY
     assign rdata_from_key = {24'h0, key_i};
 
     // SEG
     
     seg_driver u_seg_driver(
-        .clk_i            	(clk_to_seg             ),
-        .rst_i            	(rst_to_seg             ),
+        .clk_i            	(clk_to_seg      ),
+        .rst_i            	(rst_to_seg      ),
         .addr_to_seg_i    	(addr_to_seg     ),
         .wdata_to_seg_i   	(wdata_to_seg    ),
         .wen_to_seg_i     	(wen_to_seg      ),
-        .dp_i             	(seg_dp              ),
+        .dp_i             	(seg_dp          ),
         .rdata_from_seg_o 	(rdata_from_seg  ),
-        .led1_seg_o       	(seg_bus[7:0]        ),
-        .led2_seg_o       	(seg_bus[17:10]        ),
-        .led3_seg_o       	(seg_bus[27:20]       ),
-        .led4_seg_o       	(seg_bus[37:30]        ),
+        .led1_seg_o       	(seg_bus[7:0]    ),
+        .led2_seg_o       	(seg_bus[17:10]  ),
+        .led3_seg_o       	(seg_bus[27:20]  ),
+        .led4_seg_o       	(seg_bus[37:30]  ),
         .seg_cs           	({seg_bus[9:8],seg_bus[19:18],seg_bus[29:28],seg_bus[39:38]})            
     );
     

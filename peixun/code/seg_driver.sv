@@ -2,7 +2,7 @@ module seg_driver (
     input logic clk_i,
     input logic rst_i,
 
-    input logic [15:0] addr_to_seg_i,
+    input logic [31:0] addr_to_seg_i,
     input logic [31:0] wdata_to_seg_i,
     input logic wen_to_seg_i,
     input logic [7:0] dp_i,
@@ -41,7 +41,7 @@ module seg_driver (
     logic [3:0] disp_hex;
     logic [7:0] disp_seg;
 
-    assign rdata_from_seg_o = 32'h0;
+    assign rdata_from_seg_o = seg_data_r;
 
     function automatic logic [6:0] hex_to_seg(input logic [3:0] hex_val);
         logic [6:0] seg_out ;
@@ -71,7 +71,7 @@ module seg_driver (
     always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
             seg_data_r <= 32'h0;
-        end else if (wen_to_seg_i && (addr_to_seg_i == 16'hF020)) begin
+        end else if (wen_to_seg_i && (addr_to_seg_i == 32'h8020_0020)) begin
             seg_data_r <= wdata_to_seg_i;
         end
     end
@@ -87,7 +87,7 @@ module seg_driver (
 
     assign seg_sel = seg_cnt_r[15];
 
-    assign disp_hex = seg_data_r ;
+    // assign disp_hex = seg_data_r ;
     // always_comb begin
     //     disp_hex = 4'h0;
     //     case (seg_sel)
@@ -113,7 +113,7 @@ module seg_driver (
         case (seg_sel)
             1'b0: begin 
                 seg_cs = 8'b1010_1010 ; 
-                led1_seg_o = {dp_i[0],hex_to_seg(seg_data_r[3:0])} ;
+                led1_seg_o = {dp_i[0],hex_to_seg(seg_data_r[3:0])} ;  // 从右到左依次为1243 
                 led2_seg_o = {dp_i[2],hex_to_seg(seg_data_r[11:8])} ;
                 led3_seg_o = {dp_i[4],hex_to_seg(seg_data_r[19:16])} ;
                 led4_seg_o = {dp_i[6],hex_to_seg(seg_data_r[27:24])} ;
