@@ -4,95 +4,78 @@ module ALUController(
     input logic [6:0] opcode ,
     input logic [2:0] func3  ,
     input logic       func7  ,
-    output logic [3:0] AlUControl ,
-    output logic [1:0]  wram_mode ,       //0:B, 1:HW, 2:W , 3:None
-    output logic [2:0]  rram_mode         //0:B, 1:HW, 2:W , 4:BU , 5: HWU , 7: None
+    output logic [3:0] ALUControl ,
+    output logic [1:0]  wram_mode ,
+    output logic [2:0]  rram_mode
 );
 
-/*
-    ALUCtrol 
-    0000 add
-    0001 sub
-    0010 &
-    0011 |
-    0100 ^
-    0101 shiftl
-    0110 shiftr_logic
-    0111 shiftr_ari
-    1000 eq
-    1001 not eq
-    1010 <
-    1011 >=
-*/
-
-
     always_comb begin
-        // 默认执行加法
-        AlUControl = `ALU_ADD; 
-        wram_mode = `WRAM_NONE ;
-        rram_mode = `RRAM_NONE ;
+        ALUControl = `ALU_ADD;
+        wram_mode = `WRAM_NONE;
+        rram_mode = `RRAM_NONE;
+
         unique case (opcode)
             `R_ARI_LOG: begin
                 unique case (func3)
-                    `Funct3_000: AlUControl = (func7 == `Funct7_1) ? `ALU_SUB : `ALU_ADD; // sub : add
-                    `Funct3_001: AlUControl = `ALU_SL; // shiftl
-                    `Funct3_010: AlUControl = `ALU_LOW; // < (slt)
-                    `Funct3_011: AlUControl = `ALU_LOW; // < (sltu)
-                    `Funct3_100: AlUControl = `ALU_XOR; // ^ (xor)
-                    `Funct3_101: AlUControl = (func7 == `Funct7_1) ? `ALU_SRA : `ALU_SRL; // shiftr_ari : shiftr_logic
-                    `Funct3_110: AlUControl = `ALU_OR; // | (or)
-                    `Funct3_111: AlUControl = `ALU_AND; // & (and)
+                    `Funct3_000: ALUControl = (func7 == `Funct7_1) ? `ALU_SUB : `ALU_ADD;
+                    `Funct3_001: ALUControl = `ALU_SL;
+                    `Funct3_010: ALUControl = `ALU_LOW;
+                    `Funct3_011: ALUControl = `ALU_LOWU;
+                    `Funct3_100: ALUControl = `ALU_XOR;
+                    `Funct3_101: ALUControl = (func7 == `Funct7_1) ? `ALU_SRA : `ALU_SRL;
+                    `Funct3_110: ALUControl = `ALU_OR;
+                    `Funct3_111: ALUControl = `ALU_AND;
+                    default: ALUControl = `ALU_ADD;
                 endcase
             end
 
             `I_ARI_LOG: begin
                 unique case (func3)
-                    `Funct3_000: AlUControl = `ALU_ADD; // add
-                    `Funct3_001: AlUControl = `ALU_SL; // shiftl
-                    `Funct3_010: AlUControl = `ALU_LOW; // < (slti)
-                    `Funct3_011: AlUControl = `ALU_LOW; // < (sltiu)
-                    `Funct3_100: AlUControl = `ALU_XOR; // ^ (xori)
-                    `Funct3_101: AlUControl = (func7 == `Funct7_1) ? `ALU_SRA : `ALU_SRL; // shiftr_ari : shiftr_logic
-                    `Funct3_110: AlUControl = `ALU_OR; // | (ori)
-                    `Funct3_111: AlUControl = `ALU_AND; // & (andi)
+                    `Funct3_000: ALUControl = `ALU_ADD;
+                    `Funct3_001: ALUControl = `ALU_SL;
+                    `Funct3_010: ALUControl = `ALU_LOW;
+                    `Funct3_011: ALUControl = `ALU_LOWU;
+                    `Funct3_100: ALUControl = `ALU_XOR;
+                    `Funct3_101: ALUControl = (func7 == `Funct7_1) ? `ALU_SRA : `ALU_SRL;
+                    `Funct3_110: ALUControl = `ALU_OR;
+                    `Funct3_111: ALUControl = `ALU_AND;
+                    default: ALUControl = `ALU_ADD;
                 endcase
             end
 
             `B_BRANCH: begin
                 unique case (func3)
-                    `Funct3_000: AlUControl = `ALU_EQ;    // beq  -> eq
-                    `Funct3_001: AlUControl = `ALU_NEQ;   // bne  -> not eq
-                    `Funct3_100: AlUControl = `ALU_LOW;   // blt  -> <
-                    `Funct3_101: AlUControl = `ALU_UPPER; // bge  -> >=
-                    `Funct3_110: AlUControl = `ALU_LOW;   // bltu -> <
-                    `Funct3_111: AlUControl = `ALU_UPPER; // bgeu -> >=
-                    default: AlUControl = `ALU_EQ;
+                    `Funct3_000: ALUControl = `ALU_EQ;
+                    `Funct3_001: ALUControl = `ALU_NEQ;
+                    `Funct3_100: ALUControl = `ALU_LOW;
+                    `Funct3_101: ALUControl = `ALU_UPPER;
+                    `Funct3_110: ALUControl = `ALU_LOWU;
+                    `Funct3_111: ALUControl = `ALU_UPPERU;
+                    default: ALUControl = `ALU_EQ;
                 endcase
             end
-            `S_STORE : begin 
+
+            `S_STORE: begin
                 unique case (func3)
-                    `Funct3_000: AlUControl = `WRAM_B;   
-                    `Funct3_001: AlUControl = `WRAM_HW;  
-                    `Funct3_100: AlUControl = `WRAM_W;   
-                    default: AlUControl = `WRAM_NONE;
+                    `Funct3_000: wram_mode = `WRAM_B;
+                    `Funct3_001: wram_mode = `WRAM_HW;
+                    `Funct3_010: wram_mode = `WRAM_W;
+                    default: wram_mode = `WRAM_NONE;
                 endcase
             end
-            `I_LOAD : begin
+
+            `I_LOAD: begin
                 unique case (func3)
-                    `Funct3_000: AlUControl = `RRAM_B;  
-                    `Funct3_001: AlUControl = `RRAM_HW; 
-                    `Funct3_010: AlUControl = `RRAM_W;  
-                    `Funct3_100: AlUControl = `RRAM_BU; 
-                    `Funct3_101: AlUControl = `RRAM_HWU; 
-                    default: AlUControl = `RRAM_NONE;
+                    `Funct3_000: rram_mode = `RRAM_B;
+                    `Funct3_001: rram_mode = `RRAM_HW;
+                    `Funct3_010: rram_mode = `RRAM_W;
+                    `Funct3_100: rram_mode = `RRAM_BU;
+                    `Funct3_101: rram_mode = `RRAM_HWU;
+                    default: rram_mode = `RRAM_NONE;
                 endcase
             end
-            // Load, Store, AUIPC, JALR 的地址计算均使用加法
-             `U_AUIPC, `I_JALR: begin
-                AlUControl = `ALU_ADD;
-            end
-            
-            default: AlUControl = `ALU_ADD;
+
+            default: ALUControl = `ALU_ADD;
         endcase
     end
 endmodule

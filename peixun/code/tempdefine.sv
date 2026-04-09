@@ -56,6 +56,8 @@
 `define ALU_NEQ         4'b1001
 `define ALU_LOW         4'b1010
 `define ALU_UPPER       4'b1011
+`define ALU_LOWU        4'b1100
+`define ALU_UPPERU      4'b1101
 
 `define WRAM_B          2'd0
 `define WRAM_HW         2'd1

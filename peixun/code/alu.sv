@@ -29,7 +29,6 @@ module ALU#(
     output logic                    isTrue        
 );
     
-    // Signed views for arithmetic and comparisons
     logic signed [DATAWIDTH - 1:0] As;
     logic signed [DATAWIDTH - 1:0] Bs;
 
@@ -37,47 +36,53 @@ module ALU#(
     assign Bs = B;
 
     always_comb begin
-        // Default outputs
         Result = '0;
         isTrue = 1'b0;
 
         unique case (ALUControl)
-            4'b0000: begin // add
+            4'b0000: begin
                 Result = A + B;
             end
-            4'b0001: begin // sub
+            4'b0001: begin
                 Result = A - B;
             end
-            4'b0010: begin // and
+            4'b0010: begin
                 Result = A & B;
             end
-            4'b0011: begin // or
+            4'b0011: begin
                 Result = A | B;
             end
-            4'b0100: begin // xor
+            4'b0100: begin
                 Result = A ^ B;
             end
-            4'b0101: begin // shift left logical
+            4'b0101: begin
                 Result = A << B[$clog2(DATAWIDTH)-1:0];
             end
-            4'b0110: begin // shift right logical
+            4'b0110: begin
                 Result = A >> B[$clog2(DATAWIDTH)-1:0];
             end
-            4'b0111: begin // shift right arithmetic
+            4'b0111: begin
                 Result = As >>> B[$clog2(DATAWIDTH)-1:0];
             end
-            4'b1000: begin // equal
+            4'b1000: begin
                 isTrue = (A == B);
             end
-            4'b1001: begin // not equal
+            4'b1001: begin
                 isTrue = (A != B);
             end
-            4'b1010: begin // less than (signed)
+            4'b1010: begin
                 isTrue = (As < Bs);
-                Result = (As < Bs) ? 32'd1 : 32'd0; // SLT 指令需要把结果写回寄存器
+                Result = (As < Bs) ? 32'd1 : 32'd0;
             end
-            4'b1011: begin // greater or equal (signed)
+            4'b1011: begin
                 isTrue = (As >= Bs);
+            end
+            4'b1100: begin
+                isTrue = (A < B);
+                Result = (A < B) ? 32'd1 : 32'd0;
+            end
+            4'b1101: begin
+                isTrue = (A >= B);
             end
             default: begin
                 Result = '0;
